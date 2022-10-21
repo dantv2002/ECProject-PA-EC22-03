@@ -101,6 +101,7 @@
         display: flex;
         justify-content: flex-end;
         position: relative;
+        align-items: center;
 
        
 
@@ -175,6 +176,28 @@
                     }
                 }
 
+            }
+        }
+
+        .notification{
+            color: white;
+            display: flex;
+            align-items: center;
+            border: 2px solid $main-text-color-white;
+            height: 80%;
+            padding-inline: 10px;
+            margin-right: 30px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position:relative;
+            font-size: 30px;
+            margin-left: 30px;
+            padding-block: 9px;
+
+            &.active{
+                background-color: $main-text-color-white;
+                color: $color-green-100;
+                border-color: $main-text-color-white;
             }
         }
 

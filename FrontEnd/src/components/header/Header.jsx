@@ -4,7 +4,8 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
   CloseOutlined,
-  DeleteOutlined
+  DeleteOutlined,
+  BellOutlined
 } from '@ant-design/icons';
 
 const { Search } = Input;
@@ -100,6 +101,7 @@ export const Header = () => {
                 <span>Logout</span>
               </div>
             </div>
+            <div className='notification'><BellOutlined /></div>
             <div className="cart-detail" style={{display: cartDetailStatus ? "block" : "none"}}>
                 <div className="cart-detail__header">
                   <span className="label">Your Cart</span>

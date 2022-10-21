@@ -158,6 +158,55 @@
         &__header{
             color: $color-green-200;
         }
+
+        &__body{
+            
+            .products{
+                
+                .item{
+                    margin-bottom: 16px;
+                  
+                 
+                    
+                    img{
+                        width: 100%;
+                    }
+                    .item-cover{
+                        border: 2px solid #d7ebf4;
+                        background-color: $main-text-color-white;
+
+                        .item__info{
+                            padding: 10px;
+                            text-align: center;
+                           
+
+                            .item-name{
+                               color: $color-gray-400; 
+                            }
+
+                            .join-auction{
+                                padding: 5px 8px;
+                                background-color: $color-green-100;
+                                color: $main-text-color-white;
+                                border: none;
+                                cursor: pointer;
+                                border-radius: 3px;
+                                border: 1px solid transparent;
+                                transition: all 0.2s ease;
+    
+                                &:hover{
+                                    border: 1px solid $color-green-100;
+                                    color: $color-green-100;
+                                    background-color: $main-text-color-white;
+                                }
+                            }
+                        }
+                    }
+
+                   
+                }
+            }
+        }
     }
 }
 

@@ -30,7 +30,7 @@ export const Home = () => {
           Category
         </h1>
 
-        <Row className="category__body" gutter={16}>
+        <Row className="category__body" gutter={[16,16]}>
           <Col xl={4} className="category__body-item">
             <span className="icon"><PhoneOutlined /></span>
             <span className="title">Phone</span>
@@ -89,7 +89,7 @@ export const Home = () => {
           <Slider {...settings}>
             <div className="item">
               <span className="item__image">
-                <img src="./Laptop.png"/>
+                <img src="./Laptop.png" />
               </span>
               <div className="item__info">
                 <h3 className="item-name">Laptop 123</h3>
@@ -99,11 +99,11 @@ export const Home = () => {
                   <button className="join-auction">Join Auction</button>
                 </div>
               </div>
-         
+
             </div>
             <div className="item">
               <span className="item__image">
-                <img src="./Laptop.png"/>
+                <img src="./Laptop.png" />
               </span>
               <div className="item__info">
                 <h3 className="item-name">Laptop 123</h3>
@@ -113,11 +113,11 @@ export const Home = () => {
                   <button className="join-auction">Join Auction</button>
                 </div>
               </div>
-            
+
             </div>
             <div className="item">
               <span className="item__image">
-                <img src="./Laptop.png"/>
+                <img src="./Laptop.png" />
               </span>
               <div className="item__info">
                 <h3 className="item-name">Laptop 123</h3>
@@ -127,11 +127,11 @@ export const Home = () => {
                   <button className="join-auction">Join Auction</button>
                 </div>
               </div>
-             
+
             </div>
             <div className="item">
               <span className="item__image">
-                <img src="./Laptop.png"/>
+                <img src="./Laptop.png" />
               </span>
               <div className="item__info">
                 <h3 className="item-name">Laptop 123</h3>
@@ -141,11 +141,11 @@ export const Home = () => {
                   <button className="join-auction">Join Auction</button>
                 </div>
               </div>
-             
+
             </div>
             <div className="item">
               <span className="item__image">
-                <img src="./Laptop.png"/>
+                <img src="./Laptop.png" />
               </span>
               <div className="item__info">
                 <h3 className="item-name">Laptop 123</h3>
@@ -154,13 +154,13 @@ export const Home = () => {
                   <div className="remain-auction-time"><ClockCircleOutlined /> 1:29:30 </div>
                   <button className="join-auction">Join Auction</button>
                 </div>
-                
+
               </div>
-         
+
             </div>
             <div className="item">
               <span className="item__image">
-                <img src="./Laptop.png"/>
+                <img src="./Laptop.png" />
               </span>
               <div className="item__info">
                 <h3 className="item-name">Laptop 123</h3>
@@ -170,7 +170,7 @@ export const Home = () => {
                   <button className="join-auction">Join Auction</button>
                 </div>
               </div>
-             
+
             </div>
           </Slider>
         </div>
@@ -181,8 +181,147 @@ export const Home = () => {
           Maybe You Will Want
         </h1>
         <div className="suggestion__body">
-          <Filter/>
-        </div> 
+
+          <Row className='products' gutter={16}>
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+            <Col className='item' xl={4}>
+              <div className="item-cover">
+                <span className="item__image">
+                  <img src="./Laptop.png" />
+                </span>
+                <div className="item__info">
+                  <h3 className="item-name">Laptop 123</h3>
+                    <button className="join-auction">Join Auction</button>
+                </div>
+              </div>
+            </Col>
+
+          </Row>
+
+        </div>
       </div>
     </div>
   )
