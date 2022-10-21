@@ -1,0 +1,212 @@
+.home-container{
+    width: 85%;
+    margin: auto;
+    margin-top: 30px;
+
+
+    .category{
+        margin-top: 30px;
+        background-color: $color-gray-100;
+        padding: 10px 20px;
+
+        .category__header{
+            color: $color-green-200;
+        }
+
+        .category__body{
+
+            &-item{
+                border: 1px solid #d7ebf4;
+                display: flex;
+                padding-block: 10px;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                .icon{
+                    font-size: 30px;
+                    width: 60px;
+                    height: 60px;
+                    border: 2px solid $color-green-100;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+                    margin-right: 20px;
+                    color: $color-green-100;
+                    transition: all 0.2s ease;
+                }
+
+                .title{
+                    font-size: 16px;
+                    color: $color-gray-400;
+                    transition: all 0.2s ease;
+                }
+
+                &:hover .icon{
+                    border: 2px solid transparent;
+                    background-color: $color-green-100;
+                    color: $main-text-color-white;
+                }
+
+                &:hover .title{
+                    color: $color-green-100;
+                }
+            }
+        }
+    }
+
+    .auctioning{
+        margin-top: 30px;
+        background-color: $color-gray-100;
+        padding: 10px 20px;
+
+        &__header{
+            color: $color-green-200;
+        }
+
+        &__body{
+        
+            .slick-slide{
+                padding-inline: 5px;
+
+                &:hover .item{
+                    transform: scale(1.03);
+                }
+
+               
+            }
+
+            .slick-arrow{
+                
+            }
+
+            .slick-arrow::before{
+                color: $color-green-100;
+                font-size: 30px; 
+            }
+
+            .item{
+                background-color: white;
+                border: 2px solid #d7ebf4;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+               
+
+                &__image{
+                    img{
+                        width: 100%;
+                    }
+                }
+
+                &__info{
+                    padding-inline: 15px;
+                    padding-bottom: 10px;
+
+                    .item-name{
+                        color: $color-gray-400;
+                        margin-bottom: 5px;
+                        font-weight: bold;
+                    }
+                    
+                    .item-now-price{
+                        font-size: 16px;
+                        color: $color-green-100;
+                        font-weight: bold;
+                    }
+
+                    .bottom-part{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-top: 15px;
+
+                        .remain-auction-time{
+                            color: red;
+                            font-size: 15px;
+                        }
+
+                        .join-auction{
+                            padding: 5px 8px;
+                            background-color: $color-green-100;
+                            color: $main-text-color-white;
+                            border: none;
+                            cursor: pointer;
+                            border-radius: 3px;
+                            border: 1px solid transparent;
+                            transition: all 0.2s ease;
+
+                            &:hover{
+                                border: 1px solid $color-green-100;
+                                color: $color-green-100;
+                                background-color: $main-text-color-white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .suggestion{
+        margin-top: 30px;
+        background-color: $color-gray-100;
+        padding: 10px 20px;  
+
+        &__header{
+            color: $color-green-200;
+        }
+
+        &__body{
+            
+            .products{
+                
+                .item{
+                    margin-bottom: 16px;
+                  
+                 
+                    
+                    img{
+                        width: 100%;
+                    }
+                    .item-cover{
+                        border: 2px solid #d7ebf4;
+                        background-color: $main-text-color-white;
+
+                        .item__info{
+                            padding: 10px;
+                            text-align: center;
+                           
+
+                            .item-name{
+                               color: $color-gray-400; 
+                            }
+
+                            .join-auction{
+                                padding: 5px 8px;
+                                background-color: $color-green-100;
+                                color: $main-text-color-white;
+                                border: none;
+                                cursor: pointer;
+                                border-radius: 3px;
+                                border: 1px solid transparent;
+                                transition: all 0.2s ease;
+    
+                                &:hover{
+                                    border: 1px solid $color-green-100;
+                                    color: $color-green-100;
+                                    background-color: $main-text-color-white;
+                                }
+                            }
+                        }
+                    }
+
+                   
+                }
+            }
+        }
+    }
+}
+
