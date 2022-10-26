@@ -1,5 +1,6 @@
 import React, {useEffect,useState} from 'react'
 import { Col, Row,Input } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   ShoppingCartOutlined,
   UserOutlined,
@@ -8,10 +9,30 @@ import {
   BellOutlined
 } from '@ant-design/icons';
 
+import {
+  changeSearchWord,
+  changeSearchType,
+  changeSearchProducer,
+  changeSearchPrice,
+  changeSearchNecess,
+} from '../../redux/filter/filterSlice'
+import { useNavigate, Link } from 'react-router-dom';
+
 const { Search } = Input;
 
 export const Header = () => {
-  const onSearch = (value) => console.log(value);
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const onSearch = (value) => {
+    dispatch(changeSearchWord(value))
+    dispatch(changeSearchType("All"))
+    dispatch(changeSearchProducer("All"))
+    dispatch(changeSearchPrice(""))
+    dispatch(changeSearchNecess("All"))
+    navigate("/seachresult")
+  };
   const [searchResultStatus, setSearchResultStatus] = useState(false)
   const [userOptionStatus, setUserOptionStatus] = useState(false)
   const [cartDetailStatus, setCartDetailStatus] = useState(false)
@@ -19,12 +40,11 @@ export const Header = () => {
   const [cartActive, setCartActive] = useState(false)
 
   
-
   return (
     <>
         <Row className="my-container" gutter={16}>
           <Col xl={5} className="logo">
-            <span>My Logo</span>
+            <Link to=""><span>My Logo</span></Link>
           </Col>
           <Col xl={9} className="search-bar">
             <form>

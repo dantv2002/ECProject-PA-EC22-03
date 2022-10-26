@@ -13,6 +13,7 @@
             border-radius: 30px;
             color: $color-gray-300;
             cursor: pointer;
+            transition: all 0.2s ease;
 
             &.active{
                 border-color: $color-green-100;
@@ -20,6 +21,17 @@
                 background-color: $color-green-000;
             }
         }
+    }
+
+    
+}
+
+.choose-price{
+    display: flex;
+    align-items: center;
+    
+    .middle-line{
+        margin-inline: 10px;
     }
 }
 

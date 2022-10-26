@@ -1,13 +1,23 @@
 import React from 'react'
 import { Row, Col } from 'antd';
 import { HomeCarousel } from '../../../components/HomeCarousel/HomeCarousel';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   PhoneOutlined,
-  ClockCircleOutlined
+  ClockCircleOutlined,
+  ArrowRightOutlined
 } from '@ant-design/icons';
 
 import Slider from "react-slick";
-import { Filter } from '../../../components/filter/Filter';
+import { Link } from 'react-router-dom';
+
+import {
+  changeSearchNecess,
+  changeSearchWord,
+  changeSearchType,
+  changeSearchProducer,
+  changeSearchPrice,
+} from '../../../redux/filter/filterSlice'
 
 
 const settings = {
@@ -20,7 +30,7 @@ const settings = {
 
 
 export const Home = () => {
-
+  const dispatch = useDispatch()
 
   return (
     <div className="home-container">
@@ -82,9 +92,21 @@ export const Home = () => {
         </Row>
       </div>
       <div className="auctioning">
-        <h1 className="auctioning__header">
-          Auctioning
-        </h1>
+        <div className="auctioning__header">
+          <h1>Auctioning</h1> 
+          <Link 
+            to="/seachresult"
+            onClick={() => {
+              dispatch(changeSearchNecess("Auctioning"))
+              dispatch(changeSearchWord(""))
+              dispatch(changeSearchType("All"))
+              dispatch(changeSearchProducer("All"))
+              dispatch(changeSearchPrice(""))
+            }}
+          >
+            More <ArrowRightOutlined />
+          </Link>
+        </div>
         <div className="auctioning__body">
           <Slider {...settings}>
             <div className="item">
@@ -177,9 +199,22 @@ export const Home = () => {
       </div>
 
       <div className="suggestion">
-        <h1 className="suggestion__header">
-          Maybe You Will Want
-        </h1>
+        <div className="suggestion__header">
+          <h1>Maybe You Will Want</h1> 
+          <Link 
+            to="/seachresult"
+            onClick={() => {
+              dispatch(changeSearchNecess("Suggestion"))
+              dispatch(changeSearchWord(""))
+              dispatch(changeSearchType("All"))
+              dispatch(changeSearchProducer("All"))
+              dispatch(changeSearchPrice(""))
+            }}
+          >
+            More <ArrowRightOutlined />
+          </Link>
+          
+        </div>
         <div className="suggestion__body">
 
           <Row className='products' gutter={16}>
