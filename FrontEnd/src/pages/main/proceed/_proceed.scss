@@ -1,0 +1,23 @@
+.proceed-container{
+    width: 85%;
+    margin: auto;
+    margin-top: 30px;
+
+    .steps-action{
+        text-align: right;
+    }
+
+    .final-total{
+        text-align: right;
+        margin-top: 20px;
+        padding: 20px;
+        background-color: $color-gray-100;
+        font-size: 23px;
+
+        .total-number{
+            margin-left: 10px;
+            font-weight: bold;
+            color: $color-green-100;
+        }
+    }
+}

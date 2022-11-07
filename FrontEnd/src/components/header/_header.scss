@@ -8,10 +8,21 @@
     justify-content: space-between;
 
     .logo{
+        display: flex;
+        align-items: center;
+
         span{
             color: $main-text-color-white;
             font-size: 30px;
             font-weight: bold;
+        }
+
+        .middle-line{
+            margin-inline: 10px;
+        }
+
+        .page-name{
+            font-weight: normal;
         }
     }
 

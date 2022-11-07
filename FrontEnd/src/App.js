@@ -7,6 +7,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom"
 import MainTemplate from './templates/main/MainTemplate';
 import { Home } from './pages/main/home/Home';
 import { Search } from './pages/main/search/Search';
+import { Proceed } from './pages/main/proceed/Proceed';
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
         <Route element={<MainTemplate/>}>
           <Route index element={<Home/>}/>
           <Route path='/seachresult' element={<Search/>}/>
+          
         </Route>
+        <Route path='/proceed' element={<Proceed/>}/>
       </Routes>
     </BrowserRouter>
   );
