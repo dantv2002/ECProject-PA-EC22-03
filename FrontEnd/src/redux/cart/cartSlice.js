@@ -17,7 +17,8 @@ const initialState = {
             seller: "nguyen123",
             name: "May xay sinh to",
             quantity: 1,
-            price: 900000
+            price: 900000,
+            selected: true
         },
     ],
     buyList:[
@@ -26,7 +27,7 @@ const initialState = {
 };
 
 export const cartSlice = createSlice({
-    name:"filter",
+    name:"cart",
     initialState,
     reducers: {
         ChangeBuyList: (state,action) => {

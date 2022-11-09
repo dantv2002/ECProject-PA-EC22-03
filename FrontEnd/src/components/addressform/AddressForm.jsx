@@ -4,55 +4,121 @@ import {
   Input,
   Button,
   Select,
+  InputNumber
 } from 'antd';
-import useLocationForm from './resource/components/useLocationForm';
+import {useDispatch, useSelector} from 'react-redux'
+import { addNewAddressDetail, changeAddressDetail, getdistrictList, getWardList } from '../../redux/paymentAddress/paymentAddressSlice';
+import { useEffect } from 'react';
 
 
-const FormDisabledDemo = () => {
-  const [componentDisabled, setComponentDisabled] = useState(false);
+
+
+const FormDisabledDemo = ({componentDisabled, setComponentDisabled}) => {
+  const dispatch = useDispatch()
+  const { districtList,wardList, chosenAddress, addingMoreAddress } = useSelector((store) => store.paymentAddress);
+
+  const [form] = Form.useForm();
+
+  const [addressInfo, setAddressInfo] = useState({
+    city: {name: "", code:0},
+    district: {name: "", code:0},
+    ward: {name: "", code:0}
+  })
+
   const onFormLayoutChange = ({ disabled }) => {
-    setComponentDisabled(disabled);
+ 
   };
 
-  const {
-    state,
-    onCitySelect,
-    onDistrictSelect,
-    onWardSelect,
-    onSubmit
-  } = useLocationForm(false);
+  const onCityChange = async (value) => {
+    await dispatch(getdistrictList(value))
+    setAddressInfo(currentValue => {
+      return {
+        ...currentValue,
+        city: {name: "TP Hồ Chí Minh", code: value}
+      }
+    })
+  }
 
-  const {
-    cityOptions,
-    districtOptions,
-    wardOptions,
-    selectedCity,
-    selectedDistrict,
-    selectedWard
-  } = state;
+  const onDistrictChange = async (value,option) => {
+    await dispatch(getWardList(value))
+    await setAddressInfo(currentValue => {
+      return {
+        ...currentValue,
+        district: {name: option.label, code: parseInt(option.value)}
+      }
+    })
+    form.setFieldValue('ward',"")
+  }
+
+  const onWardChange = async (value,option) => {
+    setAddressInfo(currentValue => {
+      return {
+        ...currentValue,
+        ward: {name: option.label, code: parseInt(option.value)}
+      }
+    })
+  }
+  
+  const onSubmit = (formValue) => {
+    const newFormValue = {
+      id: formValue.id,
+      name: formValue.name,
+      phonenumber: `0${formValue.phonenumber.toString()}`,
+      cityprovince: addressInfo.city,
+      district: addressInfo.district,
+      ward: addressInfo.ward,
+      addrDetail: formValue.addrDetail,
+      chosen: true
+    }
+    addingMoreAddress ? dispatch(addNewAddressDetail(newFormValue)) : dispatch(changeAddressDetail(newFormValue))
+    setComponentDisabled(true)
+  }
+
+  useEffect(() => {
+
+    form.setFieldsValue({
+      id: chosenAddress.id,
+      name: chosenAddress.name,
+      phonenumber: parseInt(chosenAddress.phonenumber),
+      cityprovince: chosenAddress.cityprovince.name,
+      district: chosenAddress.district.name,
+      ward: chosenAddress.ward.name,
+      addrDetail: chosenAddress.addrDetail,
+    })
+    
+    setAddressInfo({
+      city: {name: chosenAddress.cityprovince.name, code: chosenAddress.cityprovince.code},
+      district: {name: chosenAddress.district.name, code: chosenAddress.district.code},
+      ward: {name: chosenAddress.ward.name, code: chosenAddress.ward.code}
+    })
+    // if(chosenAddress.cityprovince.code !== 0) dispatch(getdistrictList(chosenAddress.cityprovince.code))
+    // if(chosenAddress.district.name !== "") dispatch(getWardList(chosenAddress.district.code)) 
+   
+  },[chosenAddress.id])
 
   return (
     <>
-      {/* <Checkbox
-        checked={componentDisabled}
-        onChange={(e) => setComponentDisabled(e.target.checked)}
-      >
-        Form disabled
-      </Checkbox> */}
+      
       <Form
         labelCol={{
-          span: 2,
+          span: 3,
         }}
         wrapperCol={{
           span: 10,
         }}
         layout="horizontal"
         onValuesChange={onFormLayoutChange}
-        initialValues={{
-            name:'123'
-        }}
         disabled={componentDisabled}
+        form={form}
+        onFinish={onSubmit}
       >
+        <Form.Item 
+            name='id'
+            label="Id" 
+            style={{display:'none'}}
+        >
+          <Input />
+        </Form.Item >
         <Form.Item 
             name='name'
             label="Name" 
@@ -68,39 +134,73 @@ const FormDisabledDemo = () => {
         <Form.Item 
             label="Phone"
             name='phonenumber'
+            rules={[
+              {
+                required: true,
+                message: 'Please input your phone number!',
+              },
+          ]}
         >
-          <Input type='number' />
+          <InputNumber type='number' style={{width: '100%'}} min={0} controls={false}/>
         </Form.Item>
         <Form.Item 
             label="City/Province"
             name='cityprovince'
+            rules={[
+              {
+                required: true,
+                message: 'Please Choose the City/Province!',
+              },
+          ]}
         >
-          <Select>
-            <Select.Option value="demo">Demo</Select.Option>
+          <Select onChange={onCityChange}>
+            <Select.Option value={79}>TP Hồ Chí Minh</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item 
             label="District"
             name='district'
+            rules={[
+              {
+                required: true,
+                message: 'Please Choose the District',
+              },
+          ]}
         >
-          <Select option>
-            <Select.Option value="demo">Demo</Select.Option>
+          <Select onChange={onDistrictChange} options={districtList} disabled={addressInfo.city.name === "" || componentDisabled ? true : false}>
           </Select>
         </Form.Item>
         <Form.Item 
             label="Ward"
             name='ward'
+            rules={[
+              {
+                required: true,
+                message: 'Please Choose the Ward',
+              },
+          ]}
         >
-          <Select>
-            <Select.Option value="demo">Demo</Select.Option>
+          <Select onChange={onWardChange} options={wardList} disabled={addressInfo.district.name === "" || componentDisabled ? true : false}>
           </Select>
         </Form.Item>
+        <Form.Item 
+            name='addrDetail'
+            label="Address Detail" 
+            rules={[
+                {
+                  required: true,
+                  message: 'Please input your address detail!',
+                },
+            ]}
+        >
+          <Input disabled={addressInfo.ward.name === "" || componentDisabled ? true : false} />
+        </Form.Item >
        
-        <Form.Item>
-          <Button>Save</Button>
+        <Form.Item style={{display:'flex', justifyContent: 'center'}}>
+          <button type="submit" disabled={componentDisabled ? true : false} className="address-form-saving">Save</button>
         </Form.Item>
       </Form>
     </>
   );
 };
-export default () => <FormDisabledDemo />;
+export default  FormDisabledDemo ;

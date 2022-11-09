@@ -5,18 +5,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { showConfirm } from "../../util/confirmModal/ConfirmModal";
 
 export const CartDetail = () => {
+  
   const dispatch = useDispatch();
-  const { itemList } = useSelector((store) => store.cart);
+  const { itemList, buyList } = useSelector((store) => store.cart);
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       dispatch(ChangeBuyList(selectedRows));
     },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === "Disabled User",
-      // Column configuration not to be checked
-      name: record.name,
-    }),
+    getCheckboxProps: (record) => {
+      
+      return {
+        disabled: record.name === "Disabled User",
+        // Column configuration not to be checked
+        name: record.name,
+      }
+    },
+    
   };
 
   const DeleteConfirm = (record) => dispatch(DeleteItem(record));
@@ -89,10 +94,18 @@ export const CartDetail = () => {
         rowSelection={{
           type: "checkbox",
           ...rowSelection,
+          defaultSelectedRowKeys:() => {
+            const SelectedRowKeysArray = []
+            buyList.forEach(item => {
+              SelectedRowKeysArray.push(item.key)
+            });
+            return SelectedRowKeysArray
+          }
         }}
         columns={columns}
         dataSource={itemList}
         className="cart-detail-table"
+        
       />
     </>
   );
