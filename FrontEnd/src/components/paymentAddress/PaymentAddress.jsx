@@ -1,34 +1,69 @@
-import React from 'react'
-import { Row, Col } from 'antd';
+import React, { useState } from 'react'
+import { Row, Col, Skeleton } from 'antd';
 import AddressForm from '../addressform/AddressForm';
-import LocationForm from '../addressform/resource/components/LocationForm';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  changeChosenAddress,
+  chooseAddMoreAddress,
+  deleteAddressDetail,
+  getdistrictList,
+  getWardList
+} from '../../redux/paymentAddress/paymentAddressSlice'
 
 export const PaymentAddress = () => {
-  return (
 
-    <div className="payment-address_container">
+  const dispatch = useDispatch()
+  const { addressList, addingMoreAddress, loading, chosenAddress } = useSelector((store) => store.paymentAddress);
+  const [componentDisabled, setComponentDisabled] = useState(true);
 
-      <Row className="Address-list" gutter={32}>
-        <Col xl={6}>
-          <div className="address-container active">
-            <div className='address'>
-              <span className="full-name">Nguyễn Văn A</span>
-              <span className='address-detail'>Address: 101,Xã B,Huyện C,Tỉnh A</span>
-              <span className='phone-number'>Phone Number: 011111111</span>
-            </div>
-            <button className="change-button">Change</button>
+
+  const renderUserAddressList = () => (
+    addressList.map(({ id, name, phonenumber, cityprovince, district, ward, addrDetail, chosen }) => (
+      <Col xs={24} sm={24} md={12} lg={8} xl={6} key={id}>
+        <div onClick={async (e) => {
+          if(chosenAddress.cityprovince.code !== 0) await dispatch(getdistrictList(chosenAddress.cityprovince.code))
+          if(chosenAddress.district.code !== 0) await dispatch(getWardList(chosenAddress.district.code))
+
+          if(e.target.className !== 'delete-button') dispatch(changeChosenAddress(id))
+          if(e.target.className !== 'change-button' && e.target.className !== 'delete-button' && chosen == false ) setComponentDisabled(true)
+        }} className={`address-container ${chosen == true ? 'active' : ''}`}>
+          <div className='address'>
+            <span className="full-name">{name}</span>
+            <span className='address-detail'>{`Address: ${addrDetail}, ${ward.name}, ${district.name}, ${cityprovince.name}`}</span>
+            <span className='phone-number'>Phone Number: {phonenumber}</span>
           </div>
-        </Col>
-        <Col xl={6}>
-          <div className='add-address address-container'>
+          <div className="button-group">
+          <button onClick={() => {if(componentDisabled) setComponentDisabled(false)}} className="change-button">Change</button>
+          <button onClick={() => {dispatch(deleteAddressDetail(id))}} className="delete-button">Delete</button>
+          </div>
+          
+        </div>
+      </Col>
+    ))
+  )
+  
+    
+  return (
+    
+    <div className="payment-address_container" style={{position: 'relative'}}>
+      {/* <div style={{display: loading ? "block" : "none"}} className="loading-overlay"></div> */}
+      <Row className="Address-list" gutter={[32,32]}>
+        {renderUserAddressList()}
+        <Col xs={24} sm={24} md={12} lg={8} xl={6}>
+          <div
+            onClick={() => {
+              dispatch(chooseAddMoreAddress())
+              setComponentDisabled(false)
+            }}
+            className={`add-address address-container ${addingMoreAddress ? "active" : ''}`}
+          >
             <span>+ Add more address</span>
           </div>
         </Col>
       </Row>
 
-      <div className="address-form-container"><AddressForm/></div>
-      <LocationForm/>
+      <div className="address-form-container"><AddressForm componentDisabled={componentDisabled} setComponentDisabled={setComponentDisabled} /></div>
     </div>
-
+  
   )
 }
