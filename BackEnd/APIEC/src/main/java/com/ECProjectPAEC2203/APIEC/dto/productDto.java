@@ -1,17 +1,9 @@
-package com.ECProjectPAEC2203.APIEC.model;
+package com.ECProjectPAEC2203.APIEC.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.ECProjectPAEC2203.APIEC.model.productModel;
 
-import com.ECProjectPAEC2203.APIEC.dto.productDto;
-
-@Entity
-@Table(name = "RA_Product")
-public class productModel {
-	@Id
-	@Column(name = "Product_id")
+public class productDto {
+	
 	private String Product_id;
 
 	private String Product_name;
@@ -32,7 +24,7 @@ public class productModel {
 
 	private String Category_id;
 
-	public productModel(String product_id, String product_name, String short_Desciption, String description_Details,
+	public productDto(String product_id, String product_name, String short_Desciption, String description_Details,
 			String status, String color, String size, Double weight_product, String image_product, String category_id) {
 		super();
 		Product_id = product_id;
@@ -47,21 +39,22 @@ public class productModel {
 		Category_id = category_id;
 	}
 
-	public productModel() {
+	public productDto(productDto pDto) {
 		super();
+		this.Product_id = pDto.Product_id;
+		this.Product_name = pDto.Product_name;
+		this.Short_Desciption = pDto.Short_Desciption;
+		this.Description_Details = pDto.Description_Details;
+		this.Status = pDto.Status;
+		this.Color = pDto.Color;
+		this.Size = pDto.Size;
+		this.Weight_product = pDto.Weight_product;
+		this.image_product = pDto.image_product;
+		this.Category_id = pDto.Category_id;
 	}
-
-	public productModel(productModel model) {
-		this.Product_id = model.Product_id;
-		this.Product_name = model.Product_name;
-		this.Short_Desciption = model.Short_Desciption;
-		this.Description_Details = model.Description_Details;
-		this.Status = model.Status;
-		this.Color = model.Color;
-		this.Size = model.Size;
-		this.Weight_product = model.Weight_product;
-		this.image_product = model.image_product;
-		this.Category_id = model.Category_id;
+	
+	public productDto() {
+		super();
 	}
 
 	public String getProduct_id() {
@@ -143,20 +136,20 @@ public class productModel {
 	public void setCategory_id(String category_id) {
 		Category_id = category_id;
 	}
-	
-	public productDto toDTO() {
-		productDto pDto = new productDto();
-		pDto.setProduct_id(this.getProduct_id());
-		pDto.setProduct_name(this.getProduct_name());
-		pDto.setShort_Desciption(this.getShort_Desciption());
-		pDto.setDescription_Details(this.getDescription_Details());
-		pDto.setStatus(this.getStatus());
-		pDto.setColor(this.getColor());
-		pDto.setSize(this.getSize());
-		pDto.setWeight_product(this.getWeight_product());
-		pDto.setImage_product(this.getImage_product());
-		pDto.setCategory_id(this.getCategory_id());
-		return pDto;
-		
+
+	public productModel toModel() {
+		productModel pProduct = new productModel();
+		pProduct.setProduct_id(this.getProduct_id());
+		pProduct.setProduct_name(this.getProduct_name());
+		pProduct.setShort_Desciption(this.getShort_Desciption());
+		pProduct.setDescription_Details(this.getDescription_Details());
+		pProduct.setStatus(this.getStatus());
+		pProduct.setColor(this.getColor());
+		pProduct.setSize(this.getSize());
+		pProduct.setWeight_product(this.getWeight_product());
+		pProduct.setImage_product(this.getImage_product());
+		pProduct.setCategory_id(this.getCategory_id());
+		return pProduct;
 	}
+	
 }
