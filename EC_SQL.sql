@@ -7,7 +7,6 @@ CREATE TABLE RA_Admin
 (
 	Account varchar(20) NOT NULL,
 	Pass varchar(20) NOT NULL,
-	Quyen BIT DEFAULT 1,
 	CONSTRAINT pk_Admin PRIMARY KEY (Account)
 )
 GO
@@ -31,34 +30,19 @@ CREATE TABLE DISTRICT
   ON DELETE CASCADE ON UPDATE CASCADE,
 )
 GO
--- Tạo bảng COMMUNE --
-CREATE TABLE COMMUNE
-(
-  commune_id nchar(5),
-  commune_name nvarchar(50) ,
-  degree int,
-  district_id nchar(5),
-  PRIMARY KEY (commune_id),
-  FOREIGN KEY (district_id)
-  REFERENCES district (district_id)
-  ON DELETE CASCADE ON UPDATE CASCADE
-);
-GO
 -- Tạo table thông tin người dùng --
 CREATE TABLE RA_User
 (
+	Account_Name varchar(20) unique,
 	Phone varchar(10), --Tài khoản--
 	Pass varchar(20) NOT NULL,
-	Quyen BIT DEFAULT 0,
 	First_Name nvarchar(20) NOT NULL ,
 	Last_Name nvarchar(10) NOT NULL,
 	BirthDay DATE NOT NULL,
 	Address_User nvarchar(100) NOT NULL,
-	Bank_name varchar(20),
-	Bank_number varchar(20),
-	Momo varchar(10),
-	commune_id nchar(5),
-	CONSTRAINT pk_NguoiDung PRIMARY KEY (Phone)
+	Status_user bit default 1,
+	district_id nchar(5),
+	CONSTRAINT pk_NguoiDung PRIMARY KEY (Account_Name)
 )
 GO
 -- Tạo table thông tin loại hàng --
@@ -89,16 +73,16 @@ GO
 CREATE TABLE Products_of_Seller
 (
 	Product_id varchar(20),
-	Phone varchar(10),
-	CONSTRAINT pk_PoS PRIMARY KEY (Product_id, Phone) 
+	Account_Name varchar(20),
+	CONSTRAINT pk_PoS PRIMARY KEY (Product_id, Account_Name) 
 )
 GO
 -- Tạo table giao dịch giữa người bán và người mua khi đấu giá thành công --
 CREATE TABLE RA_Transaction
 (
 	Transaction_id int IDENTITY (1,1),
-	Buyer varchar(10),
-	Seller varchar(10),
+	Buyer varchar(20),
+	Seller varchar(20),
 	Address_Buyer nchar(5),
 	Address_Seller nchar(5),
 	PRICE_Transaction int,
@@ -113,8 +97,8 @@ GO
 CREATE TABLE RA_Comment
 (
 	Comment_id int IDENTITY(1,1),
-	Buyer varchar(10),
-	Seller varchar(10),
+	Buyer varchar(20),
+	Seller varchar(20),
 	Product_id varchar(20),
 	Comment_Time DATETIME,
 	Comment nvarchar(200),
@@ -123,11 +107,48 @@ CREATE TABLE RA_Comment
 )
 GO
 
+-- Tạo table biểu phí thanh toán --
+CREATE TABLE Tariff
+(
+	Tariff_id int IDENTITY(1,1),
+	Price_Start int,
+	Price_End int,
+	Price_Commission int,
+	CONSTRAINT pk_Tariff PRIMARY KEY (Tariff_id)
+)
+-- Tạo table lưu trữ phiên chuẩn bị đấu giá
+CREATE TABLE Waiting_auction
+(
+	Waiting_auction_id int IDENTITY(1,1),
+	Product_id varchar(20),
+	CONSTRAINT pk_Waiting_auction PRIMARY KEY (Waiting_auction_id)
+)
+-- Tạo table lưu trữ phiên đấu giá --
+CREATE TABLE Auction
+(
+	Auction_id int IDENTITY(1,1),
+	Waiting_auction_id int,
+	Time_Start datetime,
+	Time_End datetime,
+	Status_Auction varchar(10),
+	CONSTRAINT pk_Auction PRIMARY KEY (Auction_id)
+)
+-- Tạo table lưu trữ chi tiết phiên đấu giá --
+CREATE TABLE Auction_details
+(
+	Auction_details_id int IDENTITY(1,1),
+	Auction_id int,
+	Seller varchar(20),
+	Price int,
+	Comment text,
+	Time_auction datetime,
+	CONSTRAINT pk_Auction_details PRIMARY KEY (Auction_details_id)
+)	
 -- Tạo khóa ngoại cho bảng RA_User --
 alter table RA_User
-add constraint Commune_User
-foreign key (commune_id)
-references COMMUNE(commune_id)
+add constraint District_User
+foreign key (district_id)
+references DISTRICT(district_id)
 GO
 -- Tạo khóa ngoại cho bảng RA_Product --
 alter table RA_Product
@@ -145,8 +166,8 @@ GO
 	-- Tham chiếu đến Phone của bảng RA_User --
 alter table Products_of_Seller
 add constraint Sellers
-foreign key (Phone)
-references RA_User(Phone)
+foreign key (Account_Name)
+references RA_User(Account_Name)
 GO
 -- Tạo khóa ngoại cho bảng RA_Transaction --
 	-- Tham chiếu đến Product_id của bảng RA_Product --
@@ -159,25 +180,25 @@ GO
 alter table RA_Transaction
 add constraint T_Sellers
 foreign key (Seller)
-references RA_User(Phone)
+references RA_User(Account_Name)
 GO
 
 alter table RA_Transaction
 add constraint T_Buyers
 foreign key (Buyer)
-references RA_User(Phone)
+references RA_User(Account_Name)
 GO
 	--Tham chiếu đến commune_id của bảng COMMUNE --
 alter table RA_Transaction
 add constraint AddressS
 foreign key (Address_Seller)
-references COMMUNE(commune_id)
+references DISTRICT(district_id)
 GO
 
 alter table RA_Transaction
 add constraint AddressB
 foreign key (Address_Buyer)
-references COMMUNE(commune_id)
+references DISTRICT(district_id)
 GO
 
 -- Tạo khóa ngoại cho bảng RA_Comment --
@@ -191,15 +212,32 @@ GO
 alter table RA_Comment
 add constraint C_Sellers
 foreign key (Seller)
-references RA_User(Phone)
+references RA_User(Account_Name)
 GO
 	-- Tham chiếu đến Buyer của bảng RA_User --
 alter table RA_Comment
 add constraint C_Buyers
 foreign key (Buyer)
-references RA_User(Phone)
+references RA_User(Account_Name)
 GO
-
+	-- Tham chiếu product_id của bảng RA_Product --
+alter table Waiting_auction
+add constraint product_auction
+foreign key (Product_id)
+references RA_Product(Product_id)
+GO
+	-- Tham chiếu Waiting_auction_id của bảng Waiting_auction --
+alter table Auction
+add constraint waiting_auctions
+foreign key (Waiting_auction_id)
+references Waiting_auction(Waiting_auction_id)
+GO
+	-- Tham chiếu Auction_id của bảng Auction --
+alter table Auction_details
+add constraint id_auction
+foreign key (Auction_id)
+references Auction(Auction_id)
+GO
 -- Trigger kiểm tra thời gian comment có sau thời gian mua hàng không --
 CREATE TRIGGER check_Time_TranAndCom
 ON RA_Comment
