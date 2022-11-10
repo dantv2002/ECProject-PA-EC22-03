@@ -1,0 +1,25 @@
+.ant-form-item-row{
+    justify-content: center;
+}
+
+.address-form-saving{
+    padding: 5px 30px;
+    background-color: $color-green-100;
+    border: 1px solid $color-green-100;
+    color: $main-text-color-white;  
+    transition: all .2s ease;
+    cursor: pointer;
+
+    &:hover{
+        background-color: $main-text-color-white;
+        color: $color-green-100;
+        border-color: $color-green-100;
+    }
+
+    &:disabled{
+        background-color: $main-text-color-white;
+        color: $color-gray-400;
+        border-color: $color-gray-400;
+        opacity: .5;
+    }
+}
