@@ -9,6 +9,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux'
 import { addNewAddressDetail, changeAddressDetail, getdistrictList, getWardList } from '../../redux/paymentAddress/paymentAddressSlice';
 import { useEffect } from 'react';
+import { poppupNoti } from '../../util/notification/Notification';
 
 
 
@@ -71,6 +72,7 @@ const FormDisabledDemo = ({componentDisabled, setComponentDisabled}) => {
       chosen: true
     }
     addingMoreAddress ? dispatch(addNewAddressDetail(newFormValue)) : dispatch(changeAddressDetail(newFormValue))
+    addingMoreAddress ? poppupNoti.addAddressSuccess() : poppupNoti.changeAddressSuccess()
     setComponentDisabled(true)
   }
 

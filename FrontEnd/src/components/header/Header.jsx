@@ -145,7 +145,12 @@ export const Header = () => {
                 </div>
                 <div className='cart-detail__footer'>
                   <span className="total-price">Total Price: <span>100.000 VND</span></span>
-                  <span className="proceed-button">PROCEED</span>
+                  <span 
+                    className="proceed-button"
+                    onClick={() => navigate('/proceed')}
+                  >
+                    PROCEED
+                  </span>
                 </div>
               </div>
           </Col>

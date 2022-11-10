@@ -105,7 +105,7 @@ export const CartDetail = () => {
         columns={columns}
         dataSource={itemList}
         className="cart-detail-table"
-        
+        pagination={false}
       />
     </>
   );
