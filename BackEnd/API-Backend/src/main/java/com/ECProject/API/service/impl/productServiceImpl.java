@@ -28,28 +28,33 @@ public class productServiceImpl implements productService {
 	
 	// Can bo sung try catch de kiem tra xem them thanh cong hay chua
 	@Override
-	public String save(productDTO ProductDTO) {
+	public productDTO save(productDTO ProductDTO) {
 		productEntity ProductEntity = ConverterUtil.convertToEntity(ProductDTO);		
 		ProductRepository.save(ProductEntity);		
-		return "Đã thêm dữ liệu thành công";
+		return ProductDTO;
 	}
 	
 	@Override
 	public productDTO findByID(int ID) {
 		productDTO ProductDTO = null;
 		productEntity ProductEntity = ProductRepository.findById(ID).orElse(null);
+		if (ProductEntity == null) {
+			return null;
+		}
 		ProductDTO = ConverterUtil.convertToDTO(ProductEntity);
 		
 		return ProductDTO;
 	}
 
 	@Override
-	public String delete(int ID) {
+	public productDTO delete(int ID) {
 		productEntity ProductEntity = ProductRepository.findById(ID).orElse(null);
 		if (ProductEntity == null) {
-			return "Sản phẩm không tồn tại";
+			return null;
 		}
+		productDTO ProductDTO = ConverterUtil.convertToDTO(ProductEntity);
 		ProductRepository.delete(ProductEntity);
-		return "Xóa sản phẩm " + ID + " thành công";
+		
+		return ProductDTO;
 	}
 }

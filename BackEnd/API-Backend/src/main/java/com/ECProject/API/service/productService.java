@@ -6,7 +6,7 @@ import com.ECProject.API.dto.*;
 
 public interface productService {
 	List<productDTO> findAll();
-	String save(productDTO ProductDTO);
+	productDTO save(productDTO ProductDTO);
 	productDTO findByID(int ID);
-	String delete(int ID);
+	productDTO delete(int ID);
 }

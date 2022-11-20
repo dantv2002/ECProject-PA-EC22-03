@@ -58,6 +58,9 @@ public class productController {
 	@DeleteMapping(value = "/products/{ID}") 
 	public String deleteProduct(@PathVariable(value = "ID") Integer ID) {
 		common.LOGGER.info("Delete product is STARTING !!!!!!!");
-		return ProductService.delete(ID);
+		if (ProductService.delete(ID) == null) {
+			return "Sản phẩm không tồn tại";
+		}
+		return "Xóa sản phẩm thành công";
 	}
 }
