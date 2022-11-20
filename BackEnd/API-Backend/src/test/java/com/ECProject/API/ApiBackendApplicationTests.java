@@ -1,10 +1,10 @@
-package com.ECProjectPAEC2203.APIEC;
+package com.ECProject.API;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiecApplicationTests {
+class ApiBackendApplicationTests {
 
 	@Test
 	void contextLoads() {
