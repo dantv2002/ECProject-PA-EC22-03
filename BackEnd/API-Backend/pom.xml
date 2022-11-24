@@ -8,11 +8,11 @@
 		<version>2.7.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ECProject-PA-EC22-03</groupId>
-	<artifactId>APIEC</artifactId>
+	<groupId>com.ECProject</groupId>
+	<artifactId>API-Backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>APIEC</name>
-	<description>Code BackEnd EC</description>
+	<name>API-Backend</name>
+	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
