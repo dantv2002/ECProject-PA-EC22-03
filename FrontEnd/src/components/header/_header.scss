@@ -1,4 +1,4 @@
-.my-container{
+.my-container {
     width: 100%;
     background-color: $color-green-200;
     height: $home-header-height;
@@ -7,40 +7,40 @@
     margin: 0px !important;
     justify-content: space-between;
 
-    .logo{
+    .logo {
         display: flex;
         align-items: center;
 
-        span{
+        span {
             color: $main-text-color-white;
             font-size: 30px;
             font-weight: bold;
         }
 
-        .middle-line{
+        .middle-line {
             margin-inline: 10px;
         }
 
-        .page-name{
+        .page-name {
             font-weight: normal;
         }
     }
 
-    .search-bar{
+    .search-bar {
         position: relative;
 
-        form{
+        form {
             width: 95%;
             border: 1px solid $main-text-color-white;
 
-            button{
+            button {
                 background-color: $color-green-100;
                 border-color: $color-green-100;
             }
 
         }
 
-        .search-result-box{
+        .search-result-box {
             position: absolute;
             top: 100%;
             left: 0%;
@@ -51,7 +51,7 @@
             background-color: white;
 
 
-            &__header{
+            &__header {
                 background-color: $color-gray-100;
                 display: flex;
                 justify-content: space-between;
@@ -60,44 +60,45 @@
                 margin-bottom: 5px;
                 z-index: 9999;
 
-                .label{
+                .label {
                     color: $color-gray-200;
-                    
+
                 }
 
-                .number-of-result{
+                .number-of-result {
                     color: $color-gray-300;
                 }
             }
-            
-            &__body{
+
+            &__body {
                 background-color: white;
-                ul{
+
+                ul {
                     list-style: none;
                     padding-inline: 10px;
                     background-color: white;
 
-                    li{
+                    li {
                         margin-bottom: 10px;
                         border-bottom: 1px solid $color-gray-100;
                         display: flex;
                         align-items: center;
                         background-color: white;
 
-                        .product-img{
+                        .product-img {
                             margin-right: 20px;
                         }
 
-                        .product-info{
+                        .product-info {
                             display: flex;
                             flex-direction: column;
                             margin-bottom: 10px;
 
-                            .product-name{
+                            .product-name {
                                 margin-bottom: 6px;
                             }
 
-                            .product-price{
+                            .product-price {
                                 color: $color-green-100;
                                 font-weight: bold;
                             }
@@ -108,15 +109,15 @@
         }
     }
 
-    .cart-user{
+    .cart-user {
         display: flex;
         justify-content: flex-end;
         position: relative;
         align-items: center;
 
-       
 
-        .cart{
+
+        .cart {
             color: white;
             display: flex;
             align-items: center;
@@ -126,22 +127,22 @@
             margin-right: 30px;
             transition: all 0.2s ease;
             cursor: pointer;
-            position:relative;
+            position: relative;
 
-            &.active{
+            &.active {
                 background-color: $main-text-color-white;
                 color: $color-green-100;
             }
 
-            .icon{
+            .icon {
                 font-size: 30px;
                 margin-right: 12px;
             }
 
-            
+
         }
 
-        .user{
+        .user {
             color: white;
             display: flex;
             align-items: center;
@@ -153,18 +154,18 @@
             position: relative;
             z-index: 9999;
 
-            .icon{
+            .icon {
                 font-size: 30px;
                 margin-right: 10px;
             }
 
-            &.active{
+            &.active {
                 background-color: $main-text-color-white;
                 color: $color-green-100;
             }
 
 
-            &__option{
+            &__option {
                 position: absolute;
                 top: 100%;
                 left: 0%;
@@ -175,14 +176,14 @@
                 width: 100%;
                 box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.237);
 
-                span{
+                span {
                     color: $color-green-100;
                     padding: 10px;
                     text-align: center;
                     border-bottom: 1px solid $color-gray-100;
                     transition: all 0.2s ease;
 
-                    &:hover{
+                    &:hover {
                         opacity: 0.7;
                     }
                 }
@@ -190,7 +191,7 @@
             }
         }
 
-        .notification{
+        .notification {
             color: white;
             display: flex;
             align-items: center;
@@ -200,19 +201,130 @@
             margin-right: 30px;
             transition: all 0.2s ease;
             cursor: pointer;
-            position:relative;
+            position: relative;
             font-size: 30px;
             margin-left: 30px;
             padding-block: 9px;
+            position: relative;
 
-            &.active{
+            &.active {
                 background-color: $main-text-color-white;
                 color: $color-green-100;
                 border-color: $main-text-color-white;
             }
+
+            .all-noti {
+                position: absolute;
+                top: 120%;
+                right: 0;
+                background-color: $main-text-color-white;
+                z-index: 9999;
+                width: 450px;
+                box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+
+                font-size: 15px;
+                color: $color-gray-400;
+                transition: all .2s linear;
+                border-radius: 3px;
+
+                .top-part {
+                    background-color: $color-gray-100;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 10px;
+                    padding-right: 20px;
+                    h3 {
+                        margin: 0;
+                        color: $color-gray-200;
+                    }
+                    span{
+                        font-size: 16px;
+                    }
+                }
+
+                .bottom-part{
+                    text-align: right;
+                    padding-right: 20px;
+                    padding-block: 10px;
+                    background-color:$color-gray-100 ;
+
+                    button{
+                        padding: 7px 20px;
+                        background-color:$color-green-100 ;
+                        
+                        border-color: transparent;
+                        border-width: 1px;
+                        cursor: pointer;
+                        transition: all 0.1s linear;
+                        border-radius: 3px;
+
+                        a{
+                            color:white;
+                        }
+
+                        &:hover{
+                            background-color: $main-text-color-white;
+                           
+                            border-color: $color-green-100 ;
+                            
+                            a{
+                                color: $color-green-100 ;
+                            }
+                        }
+
+                    }
+                }
+
+                ul {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+
+                    li {
+                        padding: 10px;
+                        transition: all .1s linear;
+
+                        .item-info {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            img {
+                                width: 100%;
+                            }
+
+                            &.no-center {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-start;
+                                justify-content: center;
+                                padding-left: 20px;
+
+                                .description {
+                                    color: $color-gray-200;
+                                    font-weight: bold;
+                                }
+
+                                .date {
+                                    font-size: 12px;
+                                }
+                            }
+
+                            &.delete{
+                                color: red;
+                            }
+                        }
+
+                        &:hover{
+                            background-color: $color-gray-100;
+                        }
+                    }
+                }
+            }
         }
 
-        .cart-detail{
+        .cart-detail {
             position: absolute;
             width: 360px;
             top: 100%;
@@ -221,54 +333,54 @@
             background-color: $main-text-color-white;
             box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
             z-index: 99999;
-            
-            &__header{
+
+            &__header {
                 background-color: $color-gray-100;
                 padding: 10px;
                 display: flex;
                 justify-content: space-between;
 
-                .label{
+                .label {
                     color: $color-gray-200;
                 }
 
-                .close-button:hover{
+                .close-button:hover {
                     opacity: 0.8;
                     cursor: pointer;
                 }
             }
 
-            &__body{
+            &__body {
                 max-height: 800px;
                 overflow: auto;
 
-                ul{
+                ul {
                     list-style: none;
-                    padding:0;
+                    padding: 0;
 
-                    li{
+                    li {
                         display: flex;
                         justify-content: space-between;
                         padding: 10px;
                         border-bottom: 1px solid $color-green-100;
                         align-items: center;
 
-                        .product-info{
+                        .product-info {
                             display: flex;
                             flex-direction: column;
                             align-items: flex-start;
 
-                            &__name{
+                            &__name {
                                 color: $color-gray-200;
                             }
 
-                            &__price{
+                            &__price {
                                 font-weight: bold;
                                 color: $color-green-100;
                             }
                         }
 
-                        .no-of-product{
+                        .no-of-product {
                             width: 30px;
                             height: 30px;
                             display: flex;
@@ -276,8 +388,8 @@
                             align-items: center;
                             border: 1px solid $color-gray-300;
                         }
-                        
-                        .delete-product{
+
+                        .delete-product {
                             font-size: 20px;
                             cursor: pointer;
                         }
@@ -285,23 +397,23 @@
                 }
             }
 
-            &__footer{
+            &__footer {
                 padding: 10px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 background-color: $color-gray-100;
 
-                .total-price{
+                .total-price {
                     color: $color-gray-200;
 
-                    span{
+                    span {
                         color: $color-green-100;
                         font-weight: bold;
                     }
                 }
 
-                .proceed-button{
+                .proceed-button {
                     border: 1px solid transparent;
                     padding: 5px 15px;
                     background-color: $color-green-100;
@@ -309,7 +421,7 @@
                     transition: all 0.2s ease;
                     cursor: pointer;
 
-                    &:hover{
+                    &:hover {
                         border-color: $color-green-100;
                         color: $color-green-100;
                         background-color: $main-text-color-white;

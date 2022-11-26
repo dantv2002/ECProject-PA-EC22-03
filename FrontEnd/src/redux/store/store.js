@@ -3,12 +3,14 @@ import cartSlice from '../cart/cartSlice';
 import counterReducer from '../counter/counterSlice';
 import filterReducer from '../filter/filterSlice'
 import paymentAddressSlice from '../paymentAddress/paymentAddressSlice';
+import userNotificationSlice from '../usernotification/userNotificationSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     filter: filterReducer,
     cart: cartSlice,
-    paymentAddress: paymentAddressSlice
+    paymentAddress: paymentAddressSlice,
+    userNotification: userNotificationSlice
   },
 });
