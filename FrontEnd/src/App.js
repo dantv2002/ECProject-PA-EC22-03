@@ -9,6 +9,9 @@ import { Home } from './pages/main/home/Home';
 import { Search } from './pages/main/search/Search';
 import { Proceed } from './pages/main/proceed/Proceed';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { UserInfo } from './pages/main/user/UserInfo';
+import { Notification } from './pages/main/user/notification/Notification';
+import { PersonalInfo } from './pages/main/user/personalinfo/PersonalInfo';
 
 function App() {
   return (
@@ -20,7 +23,10 @@ function App() {
         <Route element={<MainTemplate/>}>
           <Route index element={<Home/>}/>
           <Route path='/seachresult' element={<Search/>}/>
-          
+          <Route element={<UserInfo/>}>
+            <Route path='user/notification' element={<Notification/>}/>
+            <Route path='user/personalinfo' element={<PersonalInfo/>}/>
+          </Route>
         </Route>
         <Route path='/proceed' element={<Proceed/>}/>
       </Routes>
