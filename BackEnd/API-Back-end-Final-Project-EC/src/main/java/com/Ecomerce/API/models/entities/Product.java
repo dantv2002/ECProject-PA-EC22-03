@@ -1,6 +1,5 @@
 package com.Ecomerce.API.models.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
