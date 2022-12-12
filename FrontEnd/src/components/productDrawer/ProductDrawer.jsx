@@ -17,7 +17,7 @@ const ProductDrawer = ({drawerStatus,drawerData, showDrawer, onClose, onFinish})
           paddingBottom: 80,
         }}
       >
-        <Form layout="vertical" hideRequiredMark onFinish={onFinish}>
+        <Form layout="vertical" onFinish={onFinish}>
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
