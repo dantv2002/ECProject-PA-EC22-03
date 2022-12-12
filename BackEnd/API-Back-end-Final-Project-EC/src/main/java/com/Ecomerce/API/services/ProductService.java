@@ -13,4 +13,6 @@ public interface ProductService {
 	ProductDto update(int id, ProductDto productDto);
 	Product convertToEntity (ProductDto productDto); 
 	ProductDto convertToDto (Product product);
+	List<ProductDto> searchProduct(String keyValue);
+	List<ProductDto> findByAmount(int pagenumber, int amount);
 }

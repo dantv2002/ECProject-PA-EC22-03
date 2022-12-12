@@ -6,17 +6,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Ecomerce.API.models.dtos.ProductDto;
 import com.Ecomerce.API.models.dtos.WaitingAuctionDto;
+import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.models.entities.WaitingAuction;
 import com.Ecomerce.API.repositories.ProductRepository;
 import com.Ecomerce.API.repositories.UserRepository;
 import com.Ecomerce.API.repositories.WaitingAuctionRepository;
+import com.Ecomerce.API.services.ProductService;
 import com.Ecomerce.API.services.WaitingAuctionService;
 
 @Service
 public class WaitingAuctionServiceImpl implements WaitingAuctionService {
 	@Autowired
 	WaitingAuctionRepository repository;
+	
+	@Autowired
+	ProductService productService;
 	
 	@Autowired
 	ProductRepository productRepository;

@@ -1,0 +1,29 @@
+- Chưa viết API thêm hình/lưu hình
+- Tìm hiểu về Socket
+- Gõ lệnh npm i --> npm start để run
+
+
+-------------------------------------------------
+Home Pagé
+
+category
+op: lấy ra các loại hàng
+API: http://localhost:8080/api/categories (method get)
+Param: không có
+
+autioning
+op: các phiên đấu giá đang diễn ra(trả hết thông tin) khoảng 5 phiên
+API: http://localhost:8080/api/auctions/auctionings?amount=5 (method get)
+Param: amount=5 (Số sản phẩm hiển thị ra)
+
+maybe you will want
+op: lấy hình + tên sản phẩm, 12 sản phẩm
+API:http://localhost:8080/api/products?pagenumber=0&amount=12 (method get)
+Param: pagenumber=0 (lấy trang đầu tiên - index = 0) 
+	amount=12 (lấy 12 sản phẩm)
+
+search
+ip: text
+op: tên sp đang đấu + giá phù hợp với text input
+API: http://localhost:8080/api/products/search/?keyValue=Xiaomi
+Param: keyValue=Xiaomi (key word nhập vào để tìm kiếm)
