@@ -86,10 +86,7 @@ export const UserInfo = () => {
                   })
                 }}
               >
-              <li className={tabActive.store}>
-                <span><ShopOutlined /></span>
-                Store Manager
-              </li>
+
               </Link>
             </ul>
           </div>
