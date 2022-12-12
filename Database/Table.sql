@@ -3,7 +3,7 @@ GO
 USE ReverseAuction
 GO
 --Tạo table đăng nhập cho Admin--
-CREATE TABLE "Admin"
+CREATE TABLE Admins
 (
 	account varchar(20) NOT NULL,
 	pass varchar(20) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE WARD
 	CONSTRAINT pk_Ward PRIMARY KEY (id)
 )
 -- Tạo table thông tin người dùng --
-CREATE TABLE "User"
+CREATE TABLE Users
 (
 	account_name varchar(20) unique,
 	pass varchar(20) NOT NULL,
@@ -39,6 +39,16 @@ CREATE TABLE "User"
 	email varchar(50),
 	status_user bit default 1,
 	CONSTRAINT pk_NguoiDung PRIMARY KEY (account_Name)
+)
+GO
+-- Tạo table chat giữa người dùng --
+CREATE TABLE Chat
+(
+	id int IDENTITY (1,1),
+	sender varchar(20),
+	receiver varchar(20),
+	content nvarchar(2000),
+	CONSTRAINT pk_Chat PRIMARY KEY (id)
 )
 GO
 -- Tạo table thông tin chi tiết người dùng --
@@ -130,10 +140,10 @@ CREATE TABLE Auction_details
 GO
 
 -- Tạo table các trạng thái đơn hàng --
-CREATE TABLE "Status"
+CREATE TABLE Statuss
 (
 	id int IDENTITY(1,1),
-	"status" varchar(20),
+	"status" nvarchar(30),
 	CONSTRAINT pk_Status PRIMARY KEY (id)
 )
 -- Tạo table thể hiện trạng thái của đơn hàng --
@@ -162,6 +172,18 @@ add constraint ward_District
 foreign key (district_id)
 references DISTRICT(id)
 GO
+-- Tạo khóa ngoại cho bảng Chat --
+alter table Chat
+add constraint Chat_users1
+foreign key (sender)
+references Users(account_name)
+GO
+
+alter table Chat
+add constraint Chat_users2
+foreign key (receiver)
+references Users(account_name)
+GO
 -- Tạo khóa ngoại cho bảng User_details --
 alter table User_details
 add constraint ward_User
@@ -172,7 +194,7 @@ GO
 alter table User_details
 add constraint account_User
 foreign key (account_name)
-references "User"(account_name)
+references Users(account_name)
 GO
 -- Tạo khóa ngoại cho bảng Product --
 alter table Product
@@ -184,7 +206,7 @@ GO
 alter table Product
 add constraint Products_of_User
 foreign key (account_name)
-references "User"(account_name)
+references Users(account_name)
 GO
 -- Tạo khóa ngoại cho bảng Shipping --
 alter table Shipping
@@ -208,7 +230,7 @@ GO
 alter table Waiting_auction
 add constraint buyer_auction
 foreign key (buyer)
-references "User"(account_name)
+references Users(account_name)
 GO
 
 -- Tạo khóa ngoại cho bảng Auction --
@@ -221,7 +243,7 @@ GO
 alter table Auction
 add constraint seller_auction
 foreign key (seller_end)
-references "User"(account_name)
+references Users(account_name)
 GO
 
 -- Tạo khóa ngoại cho bảng Auction_details --
@@ -234,7 +256,7 @@ GO
 alter table Auction_details
 add constraint sellers
 foreign key (seller)
-references "User"(account_name)
+references Users(account_name)
 GO
 -- Tạo khóa ngoại cho bảng Comment --
 alter table Comment
@@ -252,7 +274,7 @@ GO
 alter table Order_status
 add constraint order2
 foreign key (status_id)
-references "Status"(id)
+references Statuss(id)
 GO
 
 -- Trigger tính tiền hoa hồng cho sản phẩm đấu giá thành công --
