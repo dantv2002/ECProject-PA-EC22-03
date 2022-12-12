@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecomerce.API.models.dtos.ProductDto;
+import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.models.objects.ResponseObject;
 import com.Ecomerce.API.services.ProductService;
 
 @RestController
 @RequestMapping (value = "/api")
+@CrossOrigin("http://localhost:3000/")
 public class ProductController {
 	@Autowired
 	ProductService service;
@@ -29,16 +33,15 @@ public class ProductController {
 	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
 	@GetMapping (value = "/products")
-	public ResponseEntity<ResponseObject> getAll() {
-		logger.info("Get All Product is running !");
-		List<ProductDto> listProduct = service.findAll();
-		
+	public ResponseEntity<ResponseObject> getByAmount(@RequestParam int amount, @RequestParam int pagenumber) {
+		logger.info("Get Product By Amount is running !");
+		List<ProductDto> listProduct = service.findByAmount(pagenumber, amount);
 		return (listProduct != null && !listProduct.isEmpty()) ? 
 				ResponseEntity.status(HttpStatus.OK).body(
-						new ResponseObject("Hoàn thành", "Lấy tất cả sản phẩm thành công", listProduct))
+						new ResponseObject("Hoàn thành", "Lấy sản phẩm thành công", listProduct))
 				:
 				ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-						new ResponseObject("Thất bại", "Không thể lấy tất cả sản phẩm", ""));
+						new ResponseObject("Thất bại", "Không thể lấy sản phẩm", ""));
 	}
 	
 	@GetMapping (value = "/products/{id}")
@@ -91,5 +94,10 @@ public class ProductController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ResponseObject("Thành công", "Xóa sản phẩm thành công", productDeleted));	
+	}
+	
+	@GetMapping("/products/search")
+	public List<ProductDto> searchProduct(@RequestParam String keyValue) {
+		return service.searchProduct(keyValue);
 	}
 }

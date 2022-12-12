@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.AuctionDto;
@@ -60,5 +61,22 @@ public class AuctionServiceImpl implements AuctionService{
 		auction.setStatus(auctionDto.getStatus());
 		
 		return auction;
+	}
+
+	@Override
+	public List<AuctionDto> findByAmount(int amount) {
+		List<Auction> auctions = repository.findByStatusLike("During");
+		List<AuctionDto> auctionsDto = new ArrayList<AuctionDto>();
+		//auctions.forEach(auction -> auctionsDto.add(convertToDto(auction)));
+		int count = 0;
+		for (Auction auction : auctions) {
+			auctionsDto.add(convertToDto(auction));
+			count++;
+			if (count == amount) {
+				break;
+			}
+		}
+		
+		return auctionsDto;
 	}
 }

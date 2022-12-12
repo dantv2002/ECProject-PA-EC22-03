@@ -23,10 +23,10 @@ public class District implements Serializable {
 	private String name;
 	private String code;
 	
-	@OneToMany(mappedBy = "address_start", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "addressStart", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Shipping> listAddressStart;
 	
-	@OneToMany(mappedBy = "address_end", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "addressEnd", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Shipping> listAddressEnd;
 	
 	@OneToMany(mappedBy = "district", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
