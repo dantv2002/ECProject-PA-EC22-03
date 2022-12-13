@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Ecomerce.API.exceptions.ResourceNotFoundException;
 import com.Ecomerce.API.models.dtos.ProductDto;
 import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.models.objects.ResponseObject;
@@ -97,7 +98,13 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/search")
-	public List<ProductDto> searchProduct(@RequestParam String keyValue) {
-		return service.searchProduct(keyValue);
+	public ResponseEntity<ResponseObject> searchProduct(@RequestParam String keyValue) throws ResourceNotFoundException {
+		List<ProductDto> productsDto = service.searchProduct(keyValue);
+		
+		if (productsDto.isEmpty() || productsDto == null) {
+			throw new ResourceNotFoundException("Thất bại", "Không tìm thấy sản phẩm được yêu cầu", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(
+				new ResponseObject("Thành công", "Tìm sản phẩm theo yêu cầu thành công", productsDto));
 	}
 }
