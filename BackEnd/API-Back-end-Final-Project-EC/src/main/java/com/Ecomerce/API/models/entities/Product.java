@@ -1,5 +1,9 @@
 package com.Ecomerce.API.models.entities;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,11 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table (name = "Product")
-public class Product {
+public class Product implements Serializable {	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id;
@@ -31,6 +38,9 @@ public class Product {
 	
 	@Column (name = "account_name")
 	private String accountName;
+	
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<WaitingAuction> waitingAuctions;
 
 	public int getId() {
 		return id;
@@ -86,5 +96,13 @@ public class Product {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+
+	public List<WaitingAuction> getWaitingAuctions() {
+		return waitingAuctions;
+	}
+
+	public void setWaitingAuctions(List<WaitingAuction> waitingAuctions) {
+		this.waitingAuctions = waitingAuctions;
 	}
 }

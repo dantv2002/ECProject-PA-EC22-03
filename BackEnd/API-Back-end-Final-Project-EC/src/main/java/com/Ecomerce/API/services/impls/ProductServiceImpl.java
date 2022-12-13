@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.ProductDto;
 import com.Ecomerce.API.models.entities.Category;
 import com.Ecomerce.API.models.entities.Product;
+import com.Ecomerce.API.models.entities.WaitingAuction;
 import com.Ecomerce.API.repositories.CategoryRepository;
 import com.Ecomerce.API.repositories.ProductRepository;
+import com.Ecomerce.API.repositories.WaitingAuctionRepository;
 import com.Ecomerce.API.services.ProductService;
 
 @Service
@@ -20,6 +23,9 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	@Autowired
+	WaitingAuctionRepository waitingAuctionRepository;
 	
 	@Override
 	public List<ProductDto> findAll() {
@@ -119,5 +125,33 @@ public class ProductServiceImpl implements ProductService {
 		productDto.setAccountName(product.getAccountName());
 		
 		return productDto;
+	}
+	
+	@Override
+	public List<ProductDto> searchProduct(String keyValue) {
+		List<WaitingAuction> waitingAuctions = waitingAuctionRepository.findAll();
+		List<Product> products = new ArrayList<Product>();
+		for(WaitingAuction wt : waitingAuctions) {
+			if(wt.getAuctions().isEmpty()) {
+				continue;
+			}
+			if(wt.getAuctions().get(0).getStatus().equals("During") && 
+					wt.getProduct().getName().contains(keyValue)) {
+				products.add(wt.getProduct());
+			}
+		}
+		List<ProductDto> productsDto = new ArrayList<ProductDto>();
+		products.forEach(product -> productsDto.add(convertToDto(product)));
+		return productsDto;
+	}
+
+	@Override
+	public List<ProductDto> findByAmount(int pagenumber, int amount){
+		List <Product> products = repository.findAll(PageRequest.of(pagenumber, amount)).getContent();
+		List <ProductDto> productDtos = new ArrayList<ProductDto>();
+		products.forEach(product -> 
+			productDtos.add(convertToDto(product)));
+		
+		return productDtos;
 	}
 }	

@@ -13,18 +13,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "Category")
-public class Category implements Serializable {
+@Table(name = "Statusss")
+public class Status implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String name;
+	private String status;
 	
-	@OneToMany (mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<Product> products;
+	@OneToMany(mappedBy = "status", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	List<OrderStatus> listOrderStatus;
 
 	public int getId() {
 		return id;
@@ -34,19 +34,19 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public List<Product> getProducts() {
-		return products;
+	public List<OrderStatus> getListOrderStatus() {
+		return listOrderStatus;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}	
+	public void setListOrderStatus(List<OrderStatus> listOrderStatus) {
+		this.listOrderStatus = listOrderStatus;
+	}
 }
