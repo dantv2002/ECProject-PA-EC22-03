@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.Ecomerce.API.exceptions.ResourceNotFoundException;
 import com.Ecomerce.API.models.dtos.ProductDto;
 import com.Ecomerce.API.models.entities.Category;
 import com.Ecomerce.API.models.entities.Product;
@@ -18,11 +19,12 @@ import com.Ecomerce.API.services.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+	
 	@Autowired
 	ProductRepository repository;
 	
 	@Autowired
-	CategoryRepository categoryRepository;
+	CategoryRepository categoryRepository;	
 	
 	@Autowired
 	WaitingAuctionRepository waitingAuctionRepository;
@@ -144,7 +146,7 @@ public class ProductServiceImpl implements ProductService {
 		products.forEach(product -> productsDto.add(convertToDto(product)));
 		return productsDto;
 	}
-
+	
 	@Override
 	public List<ProductDto> findByAmount(int pagenumber, int amount){
 		List <Product> products = repository.findAll(PageRequest.of(pagenumber, amount)).getContent();

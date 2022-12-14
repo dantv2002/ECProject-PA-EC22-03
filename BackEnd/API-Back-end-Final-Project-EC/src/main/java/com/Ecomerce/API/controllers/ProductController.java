@@ -28,23 +28,14 @@ import com.Ecomerce.API.services.ProductService;
 @RequestMapping (value = "/api")
 @CrossOrigin("http://localhost:3000/")
 public class ProductController {
+	/*>>>>>>>>>> Init Object Service <<<<<<<<<<*/
 	@Autowired
 	ProductService service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
-	@GetMapping (value = "/products")
-	public ResponseEntity<ResponseObject> getByAmount(@RequestParam int amount, @RequestParam int pagenumber) {
-		logger.info("Get Product By Amount is running !");
-		List<ProductDto> listProduct = service.findByAmount(pagenumber, amount);
-		return (listProduct != null && !listProduct.isEmpty()) ? 
-				ResponseEntity.status(HttpStatus.OK).body(
-						new ResponseObject("Hoàn thành", "Lấy sản phẩm thành công", listProduct))
-				:
-				ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-						new ResponseObject("Thất bại", "Không thể lấy sản phẩm", ""));
-	}
 	
+	/*>>>>>>>>>> CRUD Method <<<<<<<<<<*/
 	@GetMapping (value = "/products/{id}")
 	public ResponseEntity<ResponseObject> getById(@PathVariable int id) {
 		logger.info("Get Product by id is running !");
@@ -97,6 +88,8 @@ public class ProductController {
 				new ResponseObject("Thành công", "Xóa sản phẩm thành công", productDeleted));	
 	}
 	
+	
+	/*>>>>>>>>>> API Search Product by input value<<<<<<<<<<*/
 	@GetMapping("/products/search")
 	public ResponseEntity<ResponseObject> searchProduct(@RequestParam String keyValue) throws ResourceNotFoundException {
 		List<ProductDto> productsDto = service.searchProduct(keyValue);
@@ -106,5 +99,19 @@ public class ProductController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ResponseObject("Thành công", "Tìm sản phẩm theo yêu cầu thành công", productsDto));
+	}
+	
+	
+	/*>>>>>>>>>> API Select Product with specific quantity<<<<<<<<<<*/
+	@GetMapping (value = "/products")
+	public ResponseEntity<ResponseObject> getByAmount(@RequestParam int amount, @RequestParam int pagenumber) {
+		logger.info("Get Product By Amount is running !");
+		List<ProductDto> listProduct = service.findByAmount(pagenumber, amount);
+		return (listProduct != null && !listProduct.isEmpty()) ? 
+				ResponseEntity.status(HttpStatus.OK).body(
+						new ResponseObject("Hoàn thành", "Lấy sản phẩm thành công", listProduct))
+				:
+				ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+						new ResponseObject("Thất bại", "Không thể lấy sản phẩm", ""));
 	}
 }

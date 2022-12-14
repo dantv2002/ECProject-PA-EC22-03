@@ -13,4 +13,5 @@ public interface CategoryService {
 	CategoryDto delete(int id);
 	Category convertToEntity (CategoryDto categoryDto); 
 	CategoryDto convertToDto (Category category);
+	List<String> findManufacturerByCategoryName(String name);
 }

@@ -10,4 +10,5 @@ import com.Ecomerce.API.models.entities.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	List<Product> findTop12ByIdIsNotNull();
+	List<Product> findDistinctByName(String name);
 }

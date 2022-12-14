@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecomerce.API.exceptions.ResourceNotFoundException;
@@ -22,11 +23,14 @@ import com.Ecomerce.API.services.CategoryService;
 @RequestMapping(value = "/api")
 @CrossOrigin("http://localhost:3000/")
 public class CategoryController {
+	/*>>>>>>>>>> Init Object Service <<<<<<<<<<*/
 	@Autowired
 	private CategoryService service;
 	
 	private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 	
+	
+	/*>>>>>>>>>> CRUD Method <<<<<<<<<<*/
 	@GetMapping(value = "/categories/{id}")
 	public ResponseEntity<ResponseObject> findById(@PathVariable int id) throws ResourceNotFoundException {
 		logger.info("FIND CATEGORY BY ID IS STARTING !");
@@ -38,8 +42,24 @@ public class CategoryController {
 		logger.info("FIND CATEGORY BY ID SUCCESSFULLY !");
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ResponseObject("Thành công", "Tìm kiếm sản phẩm theo Id thành công", categoryDto));
+	}		
+	
+	
+	/*>>>>>>>>>> API Find manufacturer by category's name <<<<<<<<<<*/
+	@GetMapping(value = "/categories/manufacturers")
+	public ResponseEntity<ResponseObject> findManufacturerByCategoryName(@RequestParam String name) 
+			throws ResourceNotFoundException {
+		List<String> manufacturers = service.findManufacturerByCategoryName(name);
+		
+		if (manufacturers == null || manufacturers.isEmpty()) {
+			throw new ResourceNotFoundException("Thất bại", "Không tìm thấy các hãng bán sản phẩm này", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(
+				new ResponseObject("Hoàn thành", "Tìm các hãng bán " + name + " thành công", manufacturers));
 	}
 	
+	
+	/*>>>>>>>>>> API Find All Category <<<<<<<<<<*/
 	@GetMapping(value = "/categories")
 	public ResponseEntity<ResponseObject> findAll() throws ResourceNotFoundException {
 		logger.info("FIND ALL CATEGORY IS STARTING !");

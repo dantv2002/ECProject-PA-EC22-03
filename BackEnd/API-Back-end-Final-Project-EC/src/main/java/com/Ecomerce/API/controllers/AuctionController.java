@@ -34,6 +34,8 @@ public class AuctionController {
 				new ResponseObject("Hoàn thành", "Lấy tất cả sản phẩm thành công", auctionsDto));
 	}
 	
+	
+	/*>>>>>>>>>> API Find auction is during <<<<<<<<<<*/
 	@GetMapping(value = "/auctions/auctionings")
 	public ResponseEntity<ResponseObject> findAuctioning(@RequestParam int amount) {
 		List<AuctionDto> auctionsDto = service.findByAmount(amount);
