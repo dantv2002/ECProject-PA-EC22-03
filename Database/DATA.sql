@@ -891,15 +891,26 @@ VALUES
 (22, 21, 30000),
 (22, 22, 0);
 -- Thêm data bảng Admin --
-INSERT INTO Admins VALUES ('admin', '123');
+INSERT INTO Admins VALUES ('admin', '123', null, 1);
 -- Thêm data bảng User --
-INSERT INTO Users VALUES ('user1', '123', N'Nguyễn Văn', N'An', '2002-02-22', 'vanan@gmail.com', 1); -- Người mua --
-INSERT INTO Users VALUES ('user2', '123', N'Nguyễn Văn', N'Bảo', '2002-10-10', 'vanbao@gmail.com', 1);
-INSERT INTO Users VALUES ('user3', '123', N'Nguyễn Văn', N'Cao', '2001-01-04', 'vancao@gmail.com', 1);
-INSERT INTO Users VALUES ('user4', '123', N'Nguyễn Văn', N'Đại', '1999-07-16', 'vandai@gmail.com', 1);
-INSERT INTO Users VALUES ('user5', '123', N'Nguyễn Văn', N'Hòa', '2000-07-15', 'vanhoa@gmail.com', 1);
--- Thêm data bảng User_details
-INSERT INTO User_details VALUES ('user1', 1,'0821234123', N'75/10 đường Hoàng Hoa Thám');
+INSERT INTO Users VALUES ('vanan', '123', null, 1);
+INSERT INTO Users VALUES ('vanbao', '123', null, 1);
+INSERT INTO Users VALUES ('vancao', '123', null, 1);
+INSERT INTO Users VALUES ('vandat', '123', null, 1);
+INSERT INTO Users VALUES ('vanhoa', '123', null, 1);
+-- Thêm data bảng In4_User
+INSERT INTO In4_User VALUES ('vanan', N'Nguyễn Văn', N'An', '2002-02-22', 'vanan@gmail.com', '0981121134', 30, N'78/90 Nguyễn Thị Minh Khai'); -- Người mua --
+INSERT INTO In4_User VALUES ('vanbao', N'Nguyễn Văn', N'Bảo', '2002-10-10', 'vanbao@gmail.com', '0125738742', 67, N'4C Lý Thường Kiệt');
+INSERT INTO In4_User VALUES ('vancao', N'Nguyễn Văn', N'Cao', '2001-01-04', 'vancao@gmail.com', '0125738743', 90, N'43 Lê Thị Riêng');
+INSERT INTO In4_User VALUES ('vandat', N'Nguyễn Văn', N'Đại', '1999-07-16', 'vandai@gmail.com', '0125738744', 150, N'104 Marie Curie');
+INSERT INTO In4_User VALUES ('vanhoa', N'Nguyễn Văn', N'Hòa', '2000-07-15', 'vanhoa@gmail.com', '0125738745', 186, N'89 cách mạng tháng 8');
+-- Thêm data bảng Chat --
+INSERT INTO Chat VALUES ('vanan', 'vandat', N' xin chào cho mình hỏi?');
+INSERT INTO Chat VALUES ('vandat', 'vanan', N' có chuyện gì vậy?');
+INSERT INTO Chat VALUES ('vanan', 'vandat', N' sản phẩm này mới bao nhiêu phần trăm?');
+INSERT INTO Chat VALUES ('vandat', 'vanan', N' khoảng 99%');
+-- Thêm data bảng Address_Shipping
+INSERT INTO Address_Shipping VALUES ('vanan', 20,'0821234123', N'Phan Văn Trí', N'75/10 đường Hoàng Hoa Thám', 1);
 -- Thêm data vào bảng Category --
 INSERT INTO Category VALUES
 (N'Điện thoại'),
@@ -908,81 +919,87 @@ INSERT INTO Category VALUES
 (N'Đồng hồ'),
 (N'Thiết bị âm thanh'),
 (N'Máy ảnh');
--- Them data vao bang Statuss --
-INSERT INTO Statuss VALUES
+-- Them data vao bang Status_order --
+INSERT INTO Status_order VALUES
 (N'Đã đóng gói'),
 (N'Đang giao hàng'),
 (N'Đã nhận hàng');
+-- Thêm data vào bảng Status_auction --
+INSERT INTO Status_auction VALUES
+(N'Chờ đấu giá'),
+(N'Đang đấu giá'),
+(N'Đấu giá thành công'),
+(N'Đấu giá thất bại');
 -- Thêm data vào bảng product --
 INSERT INTO Product VALUES
-('Iphone 11', N'Apple đã chính thức trình làng bộ 3 siêu phẩm iPhone 11, trong đó phiên bản iPhone 11 64GB có mức giá rẻ nhất nhưng vẫn được nâng cấp mạnh mẽ như iPhone Xr ra mắt trước đó.', 'Apple', N'D:\ảnh\iphone11_1.jpg', 1, 'user2'),
-('Iphone 11', N'Apple luôn làm hài lòng tín đồ iFan với các dòng iPhone trong từng phân khúc giá. Đặc biệt, phiên bản iPhone 11 vừa ra mắt nhưng đã chiếm lĩnh được thị trường smartphone trên toàn thế giới với giá cả phải chăng.', 'Apple', N'D:\ảnh\iphone11_2.jpg', 1, 'user3'),
-('Iphone 11', N'Màu sắc phù hợp cá tính - 6 màu sắc bắt mắt để lựa chọn Hiệu năng mượt mà, ổn định - Chip A13, RAM 4GB Bắt trọn khung hình - Camera kép hỗ trợ góc rộng, chế độ Night Mode Yên tâm sử dụng - Kháng nước, kháng bụi IP68, kính cường lực Gorilla', 'Apple', N'D:\ảnh\iphone11_3.jpg', 1, 'user4'),
-('Iphone 11', N'iPhone 11 với 6 phiên bản màu sắc, camera có khả năng chụp ảnh vượt trội, thời lượng pin cực dài và bộ vi xử lý mạnh nhất từ trước đến nay sẽ mang đến trải nghiệm tuyệt vời dành cho bạn.', 'Apple', N'D:\ảnh\iphone11_4.jpg', 1, 'user5'),
-('Iphone 12', N'Điện thoại iPhone 12 64GB Đen với cạnh khung vuông vắn. Với thiết kế này sẽ tạo được độ chắc chắn khi người dùng cầm nắm thiết bị hơn so với khung bo tròn như trước đây, mang đến độ bền vượt trội và diện mạo bóng bẩy sang trọng hơn. Trong đó, phiên bản màu đen mang đến sự sang trọng, huyền bí. Màu đỏ nổi bật lại mang sắc màu của cá tính. Và một màu sắc mới cực hot hiện nay chính là iphone 12 tím.', 'Apple', N'D:\ảnh\iphone12_1.png', 1, 'user2'),
-('Iphone 12', N'Điện thoại iPhone 12 64GB Đen với cạnh khung vuông vắn. Với thiết kế này sẽ tạo được độ chắc chắn khi người dùng cầm nắm thiết bị hơn so với khung bo tròn như trước đây, mang đến độ bền vượt trội và diện mạo bóng bẩy sang trọng hơn. Trong đó, phiên bản màu đen mang đến sự sang trọng, huyền bí. Màu đỏ nổi bật lại mang sắc màu của cá tính. Và một màu sắc mới cực hot hiện nay chính là iphone 12 tím.', 'Apple', N'D:\ảnh\iphone12_2.png', 1, 'user3'),
-('Iphone 12', N'Điện thoại iPhone 12 64GB Đen với cạnh khung vuông vắn. Với thiết kế này sẽ tạo được độ chắc chắn khi người dùng cầm nắm thiết bị hơn so với khung bo tròn như trước đây, mang đến độ bền vượt trội và diện mạo bóng bẩy sang trọng hơn. Trong đó, phiên bản màu đen mang đến sự sang trọng, huyền bí. Màu đỏ nổi bật lại mang sắc màu của cá tính. Và một màu sắc mới cực hot hiện nay chính là iphone 12 tím.', 'Apple', N'D:\ảnh\iphone12_3.png', 1, 'user4'),
-('Iphone 12', N'Điện thoại iPhone 12 64GB Đen với cạnh khung vuông vắn. Với thiết kế này sẽ tạo được độ chắc chắn khi người dùng cầm nắm thiết bị hơn so với khung bo tròn như trước đây, mang đến độ bền vượt trội và diện mạo bóng bẩy sang trọng hơn. Trong đó, phiên bản màu đen mang đến sự sang trọng, huyền bí. Màu đỏ nổi bật lại mang sắc màu của cá tính. Và một màu sắc mới cực hot hiện nay chính là iphone 12 tím.', 'Apple', N'D:\ảnh\iphone12_4.jpg', 1, 'user5');
+('Iphone 11', N'Apple đã chính thức trình làng bộ 3 siêu phẩm iPhone 11, trong đó phiên bản iPhone 11 64GB có mức giá rẻ nhất nhưng vẫn được nâng cấp mạnh mẽ như iPhone Xr ra mắt trước đó.', 'Apple','.image/iphone11_1.jpg', 10, 1, 'vanbao', 1),
+('Iphone 11', N'Apple luôn làm hài lòng tín đồ iFan với các dòng iPhone trong từng phân khúc giá. Đặc biệt, phiên bản iPhone 11 vừa ra mắt nhưng đã chiếm lĩnh được thị trường smartphone trên toàn thế giới với giá cả phải chăng.', 'Apple', '.image/iphone11_2.jpg',10, 1, 'vancao', 1),
+('Iphone 11', N'Màu sắc phù hợp cá tính - 6 màu sắc bắt mắt để lựa chọn Hiệu năng mượt mà, ổn định - Chip A13, RAM 4GB Bắt trọn khung hình - Camera kép hỗ trợ góc rộng, chế độ Night Mode Yên tâm sử dụng - Kháng nước, kháng bụi IP68, kính cường lực Gorilla', 'Apple', '.image/iphone11_3.jpg', 10, 1, 'vandat', 1),
+('Iphone 11', N'iPhone 11 với 6 phiên bản màu sắc, camera có khả năng chụp ảnh vượt trội, thời lượng pin cực dài và bộ vi xử lý mạnh nhất từ trước đến nay sẽ mang đến trải nghiệm tuyệt vời dành cho bạn.', 'Apple', '.image/iphone11_4.jpg', 10, 1, 'vanhoa', 1),
+('Iphone 12', N'Điện thoại iPhone 12 64GB Đen với cạnh khung vuông vắn. Với thiết kế này sẽ tạo được độ chắc chắn khi người dùng cầm nắm thiết bị hơn so với khung bo tròn như trước đây, mang đến độ bền vượt trội và diện mạo bóng bẩy sang trọng hơn. Trong đó, phiên bản màu đen mang đến sự sang trọng, huyền bí. Màu đỏ nổi bật lại mang sắc màu của cá tính. Và một màu sắc mới cực hot hiện nay chính là iphone 12 tím.', 'Apple', '.image/iphone12_1.png', 10, 1, 'vanbao',1),
+('Iphone 12', N'Điện thoại iPhone 12 64GB Đen với cạnh khung vuông vắn. Với thiết kế này sẽ tạo được độ chắc chắn khi người dùng cầm nắm thiết bị hơn so với khung bo tròn như trước đây, mang đến độ bền vượt trội và diện mạo bóng bẩy sang trọng hơn. Trong đó, phiên bản màu đen mang đến sự sang trọng, huyền bí. Màu đỏ nổi bật lại mang sắc màu của cá tính. Và một màu sắc mới cực hot hiện nay chính là iphone 12 tím.', 'Apple', '.image/iphone12_2.png', 10, 1, 'vancao',1),
+('Iphone 12', N'Điện thoại iPhone 12 64GB Đen với cạnh khung vuông vắn. Với thiết kế này sẽ tạo được độ chắc chắn khi người dùng cầm nắm thiết bị hơn so với khung bo tròn như trước đây, mang đến độ bền vượt trội và diện mạo bóng bẩy sang trọng hơn. Trong đó, phiên bản màu đen mang đến sự sang trọng, huyền bí. Màu đỏ nổi bật lại mang sắc màu của cá tính. Và một màu sắc mới cực hot hiện nay chính là iphone 12 tím.', 'Apple', '.image/iphone12_3.png', 10, 1, 'vandat',1),
+('Iphone 12', N'Điện thoại iPhone 12 64GB Đen với cạnh khung vuông vắn. Với thiết kế này sẽ tạo được độ chắc chắn khi người dùng cầm nắm thiết bị hơn so với khung bo tròn như trước đây, mang đến độ bền vượt trội và diện mạo bóng bẩy sang trọng hơn. Trong đó, phiên bản màu đen mang đến sự sang trọng, huyền bí. Màu đỏ nổi bật lại mang sắc màu của cá tính. Và một màu sắc mới cực hot hiện nay chính là iphone 12 tím.', 'Apple', '.image/iphone12_4.jpg', 10, 1, 'vanhoa',1);
 INSERT INTO Product VALUES
-('Samsung galaxy Z Flip4', N'Với độ bền được gia tăng cùng kiểu thiết kế đẹp mắt giúp Flip4 trở thành một trong những tâm điểm sáng giá cho nửa cuối năm 2022.', 'Samsung', N'D:\ảnh\samsungzflip4_1.jpg', 1, 'user2'),
-('Samsung galaxy Z Flip4', N'Với độ bền được gia tăng cùng kiểu thiết kế đẹp mắt giúp Flip4 trở thành một trong những tâm điểm sáng giá cho nửa cuối năm 2022.', 'Samsung', N'D:\ảnh\samsungzflip4_2.jpg', 1, 'user3');
+('Samsung galaxy Z Flip4', N'Với độ bền được gia tăng cùng kiểu thiết kế đẹp mắt giúp Flip4 trở thành một trong những tâm điểm sáng giá cho nửa cuối năm 2022.', 'Samsung', '.image/samsungzflip4_1.jpg', 10, 1, 'vanbao',1),
+('Samsung galaxy Z Flip4', N'Với độ bền được gia tăng cùng kiểu thiết kế đẹp mắt giúp Flip4 trở thành một trong những tâm điểm sáng giá cho nửa cuối năm 2022.', 'Samsung', '.image/samsungzflip4_2.jpg', 10, 1, 'vancao',1);
 INSERT INTO Product VALUES
-('Xiaomi Monitor 1C BHR4510GL', N'kích thước lớn, viền siêu mỏng, hình ảnh sắc nét 60 Hz, và trên hết là bảo vệ mắt bạn luôn an toàn, màn hình 23.8 inch Xiaomi Monitor 1C BHR4510gl là những gì cần thiết cho một dàn PC giải trí và làm việc với hiệu suất tối ưu.', 'Xiaomi', N'D:\ảnh\xiaomi1c_1.png', 2, 'user2'),
-('Xiaomi Monitor 1C BHR4510GL', N'kích thước lớn, viền siêu mỏng, hình ảnh sắc nét 60 Hz, và trên hết là bảo vệ mắt bạn luôn an toàn, màn hình 23.8 inch Xiaomi Monitor 1C BHR4510gl là những gì cần thiết cho một dàn PC giải trí và làm việc với hiệu suất tối ưu.', 'Xiaomi', N'D:\ảnh\xiaomi1c_2.jpg', 2, 'user3'),
-('Xiaomi Monitor 1C BHR4510GL', N'kích thước lớn, viền siêu mỏng, hình ảnh sắc nét 60 Hz, và trên hết là bảo vệ mắt bạn luôn an toàn, màn hình 23.8 inch Xiaomi Monitor 1C BHR4510gl là những gì cần thiết cho một dàn PC giải trí và làm việc với hiệu suất tối ưu.', 'Xiaomi', N'D:\ảnh\xiaomi1c_3.jpg', 2, 'user4'),
-('Xiaomi Monitor 1C BHR4510GL', N'kích thước lớn, viền siêu mỏng, hình ảnh sắc nét 60 Hz, và trên hết là bảo vệ mắt bạn luôn an toàn, màn hình 23.8 inch Xiaomi Monitor 1C BHR4510gl là những gì cần thiết cho một dàn PC giải trí và làm việc với hiệu suất tối ưu.', 'Xiaomi', N'D:\ảnh\xiaomi1c_4.jpg', 2, 'user5');
+('Xiaomi Monitor 1C BHR4510GL', N'kích thước lớn, viền siêu mỏng, hình ảnh sắc nét 60 Hz, và trên hết là bảo vệ mắt bạn luôn an toàn, màn hình 23.8 inch Xiaomi Monitor 1C BHR4510gl là những gì cần thiết cho một dàn PC giải trí và làm việc với hiệu suất tối ưu.', 'Xiaomi', '.image/xiaomi1c_1.png', 10, 2, 'vanbao', 1),
+('Xiaomi Monitor 1C BHR4510GL', N'kích thước lớn, viền siêu mỏng, hình ảnh sắc nét 60 Hz, và trên hết là bảo vệ mắt bạn luôn an toàn, màn hình 23.8 inch Xiaomi Monitor 1C BHR4510gl là những gì cần thiết cho một dàn PC giải trí và làm việc với hiệu suất tối ưu.', 'Xiaomi', '.image/xiaomi1c_2.jpg', 10, 2, 'vancao', 1),
+('Xiaomi Monitor 1C BHR4510GL', N'kích thước lớn, viền siêu mỏng, hình ảnh sắc nét 60 Hz, và trên hết là bảo vệ mắt bạn luôn an toàn, màn hình 23.8 inch Xiaomi Monitor 1C BHR4510gl là những gì cần thiết cho một dàn PC giải trí và làm việc với hiệu suất tối ưu.', 'Xiaomi', '.image/xiaomi1c_3.jpg', 10, 2, 'vandat', 1),
+('Xiaomi Monitor 1C BHR4510GL', N'kích thước lớn, viền siêu mỏng, hình ảnh sắc nét 60 Hz, và trên hết là bảo vệ mắt bạn luôn an toàn, màn hình 23.8 inch Xiaomi Monitor 1C BHR4510gl là những gì cần thiết cho một dàn PC giải trí và làm việc với hiệu suất tối ưu.', 'Xiaomi', '.image/xiaomi1c_4.jpg', 10, 2, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('Xiaomi 27 inch RMMNT27NF', N'Một chiếc màn hình chất lượng, giúp bạn hứng thú hơn trong công việc, đã mắt hơn chơi game và khoẻ mạnh cho mắt.', 'Xiaomi', N'D:\ảnh\xiaomi27_1.png', 2, 'user2'),
-('Xiaomi 27 inch RMMNT27NF', N'Một chiếc màn hình chất lượng, giúp bạn hứng thú hơn trong công việc, đã mắt hơn chơi game và khoẻ mạnh cho mắt.', 'Xiaomi', N'D:\ảnh\xiaomi27_2.jpg', 2, 'user3'),
-('Xiaomi 27 inch RMMNT27NF', N'Một chiếc màn hình chất lượng, giúp bạn hứng thú hơn trong công việc, đã mắt hơn chơi game và khoẻ mạnh cho mắt.', 'Xiaomi', N'D:\ảnh\xiaomi27_3.jpg', 2, 'user4'),
-('Xiaomi 27 inch RMMNT27NF', N'Một chiếc màn hình chất lượng, giúp bạn hứng thú hơn trong công việc, đã mắt hơn chơi game và khoẻ mạnh cho mắt.', 'Xiaomi', N'D:\ảnh\xiaomi27_4.jpg', 2, 'user5');
+('Xiaomi 27 inch RMMNT27NF', N'Một chiếc màn hình chất lượng, giúp bạn hứng thú hơn trong công việc, đã mắt hơn chơi game và khoẻ mạnh cho mắt.', 'Xiaomi', '.image/xiaomi27_1.png', 10, 2, 'vanbao', 1),
+('Xiaomi 27 inch RMMNT27NF', N'Một chiếc màn hình chất lượng, giúp bạn hứng thú hơn trong công việc, đã mắt hơn chơi game và khoẻ mạnh cho mắt.', 'Xiaomi', '.image/xiaomi27_2.jpg', 10, 2, 'vancao', 1),
+('Xiaomi 27 inch RMMNT27NF', N'Một chiếc màn hình chất lượng, giúp bạn hứng thú hơn trong công việc, đã mắt hơn chơi game và khoẻ mạnh cho mắt.', 'Xiaomi', '.image/xiaomi27_3.jpg', 10, 2, 'vandat', 1),
+('Xiaomi 27 inch RMMNT27NF', N'Một chiếc màn hình chất lượng, giúp bạn hứng thú hơn trong công việc, đã mắt hơn chơi game và khoẻ mạnh cho mắt.', 'Xiaomi', '.image/xiaomi27_4.jpg', 10, 2, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('LG 24QP500 24 inch', N'Sự chọn lựa vô cùng thích hợp với các game thủ. Với chất lượng hiển thị vượt trội, loại màn hình máy tính này giúp mọi trải nghiệm chơi game đều trở nên mượt mà hơn. ', 'LG', N'D:\ảnh\LG24Q_1.jpg', 2, 'user2'),
-('LG 24QP500 24 inch', N'Sự chọn lựa vô cùng thích hợp với các game thủ. Với chất lượng hiển thị vượt trội, loại màn hình máy tính này giúp mọi trải nghiệm chơi game đều trở nên mượt mà hơn. ', 'LG', N'D:\ảnh\LG24Q_2.jpg', 2, 'user3'),
-('LG 24QP500 24 inch', N'Sự chọn lựa vô cùng thích hợp với các game thủ. Với chất lượng hiển thị vượt trội, loại màn hình máy tính này giúp mọi trải nghiệm chơi game đều trở nên mượt mà hơn. ', 'LG', N'D:\ảnh\LG24Q_3.jpg', 2, 'user4'),
-('LG 24QP500 24 inch', N'Sự chọn lựa vô cùng thích hợp với các game thủ. Với chất lượng hiển thị vượt trội, loại màn hình máy tính này giúp mọi trải nghiệm chơi game đều trở nên mượt mà hơn. ', 'LG', N'D:\ảnh\LG24Q_4.jpg', 2, 'user5');
+('LG 24QP500 24 inch', N'Sự chọn lựa vô cùng thích hợp với các game thủ. Với chất lượng hiển thị vượt trội, loại màn hình máy tính này giúp mọi trải nghiệm chơi game đều trở nên mượt mà hơn. ', 'LG', '.image/LG24Q_1.jpg', 10, 2, 'vanbao', 1),
+('LG 24QP500 24 inch', N'Sự chọn lựa vô cùng thích hợp với các game thủ. Với chất lượng hiển thị vượt trội, loại màn hình máy tính này giúp mọi trải nghiệm chơi game đều trở nên mượt mà hơn. ', 'LG', '.image/LG24Q_2.jpg', 10, 2, 'vancao', 1),
+('LG 24QP500 24 inch', N'Sự chọn lựa vô cùng thích hợp với các game thủ. Với chất lượng hiển thị vượt trội, loại màn hình máy tính này giúp mọi trải nghiệm chơi game đều trở nên mượt mà hơn. ', 'LG', '.image/LG24Q_3.jpg', 10, 2, 'vandat', 1),
+('LG 24QP500 24 inch', N'Sự chọn lựa vô cùng thích hợp với các game thủ. Với chất lượng hiển thị vượt trội, loại màn hình máy tính này giúp mọi trải nghiệm chơi game đều trở nên mượt mà hơn. ', 'LG', '.image/LG24Q_4.jpg', 10, 2, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('ASUS Gaming TUF FX506LHB-HN188W', N'Với những tựa game "bom tấn" gay cấn và hấp dẫn hiện nay, game thủ sẽ cần đến laptop ASUS TUF Gaming F15 FX506LHB-HN188W chứa đựng CPU Intel thế hệ 10 cùng đồ họa GeForce GTX để có được trải nghiệm gaming tối ưu ở thiết lập đồ họa cao.', 'ASUS', N'D:\ảnh\AsusTUF_1.png', 3, 'user2'),
-('ASUS Gaming TUF FX506LHB-HN188W', N'Với những tựa game "bom tấn" gay cấn và hấp dẫn hiện nay, game thủ sẽ cần đến laptop ASUS TUF Gaming F15 FX506LHB-HN188W chứa đựng CPU Intel thế hệ 10 cùng đồ họa GeForce GTX để có được trải nghiệm gaming tối ưu ở thiết lập đồ họa cao.', 'ASUS', N'D:\ảnh\AsusTUF_2.png', 3, 'user3'),
-('ASUS Gaming TUF FX506LHB-HN188W', N'Với những tựa game "bom tấn" gay cấn và hấp dẫn hiện nay, game thủ sẽ cần đến laptop ASUS TUF Gaming F15 FX506LHB-HN188W chứa đựng CPU Intel thế hệ 10 cùng đồ họa GeForce GTX để có được trải nghiệm gaming tối ưu ở thiết lập đồ họa cao.', 'ASUS', N'D:\ảnh\AsusTUF_3.png', 3, 'user4'),
-('ASUS Gaming TUF FX506LHB-HN188W', N'Với những tựa game "bom tấn" gay cấn và hấp dẫn hiện nay, game thủ sẽ cần đến laptop ASUS TUF Gaming F15 FX506LHB-HN188W chứa đựng CPU Intel thế hệ 10 cùng đồ họa GeForce GTX để có được trải nghiệm gaming tối ưu ở thiết lập đồ họa cao.', 'ASUS', N'D:\ảnh\AsusTUF_4.png', 3, 'user5');
+('ASUS Gaming TUF FX506LHB-HN188W', N'Với những tựa game "bom tấn" gay cấn và hấp dẫn hiện nay, game thủ sẽ cần đến laptop ASUS TUF Gaming F15 FX506LHB-HN188W chứa đựng CPU Intel thế hệ 10 cùng đồ họa GeForce GTX để có được trải nghiệm gaming tối ưu ở thiết lập đồ họa cao.', 'ASUS', '.image/AsusTUF_1.png', 10, 3, 'vanbao', 1),
+('ASUS Gaming TUF FX506LHB-HN188W', N'Với những tựa game "bom tấn" gay cấn và hấp dẫn hiện nay, game thủ sẽ cần đến laptop ASUS TUF Gaming F15 FX506LHB-HN188W chứa đựng CPU Intel thế hệ 10 cùng đồ họa GeForce GTX để có được trải nghiệm gaming tối ưu ở thiết lập đồ họa cao.', 'ASUS', '.image/AsusTUF_2.png', 10, 3, 'vancao', 1),
+('ASUS Gaming TUF FX506LHB-HN188W', N'Với những tựa game "bom tấn" gay cấn và hấp dẫn hiện nay, game thủ sẽ cần đến laptop ASUS TUF Gaming F15 FX506LHB-HN188W chứa đựng CPU Intel thế hệ 10 cùng đồ họa GeForce GTX để có được trải nghiệm gaming tối ưu ở thiết lập đồ họa cao.', 'ASUS', '.image/AsusTUF_3.png', 10, 3, 'vandat', 1),
+('ASUS Gaming TUF FX506LHB-HN188W', N'Với những tựa game "bom tấn" gay cấn và hấp dẫn hiện nay, game thủ sẽ cần đến laptop ASUS TUF Gaming F15 FX506LHB-HN188W chứa đựng CPU Intel thế hệ 10 cùng đồ họa GeForce GTX để có được trải nghiệm gaming tối ưu ở thiết lập đồ họa cao.', 'ASUS', '.image/AsusTUF_4.png', 10, 3, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('Acer Aspire 7 A715-42G-R4XX NH.QAYSV.008', N'Laptop gaming Acer Aspire 7 A715-42G-R4XX với hiệu năng mạnh mẽ cùng thiết kế phong cách, hứa hẹn mang lại cho người dùng trải nghiệm làm việc và gaming mượt mà.', 'Acer', N'D:\ảnh\AcerAspire7_1.png', 3, 'user2'),
-('Acer Aspire 7 A715-42G-R4XX NH.QAYSV.008', N'Laptop gaming Acer Aspire 7 A715-42G-R4XX với hiệu năng mạnh mẽ cùng thiết kế phong cách, hứa hẹn mang lại cho người dùng trải nghiệm làm việc và gaming mượt mà.', 'Acer', N'D:\ảnh\AcerAspire7_2.png', 3, 'user3'),
-('Acer Aspire 7 A715-42G-R4XX NH.QAYSV.008', N'Laptop gaming Acer Aspire 7 A715-42G-R4XX với hiệu năng mạnh mẽ cùng thiết kế phong cách, hứa hẹn mang lại cho người dùng trải nghiệm làm việc và gaming mượt mà.', 'Acer', N'D:\ảnh\AcerAspire7_3.png', 3, 'user4'),
-('Acer Aspire 7 A715-42G-R4XX NH.QAYSV.008', N'Laptop gaming Acer Aspire 7 A715-42G-R4XX với hiệu năng mạnh mẽ cùng thiết kế phong cách, hứa hẹn mang lại cho người dùng trải nghiệm làm việc và gaming mượt mà.', 'Acer', N'D:\ảnh\AcerAspire7_4.png', 3, 'user5');
+('Acer Aspire 7 A715-42G-R4XX NH.QAYSV.008', N'Laptop gaming Acer Aspire 7 A715-42G-R4XX với hiệu năng mạnh mẽ cùng thiết kế phong cách, hứa hẹn mang lại cho người dùng trải nghiệm làm việc và gaming mượt mà.', 'Acer', '.image/AcerAspire7_1.png', 10, 3, 'vanbao', 1),
+('Acer Aspire 7 A715-42G-R4XX NH.QAYSV.008', N'Laptop gaming Acer Aspire 7 A715-42G-R4XX với hiệu năng mạnh mẽ cùng thiết kế phong cách, hứa hẹn mang lại cho người dùng trải nghiệm làm việc và gaming mượt mà.', 'Acer', '.image/AcerAspire7_2.png', 10, 3, 'vancao', 1),
+('Acer Aspire 7 A715-42G-R4XX NH.QAYSV.008', N'Laptop gaming Acer Aspire 7 A715-42G-R4XX với hiệu năng mạnh mẽ cùng thiết kế phong cách, hứa hẹn mang lại cho người dùng trải nghiệm làm việc và gaming mượt mà.', 'Acer', '.image/AcerAspire7_3.png', 10, 3, 'vandat', 1),
+('Acer Aspire 7 A715-42G-R4XX NH.QAYSV.008', N'Laptop gaming Acer Aspire 7 A715-42G-R4XX với hiệu năng mạnh mẽ cùng thiết kế phong cách, hứa hẹn mang lại cho người dùng trải nghiệm làm việc và gaming mượt mà.', 'Acer', '.image/AcerAspire7_4.png', 10, 3, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('Huawei Watch GT3', N'Bên cạnh những dòng điện thoại thông minh thì Huawei lại tiếp tục cho ra mắt mẫu đồng hồ Huawei Watch GT3 46mm. Sản phẩm được kế thừa thiết kế dạng thể thao của các phiên bản trước, bên cạnh đó là mặt đồng hồ dạng tròn và khung viền kim loại sang trọng. Chắc chắn sẽ mang đến đẳng cấp cho người sử dụng.', 'Huawei', N'D:\ảnh\GT3_1.jpg', 4, 'user2'),
-('Huawei Watch GT3', N'Bên cạnh những dòng điện thoại thông minh thì Huawei lại tiếp tục cho ra mắt mẫu đồng hồ Huawei Watch GT3 46mm. Sản phẩm được kế thừa thiết kế dạng thể thao của các phiên bản trước, bên cạnh đó là mặt đồng hồ dạng tròn và khung viền kim loại sang trọng. Chắc chắn sẽ mang đến đẳng cấp cho người sử dụng.', 'Huawei', N'D:\ảnh\GT3_2.jpg', 4, 'user3'),
-('Huawei Watch GT3', N'Bên cạnh những dòng điện thoại thông minh thì Huawei lại tiếp tục cho ra mắt mẫu đồng hồ Huawei Watch GT3 46mm. Sản phẩm được kế thừa thiết kế dạng thể thao của các phiên bản trước, bên cạnh đó là mặt đồng hồ dạng tròn và khung viền kim loại sang trọng. Chắc chắn sẽ mang đến đẳng cấp cho người sử dụng.', 'Huawei', N'D:\ảnh\GT3_3.jpg', 4, 'user4'),
-('Huawei Watch GT3', N'Bên cạnh những dòng điện thoại thông minh thì Huawei lại tiếp tục cho ra mắt mẫu đồng hồ Huawei Watch GT3 46mm. Sản phẩm được kế thừa thiết kế dạng thể thao của các phiên bản trước, bên cạnh đó là mặt đồng hồ dạng tròn và khung viền kim loại sang trọng. Chắc chắn sẽ mang đến đẳng cấp cho người sử dụng.', 'Huawei', N'D:\ảnh\GT3_4.jpg', 4, 'user5');
+('Huawei Watch GT3', N'Bên cạnh những dòng điện thoại thông minh thì Huawei lại tiếp tục cho ra mắt mẫu đồng hồ Huawei Watch GT3 46mm. Sản phẩm được kế thừa thiết kế dạng thể thao của các phiên bản trước, bên cạnh đó là mặt đồng hồ dạng tròn và khung viền kim loại sang trọng. Chắc chắn sẽ mang đến đẳng cấp cho người sử dụng.', 'Huawei', '.image/GT3_1.jpg', 10, 4, 'vanbao', 1),
+('Huawei Watch GT3', N'Bên cạnh những dòng điện thoại thông minh thì Huawei lại tiếp tục cho ra mắt mẫu đồng hồ Huawei Watch GT3 46mm. Sản phẩm được kế thừa thiết kế dạng thể thao của các phiên bản trước, bên cạnh đó là mặt đồng hồ dạng tròn và khung viền kim loại sang trọng. Chắc chắn sẽ mang đến đẳng cấp cho người sử dụng.', 'Huawei', '.image/GT3_2.jpg', 10, 4, 'vancao', 1),
+('Huawei Watch GT3', N'Bên cạnh những dòng điện thoại thông minh thì Huawei lại tiếp tục cho ra mắt mẫu đồng hồ Huawei Watch GT3 46mm. Sản phẩm được kế thừa thiết kế dạng thể thao của các phiên bản trước, bên cạnh đó là mặt đồng hồ dạng tròn và khung viền kim loại sang trọng. Chắc chắn sẽ mang đến đẳng cấp cho người sử dụng.', 'Huawei', '.image/GT3_3.jpg', 10, 4, 'vandat', 1),
+('Huawei Watch GT3', N'Bên cạnh những dòng điện thoại thông minh thì Huawei lại tiếp tục cho ra mắt mẫu đồng hồ Huawei Watch GT3 46mm. Sản phẩm được kế thừa thiết kế dạng thể thao của các phiên bản trước, bên cạnh đó là mặt đồng hồ dạng tròn và khung viền kim loại sang trọng. Chắc chắn sẽ mang đến đẳng cấp cho người sử dụng.', 'Huawei', '.image/GT3_4.jpg', 10, 4, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('Samsung Galaxy Watch4 40mm LTE', N'Bạn kỳ vọng gì ở một chiếc đồng hồ thông minh Samsung. Một thiết kế nhỏ gọn, phù hợp cho vận động linh hoạt, kiểu dáng bền bỉ, thách thức mọi địa hình. Vâng, tất cả các đặc điểm trên sẽ có mặt ngay tại chiếc Samsung Galaxy Watch4 40mm LTE.', 'Samsung', N'D:\ảnh\LTE_1.jpg', 4, 'user2'),
-('Samsung Galaxy Watch4 40mm LTE', N'Bạn kỳ vọng gì ở một chiếc đồng hồ thông minh Samsung. Một thiết kế nhỏ gọn, phù hợp cho vận động linh hoạt, kiểu dáng bền bỉ, thách thức mọi địa hình. Vâng, tất cả các đặc điểm trên sẽ có mặt ngay tại chiếc Samsung Galaxy Watch4 40mm LTE.', 'Samsung', N'D:\ảnh\LTE_2.jpg', 4, 'user3'),
-('Samsung Galaxy Watch4 40mm LTE', N'Bạn kỳ vọng gì ở một chiếc đồng hồ thông minh Samsung. Một thiết kế nhỏ gọn, phù hợp cho vận động linh hoạt, kiểu dáng bền bỉ, thách thức mọi địa hình. Vâng, tất cả các đặc điểm trên sẽ có mặt ngay tại chiếc Samsung Galaxy Watch4 40mm LTE.', 'Samsung', N'D:\ảnh\LTE_3.jpg', 4, 'user4'),
-('Samsung Galaxy Watch4 40mm LTE', N'Bạn kỳ vọng gì ở một chiếc đồng hồ thông minh Samsung. Một thiết kế nhỏ gọn, phù hợp cho vận động linh hoạt, kiểu dáng bền bỉ, thách thức mọi địa hình. Vâng, tất cả các đặc điểm trên sẽ có mặt ngay tại chiếc Samsung Galaxy Watch4 40mm LTE.', 'Samsung', N'D:\ảnh\LTE_4.jpg', 4, 'user5');
+('Samsung Galaxy Watch4 40mm LTE', N'Bạn kỳ vọng gì ở một chiếc đồng hồ thông minh Samsung. Một thiết kế nhỏ gọn, phù hợp cho vận động linh hoạt, kiểu dáng bền bỉ, thách thức mọi địa hình. Vâng, tất cả các đặc điểm trên sẽ có mặt ngay tại chiếc Samsung Galaxy Watch4 40mm LTE.', 'Samsung', '.image/LTE_1.jpg', 10, 4, 'vanbao', 1),
+('Samsung Galaxy Watch4 40mm LTE', N'Bạn kỳ vọng gì ở một chiếc đồng hồ thông minh Samsung. Một thiết kế nhỏ gọn, phù hợp cho vận động linh hoạt, kiểu dáng bền bỉ, thách thức mọi địa hình. Vâng, tất cả các đặc điểm trên sẽ có mặt ngay tại chiếc Samsung Galaxy Watch4 40mm LTE.', 'Samsung', '.image/LTE_2.jpg', 10, 4, 'vancao', 1),
+('Samsung Galaxy Watch4 40mm LTE', N'Bạn kỳ vọng gì ở một chiếc đồng hồ thông minh Samsung. Một thiết kế nhỏ gọn, phù hợp cho vận động linh hoạt, kiểu dáng bền bỉ, thách thức mọi địa hình. Vâng, tất cả các đặc điểm trên sẽ có mặt ngay tại chiếc Samsung Galaxy Watch4 40mm LTE.', 'Samsung', '.image/LTE_3.jpg', 10, 4, 'vandat', 1),
+('Samsung Galaxy Watch4 40mm LTE', N'Bạn kỳ vọng gì ở một chiếc đồng hồ thông minh Samsung. Một thiết kế nhỏ gọn, phù hợp cho vận động linh hoạt, kiểu dáng bền bỉ, thách thức mọi địa hình. Vâng, tất cả các đặc điểm trên sẽ có mặt ngay tại chiếc Samsung Galaxy Watch4 40mm LTE.', 'Samsung', '.image/LTE_4.jpg', 10, 4, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('Loa bluetooth JBL Charge 5', N'Tiếp nối sự thành công của người tiền nhiệm, dòng loa huyền thoại loa JBL Charge 5 với sự thay đổi mạnh mẽ cả về thiết kế lẫn công nghệ âm thanh mang đến chất lượng âm thanh vượt trội dù là ngoài trời hay trong nhà. Là sản phẩm loa bluetooth đồng hành cùng bạn ở mọi cuộc vui.', 'JBL', N'D:\ảnh\charge5_1.jpg', 5, 'user2'),
-('Loa bluetooth JBL Charge 5', N'Tiếp nối sự thành công của người tiền nhiệm, dòng loa huyền thoại loa JBL Charge 5 với sự thay đổi mạnh mẽ cả về thiết kế lẫn công nghệ âm thanh mang đến chất lượng âm thanh vượt trội dù là ngoài trời hay trong nhà. Là sản phẩm loa bluetooth đồng hành cùng bạn ở mọi cuộc vui.', 'JBL', N'D:\ảnh\charge5_2.jpg', 5, 'user3'),
-('Loa bluetooth JBL Charge 5', N'Tiếp nối sự thành công của người tiền nhiệm, dòng loa huyền thoại loa JBL Charge 5 với sự thay đổi mạnh mẽ cả về thiết kế lẫn công nghệ âm thanh mang đến chất lượng âm thanh vượt trội dù là ngoài trời hay trong nhà. Là sản phẩm loa bluetooth đồng hành cùng bạn ở mọi cuộc vui.', 'JBL', N'D:\ảnh\charge5_3.jpg', 5, 'user4'),
-('Loa bluetooth JBL Charge 5', N'Tiếp nối sự thành công của người tiền nhiệm, dòng loa huyền thoại loa JBL Charge 5 với sự thay đổi mạnh mẽ cả về thiết kế lẫn công nghệ âm thanh mang đến chất lượng âm thanh vượt trội dù là ngoài trời hay trong nhà. Là sản phẩm loa bluetooth đồng hành cùng bạn ở mọi cuộc vui.', 'JBL', N'D:\ảnh\charge5_4.jpg', 5, 'user5');
+('Loa bluetooth JBL Charge 5', N'Tiếp nối sự thành công của người tiền nhiệm, dòng loa huyền thoại loa JBL Charge 5 với sự thay đổi mạnh mẽ cả về thiết kế lẫn công nghệ âm thanh mang đến chất lượng âm thanh vượt trội dù là ngoài trời hay trong nhà. Là sản phẩm loa bluetooth đồng hành cùng bạn ở mọi cuộc vui.', 'JBL', '.image/charge5_1.jpg', 10, 5, 'vanbao', 1),
+('Loa bluetooth JBL Charge 5', N'Tiếp nối sự thành công của người tiền nhiệm, dòng loa huyền thoại loa JBL Charge 5 với sự thay đổi mạnh mẽ cả về thiết kế lẫn công nghệ âm thanh mang đến chất lượng âm thanh vượt trội dù là ngoài trời hay trong nhà. Là sản phẩm loa bluetooth đồng hành cùng bạn ở mọi cuộc vui.', 'JBL', '.image/charge5_2.jpg', 10, 5, 'vancao', 1),
+('Loa bluetooth JBL Charge 5', N'Tiếp nối sự thành công của người tiền nhiệm, dòng loa huyền thoại loa JBL Charge 5 với sự thay đổi mạnh mẽ cả về thiết kế lẫn công nghệ âm thanh mang đến chất lượng âm thanh vượt trội dù là ngoài trời hay trong nhà. Là sản phẩm loa bluetooth đồng hành cùng bạn ở mọi cuộc vui.', 'JBL', '.image/charge5_3.jpg', 10, 5, 'vandat', 1),
+('Loa bluetooth JBL Charge 5', N'Tiếp nối sự thành công của người tiền nhiệm, dòng loa huyền thoại loa JBL Charge 5 với sự thay đổi mạnh mẽ cả về thiết kế lẫn công nghệ âm thanh mang đến chất lượng âm thanh vượt trội dù là ngoài trời hay trong nhà. Là sản phẩm loa bluetooth đồng hành cùng bạn ở mọi cuộc vui.', 'JBL', '.image/charge5_4.jpg', 10, 5, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('Tai nghe Bluetooth Apple AirPods Pro 2022', N'So với thế hệ Apple AirPods Pro 2021 Magsafe được ra mắt trước đó thì Apple Airpods Pro 2022 có nhiều nâng cấp.', 'Apple', N'D:\ảnh\airpods_1.png', 5, 'user2'),
-('Tai nghe Bluetooth Apple AirPods Pro 2022', N'So với thế hệ Apple AirPods Pro 2021 Magsafe được ra mắt trước đó thì Apple Airpods Pro 2022 có nhiều nâng cấp.', 'Apple', N'D:\ảnh\airpods_2.png', 5, 'user3'),
-('Tai nghe Bluetooth Apple AirPods Pro 2022', N'So với thế hệ Apple AirPods Pro 2021 Magsafe được ra mắt trước đó thì Apple Airpods Pro 2022 có nhiều nâng cấp.', 'Apple', N'D:\ảnh\airpods_3.png', 5, 'user4'),
-('Tai nghe Bluetooth Apple AirPods Pro 2022', N'So với thế hệ Apple AirPods Pro 2021 Magsafe được ra mắt trước đó thì Apple Airpods Pro 2022 có nhiều nâng cấp.', 'Apple', N'D:\ảnh\airpods_4.png', 5, 'user5');
+('Tai nghe Bluetooth Apple AirPods Pro 2022', N'So với thế hệ Apple AirPods Pro 2021 Magsafe được ra mắt trước đó thì Apple Airpods Pro 2022 có nhiều nâng cấp.', 'Apple', '.image/airpods_1.png', 10, 5, 'vanbao', 1),
+('Tai nghe Bluetooth Apple AirPods Pro 2022', N'So với thế hệ Apple AirPods Pro 2021 Magsafe được ra mắt trước đó thì Apple Airpods Pro 2022 có nhiều nâng cấp.', 'Apple', '.image/airpods_2.png', 10, 5, 'vancao', 1),
+('Tai nghe Bluetooth Apple AirPods Pro 2022', N'So với thế hệ Apple AirPods Pro 2021 Magsafe được ra mắt trước đó thì Apple Airpods Pro 2022 có nhiều nâng cấp.', 'Apple', '.image/airpods_3.png', 10, 5, 'vandat', 1),
+('Tai nghe Bluetooth Apple AirPods Pro 2022', N'So với thế hệ Apple AirPods Pro 2021 Magsafe được ra mắt trước đó thì Apple Airpods Pro 2022 có nhiều nâng cấp.', 'Apple', '.image/airpods_4.png', 10, 5, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('Canon EOS R (Body Only)', N'Canon EOS R là bước tiến hóa đầu tiên thuộc dòng Mirroless của Canon. EOS R kết hợp ngàm chuyển RF nhằm tái phát triển hệ thống Lens Full Frame cao cấp trước đây của dòng DSLR một cách độc đáo và tinh vi, đồng thời cũng thông qua ngàm chuyển này mà EOS R sẵn sàng trở  thành  phương tiện để tận dụng tối đa chuỗi ống kính và công nghệ quang học mới của những thế hệ sau.', 'Canon', N'D:\ảnh\canon-r-3_1.jpg', 6, 'user2'),
-('Canon EOS R (Body Only)', N'Canon EOS R là bước tiến hóa đầu tiên thuộc dòng Mirroless của Canon. EOS R kết hợp ngàm chuyển RF nhằm tái phát triển hệ thống Lens Full Frame cao cấp trước đây của dòng DSLR một cách độc đáo và tinh vi, đồng thời cũng thông qua ngàm chuyển này mà EOS R sẵn sàng trở  thành  phương tiện để tận dụng tối đa chuỗi ống kính và công nghệ quang học mới của những thế hệ sau.', 'Canon', N'D:\ảnh\canon-r-3_2.jpg', 6, 'user3'),
-('Canon EOS R (Body Only)', N'Canon EOS R là bước tiến hóa đầu tiên thuộc dòng Mirroless của Canon. EOS R kết hợp ngàm chuyển RF nhằm tái phát triển hệ thống Lens Full Frame cao cấp trước đây của dòng DSLR một cách độc đáo và tinh vi, đồng thời cũng thông qua ngàm chuyển này mà EOS R sẵn sàng trở  thành  phương tiện để tận dụng tối đa chuỗi ống kính và công nghệ quang học mới của những thế hệ sau.', 'Canon', N'D:\ảnh\canon-r-3_3.jpg', 6, 'user4'),
-('Canon EOS R (Body Only)', N'Canon EOS R là bước tiến hóa đầu tiên thuộc dòng Mirroless của Canon. EOS R kết hợp ngàm chuyển RF nhằm tái phát triển hệ thống Lens Full Frame cao cấp trước đây của dòng DSLR một cách độc đáo và tinh vi, đồng thời cũng thông qua ngàm chuyển này mà EOS R sẵn sàng trở  thành  phương tiện để tận dụng tối đa chuỗi ống kính và công nghệ quang học mới của những thế hệ sau.', 'Canon', N'D:\ảnh\canon-r-3_4.jpg', 6, 'user5');
+('Canon EOS R (Body Only)', N'Canon EOS R là bước tiến hóa đầu tiên thuộc dòng Mirroless của Canon. EOS R kết hợp ngàm chuyển RF nhằm tái phát triển hệ thống Lens Full Frame cao cấp trước đây của dòng DSLR một cách độc đáo và tinh vi, đồng thời cũng thông qua ngàm chuyển này mà EOS R sẵn sàng trở  thành  phương tiện để tận dụng tối đa chuỗi ống kính và công nghệ quang học mới của những thế hệ sau.', 'Canon', '.image/canon-r-3_1.jpg', 10, 6, 'vanbao', 1),
+('Canon EOS R (Body Only)', N'Canon EOS R là bước tiến hóa đầu tiên thuộc dòng Mirroless của Canon. EOS R kết hợp ngàm chuyển RF nhằm tái phát triển hệ thống Lens Full Frame cao cấp trước đây của dòng DSLR một cách độc đáo và tinh vi, đồng thời cũng thông qua ngàm chuyển này mà EOS R sẵn sàng trở  thành  phương tiện để tận dụng tối đa chuỗi ống kính và công nghệ quang học mới của những thế hệ sau.', 'Canon', '.image/canon-r-3_2.jpg', 10, 6, 'vancao', 1),
+('Canon EOS R (Body Only)', N'Canon EOS R là bước tiến hóa đầu tiên thuộc dòng Mirroless của Canon. EOS R kết hợp ngàm chuyển RF nhằm tái phát triển hệ thống Lens Full Frame cao cấp trước đây của dòng DSLR một cách độc đáo và tinh vi, đồng thời cũng thông qua ngàm chuyển này mà EOS R sẵn sàng trở  thành  phương tiện để tận dụng tối đa chuỗi ống kính và công nghệ quang học mới của những thế hệ sau.', 'Canon', '.image/canon-r-3_3.jpg', 10, 6, 'vandat', 1),
+('Canon EOS R (Body Only)', N'Canon EOS R là bước tiến hóa đầu tiên thuộc dòng Mirroless của Canon. EOS R kết hợp ngàm chuyển RF nhằm tái phát triển hệ thống Lens Full Frame cao cấp trước đây của dòng DSLR một cách độc đáo và tinh vi, đồng thời cũng thông qua ngàm chuyển này mà EOS R sẵn sàng trở  thành  phương tiện để tận dụng tối đa chuỗi ống kính và công nghệ quang học mới của những thế hệ sau.', 'Canon', '.image/canon-r-3_4.jpg', 10, 6, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('Nikon Z5', N'Nikon FullFrame Z5 được trang bị cảm biến CMOS định dạng FX Nikon toàn khung hình chiếu sáng mặt sau mới với điểm ảnh AF phát hiện pha mặt phẳng tiêu điểm tích hợp.', 'Nikon', N'D:\ảnh\nikonz5_1.jpg', 6, 'user2'),
-('Nikon Z5', N'Nikon FullFrame Z5 được trang bị cảm biến CMOS định dạng FX Nikon toàn khung hình chiếu sáng mặt sau mới với điểm ảnh AF phát hiện pha mặt phẳng tiêu điểm tích hợp.', 'Nikon', N'D:\ảnh\nikonz5_2.jpg', 6, 'user3'),
-('Nikon Z5', N'Nikon FullFrame Z5 được trang bị cảm biến CMOS định dạng FX Nikon toàn khung hình chiếu sáng mặt sau mới với điểm ảnh AF phát hiện pha mặt phẳng tiêu điểm tích hợp.', 'Nikon', N'D:\ảnh\nikonz5_3.jpg', 6, 'user4'),
-('Nikon Z5', N'Nikon FullFrame Z5 được trang bị cảm biến CMOS định dạng FX Nikon toàn khung hình chiếu sáng mặt sau mới với điểm ảnh AF phát hiện pha mặt phẳng tiêu điểm tích hợp.', 'Nikon', N'D:\ảnh\nikonz5_4.jpg', 6, 'user5');
+('Nikon Z5', N'Nikon FullFrame Z5 được trang bị cảm biến CMOS định dạng FX Nikon toàn khung hình chiếu sáng mặt sau mới với điểm ảnh AF phát hiện pha mặt phẳng tiêu điểm tích hợp.', 'Nikon', '.image/nikonz5_1.jpg', 10, 6, 'vanbao', 1),
+('Nikon Z5', N'Nikon FullFrame Z5 được trang bị cảm biến CMOS định dạng FX Nikon toàn khung hình chiếu sáng mặt sau mới với điểm ảnh AF phát hiện pha mặt phẳng tiêu điểm tích hợp.', 'Nikon', '.image/nikonz5_2.jpg', 10, 6, 'vancao', 1),
+('Nikon Z5', N'Nikon FullFrame Z5 được trang bị cảm biến CMOS định dạng FX Nikon toàn khung hình chiếu sáng mặt sau mới với điểm ảnh AF phát hiện pha mặt phẳng tiêu điểm tích hợp.', 'Nikon', '.image/nikonz5_3.jpg', 10, 6, 'vandat', 1),
+('Nikon Z5', N'Nikon FullFrame Z5 được trang bị cảm biến CMOS định dạng FX Nikon toàn khung hình chiếu sáng mặt sau mới với điểm ảnh AF phát hiện pha mặt phẳng tiêu điểm tích hợp.', 'Nikon', '.image/nikonz5_4.jpg', 10, 6, 'vanhoa', 1);
 INSERT INTO Product VALUES
-('Sony A7 Mark IV', N'Sony Alpha a7 Mark IV là một thiết bị toàn diện vượt trội, nâng cấp và tối ưu hóa hiệu suất Video và ảnh tĩnh mạnh mẽ. Là một máy ảnh Mirroless lai tiên tiến, a7 IV có độ phân giải và hiệu suất AF hấp dẫn các nhiếp ảnh gia cùng với khả năng quay Video 4K 60p mạnh mẽ cho các nhà làm phim chất lượng cao.', 'Sony', N'D:\ảnh\sonya7.jpg', 6, 'user2');
+('Sony A7 Mark IV', N'Sony Alpha a7 Mark IV là một thiết bị toàn diện vượt trội, nâng cấp và tối ưu hóa hiệu suất Video và ảnh tĩnh mạnh mẽ. Là một máy ảnh Mirroless lai tiên tiến, a7 IV có độ phân giải và hiệu suất AF hấp dẫn các nhiếp ảnh gia cùng với khả năng quay Video 4K 60p mạnh mẽ cho các nhà làm phim chất lượng cao.', 'Sony', '.image/sonya7.jpg', 10, 6, 'vanbao', 1);
 -- Thêm data vào bảng Tariff --
 INSERT INTO Tariff VALUES
 (0, 1000000, 0.05);
@@ -990,3 +1007,30 @@ INSERT INTO Tariff VALUES
 (1000001, 10000000, 0.02);
 INSERT INTO Tariff VALUES
 (10000000, null, 0.01);
+-- Thêm data vào bảng Auction --
+INSERT INTO Auction VALUES
+('vanan', 1, null, null, 0, 0, 0, null, 1),
+('vanan', 2, null, null, 0, 0, 0, null, 1),
+('vanan', 3, '2022-12-10 07:10:00', null, 0, 0, 0, null, 2),
+('vanan', 4, '2022-12-12 08:00:00', null, 0, 0, 0, null, 2),
+('vanan', 5, '2022-12-10 09:00:00', '2022-12-12 09:00:00', 12000000, 35000, 120000, 'vandat', 3),
+('vanan', 6, '2022-12-10 09:00:00', '2022-12-12 09:00:00', 15000000, 28000, 150000, 'vanhoa', 4);
+-- Thêm data vào bảng Auction_details --
+INSERT INTO Auction_details VALUES
+(5, 'vanhoa', 15000000, '2022-12-10 09:30:00'),
+(5, 'vancao', 13000000, '2022-12-11 09:30:00'),
+(5, 'vandat', 12000000, '2022-12-12 07:30:00');
+-- Thêm data vào bảng Order --
+INSERT INTO Orders VALUES
+(5, 1),
+(5, 2),
+(5, 3);
+-- Thêm data vào bảng Notification --
+INSERT INTO Notifications VALUES
+('vandat', 7, '2022-12-10 08:30:00', null, 1),
+('vandat', 7, '2022-12-11 09:30:00', 5, 1);
+-- Thêm data vào bảng Comment --
+INSERT INTO Comment VALUES
+(5, '2022-12-14 10:30:00', N'Sản phẩm tốt', null);
+
+
