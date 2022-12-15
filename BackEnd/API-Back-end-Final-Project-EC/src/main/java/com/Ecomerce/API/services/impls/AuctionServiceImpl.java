@@ -43,13 +43,9 @@ public class AuctionServiceImpl implements AuctionService{
 	}
 
 	@Override
-	public List<AuctionDto> findAuctionIsHappeningAndIsWaiting(int amount) {
-		List<AuctionDto> productsOnAuction = findAuctionWithStatusAuction(amount, 2);
-		List<AuctionDto> productsOnWaitingAuction = findAuctionWithStatusAuction(amount, 1);
-		List<AuctionDto> productIsSelling = new ArrayList<AuctionDto>();
-		productIsSelling.addAll(productsOnAuction);
-		productIsSelling.addAll(productsOnWaitingAuction);
+	public List<AuctionDto> findAuctionIsHappening(int amount) {
+		List<AuctionDto> productsOnAuction = findAuctionWithStatusAuction(amount, 2);	
 		
-		return productIsSelling;
+		return productsOnAuction;
 	}
 }

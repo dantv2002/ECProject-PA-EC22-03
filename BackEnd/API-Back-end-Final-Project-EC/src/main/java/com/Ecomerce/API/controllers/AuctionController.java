@@ -25,7 +25,7 @@ public class AuctionController {
 	/*>>>>>>>>>> API Find auction is during <<<<<<<<<<*/
 	@GetMapping(value = "/auctions/auctionings")
 	public ResponseEntity<ResponseObject> findAuctionIsHappeningAndIsWaiting(@RequestParam int amount) {
-		List<AuctionDto> auctionsDto = service.findAuctionIsHappeningAndIsWaiting(amount);
+		List<AuctionDto> auctionsDto = service.findAuctionIsHappening(amount);
 		
 		if(auctionsDto.isEmpty() || auctionsDto == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
