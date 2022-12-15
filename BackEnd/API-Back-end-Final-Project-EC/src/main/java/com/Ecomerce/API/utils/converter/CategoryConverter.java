@@ -16,6 +16,7 @@ public class CategoryConverter {
 		Category category = new Category();
 		category.setId(categoryDto.getId());
 		category.setName(categoryDto.getName());
+		category.setImageUrl(categoryDto.getImageUrl());
 
 		return category;
 	}
@@ -27,6 +28,7 @@ public class CategoryConverter {
 		CategoryDto categoryDto = new CategoryDto();
 		categoryDto.setId(category.getId());
 		categoryDto.setName(category.getName());
+		categoryDto.setImageUrl(category.getImageUrl());
 		
 		return categoryDto;
 	}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,6 +23,9 @@ public class Category implements Serializable {
 	private int id;
 	
 	private String name;
+	
+	@Column(name = "image_url")
+	private String imageUrl;
 	
 	@OneToMany (mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Product> products;
@@ -48,5 +52,13 @@ public class Category implements Serializable {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}	
 }
