@@ -152,6 +152,7 @@ CREATE TABLE Auction_details
 	seller varchar(20),
 	price int,
 	time_auction datetime,
+	comment nvarchar(50),
 	CONSTRAINT pk_Auction_details PRIMARY KEY (id)
 )
 GO

@@ -1011,15 +1011,21 @@ INSERT INTO Tariff VALUES
 INSERT INTO Auction VALUES
 ('vanan', 1, null, null, 0, 0, 0, null, 1),
 ('vanan', 2, null, null, 0, 0, 0, null, 1),
-('vanan', 3, '2022-12-10 07:10:00', null, 0, 0, 0, null, 2),
-('vanan', 4, '2022-12-12 08:00:00', null, 0, 0, 0, null, 2),
+('vanan', 3, '2022-12-10 07:10:00', null, 20000000, 0, 0, null, 2),
+('vanan', 4, '2022-12-12 08:00:00', null, 12000000, 0, 0, null, 2),
 ('vanan', 5, '2022-12-10 09:00:00', '2022-12-12 09:00:00', 12000000, 35000, 120000, 'vandat', 3),
 ('vanan', 6, '2022-12-10 09:00:00', '2022-12-12 09:00:00', 15000000, 28000, 150000, 'vanhoa', 4);
 -- Thêm data vào bảng Auction_details --
 INSERT INTO Auction_details VALUES
-(5, 'vanhoa', 15000000, '2022-12-10 09:30:00'),
-(5, 'vancao', 13000000, '2022-12-11 09:30:00'),
-(5, 'vandat', 12000000, '2022-12-12 07:30:00');
+(5, 'vanhoa', 15000000, '2022-12-10 09:30:00',N'Giá này chắc chắn sẽ ổn'),
+(5, 'vancao', 13000000, '2022-12-11 09:30:00',N'Thấp hơn đây rồi, sợ chưa'),
+(5, 'vandat', 12000000, '2022-12-12 07:30:00',N'Lần này chắc chắn sẽ lấy được mối này'),
+(4, 'vanhoa', 15000000, '2022-12-10 09:30:00',N'Giá này chắc chắn sẽ ổn'),
+(4, 'vancao', 13000000, '2022-12-11 09:30:00',N'Thấp hơn đây rồi, sợ chưa'),
+(4, 'vandat', 12000000, '2022-12-12 07:30:00',N'Lần này chắc chắn sẽ lấy được mối này'),
+(3, 'vanhoa', 20000000, '2022-12-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+
+
 -- Thêm data vào bảng Order --
 INSERT INTO Orders VALUES
 (5, 1),
