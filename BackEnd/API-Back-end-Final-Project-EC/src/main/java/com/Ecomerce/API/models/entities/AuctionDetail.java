@@ -34,6 +34,8 @@ public class AuctionDetail implements Serializable {
 	
 	@Column(name = "time_auction")
 	private Time timeAuction;
+	
+	private String comment;
 
 	public int getId() {
 		return id;
@@ -81,5 +83,13 @@ public class AuctionDetail implements Serializable {
 
 	public void setSeller(User seller) {
 		this.seller = seller;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }
