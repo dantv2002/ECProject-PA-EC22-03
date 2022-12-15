@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.ProductDto;
-import com.Ecomerce.API.models.dtos.SearchApiDto;
 import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.repositories.CategoryRepository;
 import com.Ecomerce.API.repositories.UserRepository;
