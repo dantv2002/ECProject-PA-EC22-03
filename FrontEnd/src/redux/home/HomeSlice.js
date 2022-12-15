@@ -1,15 +1,31 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import  axios  from 'axios';
-import { categoryUrl } from '../../util/constants/mainUrl';
+import { auctioningUrl, categoryUrl, productsUrl } from '../../util/constants/mainUrl';
 
 const initialState = {
    categoryList: [],
+   auctionList: [],
+   productList: [],
    loading: false
 };
 
 export const getcategory = createAsyncThunk('home/category',
     async () => {
         const res = await axios.get(categoryUrl())
+        return res.data.data
+    }
+)
+
+export const getAuctioning = createAsyncThunk('home/auctioning',
+    async () => {
+        const res = await axios.get(auctioningUrl(5))
+        return res.data.data
+    }
+)
+
+export const getProducts = createAsyncThunk('home/products',
+    async (productAmount) => {
+        const res = await axios.get(productsUrl(0,productAmount))
         return res.data.data
     }
 )
@@ -34,6 +50,50 @@ export const HomeSlice = createSlice({
         builder.addCase(getcategory.rejected, (state) => {
             state.loading = false
         })
+
+        ////////////////////////////////////////////////////////////
+        builder.addCase(getAuctioning.pending, (state,action) => {
+            state.loading = true
+        })
+
+        builder.addCase(getAuctioning.fulfilled, (state,action) => {
+            const newList = action.payload.map((product) => {
+                return {
+                    ...product,
+                    imageProduct: product.imageProduct.substring(1)
+                }
+            })
+            state.auctionList = newList
+            console.log(state.auctionList)
+            state.loading = false
+        })
+
+        builder.addCase(getAuctioning.rejected, (state) => {
+            state.loading = false
+        })
+        ////////////////////////////////////////////////////////////
+        builder.addCase(getProducts.pending, (state,action) => {
+            state.loading = true
+        })
+
+        builder.addCase(getProducts.fulfilled, (state,action) => {
+          
+            const newList = action.payload.map((product) => {
+                return {
+                    ...product,
+                    imageProduct: product.imageProduct.substring(1)
+                }
+            })
+            state.productList = newList
+
+
+            state.loading = false
+        })
+
+        builder.addCase(getProducts.rejected, (state) => {
+            state.loading = false
+        })
+
     }
 })
 
