@@ -2,12 +2,28 @@
     width: 85%;
     margin: auto;
     margin-top: 30px;
+    position: relative;
 
-
+    .loader{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $black-loading-bg;
+        z-index: 999999999999999999999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .category{
         margin-top: 30px;
         background-color: $color-gray-100;
         padding: 10px 20px;
+        position: relative;
+
+      
+    
 
         .category__header{
             color: $color-green-200;

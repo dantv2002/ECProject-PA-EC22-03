@@ -81,6 +81,7 @@ CREATE TABLE Category
 (
 	id int IDENTITY(1,1),
 	"name" nvarchar(50) NOT NULL,
+	imageUrl char(1000),
 	CONSTRAINT pk_Category PRIMARY KEY (id)
 )
 GO

@@ -1,0 +1,37 @@
+.admin-home-container{
+    .statistic-part{
+        .data-container{
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            align-items: flex-end;
+            padding-block: 15px;
+            padding-inline: 30px;
+            border-radius: 10px;
+
+            .data-icon{
+                position: absolute;
+                top:0px;
+                left: 30px;
+                font-size: 40px;
+                padding: 10px 10px;
+                background-color: blue;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                transform: translateY(-50%);
+            }
+
+            h3{
+                font-size: 18px;
+                font-weight: normal;
+            }
+            .data{
+                font-size: 22px;
+                font-weight: bold;
+            }
+        }
+    }
+}

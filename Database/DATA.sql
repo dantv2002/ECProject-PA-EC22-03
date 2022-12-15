@@ -913,12 +913,12 @@ INSERT INTO Chat VALUES ('vandat', 'vanan', N' khoảng 99%');
 INSERT INTO Address_Shipping VALUES ('vanan', 20,'0821234123', N'Phan Văn Trí', N'75/10 đường Hoàng Hoa Thám', 1);
 -- Thêm data vào bảng Category --
 INSERT INTO Category VALUES
-(N'Điện thoại'),
-(N'Màn hình máy tính'),
-(N'Laptop'),
-(N'Đồng hồ'),
-(N'Thiết bị âm thanh'),
-(N'Máy ảnh');
+(N'Điện thoại',N'https://dienthoaigiakho.vn/_next/image?url=https%3A%2F%2Fcdn.dienthoaigiakho.vn%2Fphotos%2F1662624089271-600x600-ip14p-go-3.jpg&w=640&q=75'),
+(N'Màn hình máy tính',N'https://fptshop.com.vn/Uploads/Originals/2022/9/30/638001362678544827_man-hinh-acer-ka242y-a-23-8-inch-den-dd.jpg'),
+(N'Laptop',N'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6503/6503892_sd.jpg;maxHeight=640;maxWidth=550'),
+(N'Đồng hồ',N'https://dienthoaigiakho.vn/_next/image?url=https%3A%2F%2Fcdn.dienthoaigiakho.vn%2Fphotos%2F1633597600591-aw7-gps-green-min.jpg&w=640&q=75'),
+(N'Thiết bị âm thanh',N'http://hdradio.vn/upload/hinhanh/loa-di-dong/jbl/boombox/loa-jbl-boombox-mau-xanh-reu-tai-hdradio-2ccc.jpg'),
+(N'Máy ảnh',N'https://kyma.vn/StoreData/images/Product/canon-eos-2000d-kit-efs-1855-f3556-is-ii.webp');
 -- Them data vao bang Status_order --
 INSERT INTO Status_order VALUES
 (N'Đã đóng gói'),
