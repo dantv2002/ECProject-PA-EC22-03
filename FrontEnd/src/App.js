@@ -19,6 +19,11 @@ import { AllProduct } from './pages/main/userstore/allproduct/AllProduct';
 import  OrderManage  from './components/ordermanage/OrderManage';
 import  AuctioningProduct  from './components/autioningProduct/AuctioningProduct';
 import { RealStore } from './pages/main/userstore/realStore/RealStore';
+import { AdminTemplate } from './templates/admin/AdminTemplate';
+import { HomePage } from './pages/admin/homepage/HomePage';
+import { Shipping } from './pages/admin/shipping/Shipping';
+import { ProductDirectory } from './pages/admin/productDirectory/ProductDirectory';
+import { UserManage } from './pages/admin/userManage/UserManage';
 
 function App() {
   return (
@@ -42,6 +47,12 @@ function App() {
             <Route path='userstore/auctioningproducts' element={<AuctioningProduct type="store"/>}/>
           </Route>
           <Route path='userstore/realstore' element={<RealStore type="owner"/>}/>
+        </Route>
+        <Route element={<AdminTemplate/>}>
+          <Route path='/admin/home' element={<HomePage/>}/>
+          <Route path='/admin/shipping' element={<Shipping/>}/>
+          <Route path='/admin/directory' element={<ProductDirectory/>}/>
+          <Route path='/admin/usermanage' element={<UserManage/>}/>
         </Route>
         <Route path='/proceed' element={<Proceed/>}/>
       </Routes>

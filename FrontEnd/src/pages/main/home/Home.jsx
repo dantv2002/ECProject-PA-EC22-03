@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col } from 'antd';
+import { Row, Col, Spin } from 'antd';
 import { HomeCarousel } from '../../../components/HomeCarousel/HomeCarousel';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -18,6 +18,8 @@ import {
   changeSearchProducer,
   changeSearchPrice,
 } from '../../../redux/filter/filterSlice'
+import { useEffect } from 'react';
+import { getcategory } from '../../../redux/home/HomeSlice';
 
 
 const settings = {
@@ -30,65 +32,38 @@ const settings = {
 
 
 export const Home = () => {
+  const {loading, categoryList} = useSelector(store => store.home)
   const dispatch = useDispatch()
+
+  const renderCategory = () => {
+    console.log(categoryList)
+    return categoryList.map((category) => (
+      <Col xl={4} className="category__body-item" key={category.id}>
+          <span className="icon">
+            
+            <PhoneOutlined />
+          </span>
+          <span className="title">{category.name}</span>
+      </Col>
+    ))
+  }
+
+  useEffect(() => {
+    dispatch(getcategory())
+  },[])
 
   return (
     <div className="home-container">
+  
       <HomeCarousel />
       <div className="category">
+      <div className="loader" style={{display: loading ? "flex" : "none"}}><Spin size="large" /></div> 
         <h1 className="category__header">
           Category
         </h1>
 
         <Row className="category__body" gutter={[16,16]}>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
-          <Col xl={4} className="category__body-item">
-            <span className="icon"><PhoneOutlined /></span>
-            <span className="title">Phone</span>
-          </Col>
+          {renderCategory()}
         </Row>
       </div>
       <div className="auctioning">

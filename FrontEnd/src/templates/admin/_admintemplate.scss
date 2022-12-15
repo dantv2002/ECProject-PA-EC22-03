@@ -1,0 +1,68 @@
+.admin-template-container{
+
+
+    section{
+        min-height: 100vh;
+    }
+
+    .logo{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        h1{
+            color: white;
+            border-bottom: 0;
+            font-size: 30px;
+        }
+    }
+
+    .ant-menu-item{
+        &.ant-menu-item-selected{
+            background-color: $color-green-100 !important;
+        }
+    }
+
+    .tab-label{
+        background-color: $color-green-100 !important;
+        padding: 25px;
+        color: white;
+        width: 96%;
+
+        margin: auto;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        font-size: 20px;
+    }
+
+    .admin-button{
+        margin-bottom:10px;
+        border:0;
+        background:$color-green-100;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px; 
+        cursor: pointer;
+        transition: all .2s ease;
+
+        &:hover{
+            background-color: $color-green-300;
+        }
+    }
+
+    .userManagae-container{
+        background-color: white;
+        padding-top: 50px;
+        position: relative;
+        border-radius: 5px;
+        margin-top: 30px;
+
+        .tab-label{
+            position: absolute;
+            top: 0%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 99;
+        }
+    }
+}
