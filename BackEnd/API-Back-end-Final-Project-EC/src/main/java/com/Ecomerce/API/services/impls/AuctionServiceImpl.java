@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.AuctionDto;
@@ -12,7 +11,6 @@ import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.StatusAuction;
 import com.Ecomerce.API.repositories.AuctionRepository;
 import com.Ecomerce.API.repositories.StatusAuctionRepository;
-import com.Ecomerce.API.repositories.UserRepository;
 import com.Ecomerce.API.services.AuctionService;
 import com.Ecomerce.API.utils.converter.AuctionConverter;
 

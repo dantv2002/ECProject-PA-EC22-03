@@ -1,6 +1,7 @@
 package com.Ecomerce.API.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecomerce.API.exceptions.ResourceNotFoundException;
 import com.Ecomerce.API.models.dtos.ProductDto;
-import com.Ecomerce.API.models.dtos.SearchApiDto;
 import com.Ecomerce.API.models.objects.ResponseObject;
 import com.Ecomerce.API.services.ProductService;
 
@@ -32,7 +32,7 @@ public class ProductController {
 	/*>>>>>>>>>> API Search Product by input value<<<<<<<<<<*/
 	@GetMapping("/products/search")
 	public ResponseEntity<ResponseObject> searchProduct(@RequestParam String keyValue) throws ResourceNotFoundException {
-		List<SearchApiDto> searchProducts = service.searchProduct(keyValue);
+		Map<String, List<?>> searchProducts = service.searchProduct(keyValue);
 		
 		if (searchProducts.isEmpty() || searchProducts == null) {
 			throw new ResourceNotFoundException("Thất bại", "Không tìm thấy sản phẩm được yêu cầu", "");
