@@ -1,9 +1,8 @@
 package com.Ecomerce.API.models.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.sql.Time;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,12 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Order_status")
-public class OrderStatus implements Serializable {
+@Table(name = "Notifications")
+public class Notification implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,15 +22,20 @@ public class OrderStatus implements Serializable {
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "account_name")
+	private User user;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_product")
+	private Product product;
+	
+	private Time time;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "auction_id")
 	private Auction auction;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "status_id")
-	private Status status;
-	
-	@OneToMany(mappedBy = "orderStatus", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<Comment> comments;
+	private boolean status;
 
 	public int getId() {
 		return id;
@@ -40,6 +43,30 @@ public class OrderStatus implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public Time getTime() {
+		return time;
+	}
+
+	public void setTime(Time time) {
+		this.time = time;
 	}
 
 	public Auction getAuction() {
@@ -50,19 +77,11 @@ public class OrderStatus implements Serializable {
 		this.auction = auction;
 	}
 
-	public Status getStatus() {
+	public boolean isStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(boolean status) {
 		this.status = status;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
 	}
 }

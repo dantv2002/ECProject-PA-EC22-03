@@ -6,22 +6,15 @@ public class UserDto {
 	
 	private String accountName;
 	private String pass;
-	private String firstName;
-	private String lastName;
-	private Date birthDay;
-	private String email;
+	private String imageUser;
 	private boolean statusUser;
 	
 	public UserDto () {}
 	
-	public UserDto (String accountName, String pass, String firstName, String lastName, 
-			Date birthDay, String email, boolean statusUser) {
+	public UserDto (String accountName, String pass, String imageUser, boolean statusUser) {
 		this.accountName = accountName;
 		this.pass = pass;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthDay = birthDay;
-		this.email = email;
+		this.imageUser = imageUser;
 		this.statusUser = statusUser;
 	}
 
@@ -41,36 +34,12 @@ public class UserDto {
 		this.pass = pass;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getImageUser() {
+		return imageUser;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Date getBirthDay() {
-		return birthDay;
-	}
-
-	public void setBirthDay(Date birthDay) {
-		this.birthDay = birthDay;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setImageUser(String imageUser) {
+		this.imageUser = imageUser;
 	}
 
 	public boolean isStatusUser() {

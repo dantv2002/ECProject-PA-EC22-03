@@ -13,8 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "User_details")
-public class UserDetail implements Serializable {
+@Table(name = "Address_Shipping")
+public class AddressShipping implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,8 +32,13 @@ public class UserDetail implements Serializable {
 	
 	private String phone;
 	
+	@Column(name = "full_name")
+	private String fullName;
+	
 	@Column(name = "address_details")
 	private String addressDetails;
+	
+	private boolean status;
 
 	public int getId() {
 		return id;
@@ -66,11 +72,27 @@ public class UserDetail implements Serializable {
 		this.phone = phone;
 	}
 
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
 	public String getAddressDetails() {
 		return addressDetails;
 	}
 
 	public void setAddressDetails(String addressDetails) {
 		this.addressDetails = addressDetails;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 }

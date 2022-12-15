@@ -31,7 +31,10 @@ public class Ward implements Serializable {
 	private District district;
 	
 	@OneToMany(mappedBy = "ward", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<UserDetail> userDetails;
+	private List<AddressShipping> addressShippings;
+	
+	@OneToMany(mappedBy = "ward", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<InforUser> inforUsers;
 
 	public int getId() {
 		return id;
@@ -65,11 +68,19 @@ public class Ward implements Serializable {
 		this.district = district;
 	}
 
-	public List<UserDetail> getUserDetails() {
-		return userDetails;
+	public List<AddressShipping> getAddressShippings() {
+		return addressShippings;
 	}
 
-	public void setUserDetails(List<UserDetail> userDetails) {
-		this.userDetails = userDetails;
+	public void setAddressShippings(List<AddressShipping> addressShippings) {
+		this.addressShippings = addressShippings;
+	}
+
+	public List<InforUser> getInforUsers() {
+		return inforUsers;
+	}
+
+	public void setInforUsers(List<InforUser> inforUsers) {
+		this.inforUsers = inforUsers;
 	}
 }

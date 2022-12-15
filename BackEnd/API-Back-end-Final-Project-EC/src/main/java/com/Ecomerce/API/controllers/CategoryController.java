@@ -30,21 +30,6 @@ public class CategoryController {
 	private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 	
 	
-	/*>>>>>>>>>> CRUD Method <<<<<<<<<<*/
-	@GetMapping(value = "/categories/{id}")
-	public ResponseEntity<ResponseObject> findById(@PathVariable int id) throws ResourceNotFoundException {
-		logger.info("FIND CATEGORY BY ID IS STARTING !");
-		CategoryDto categoryDto = service.findById(id);	
-		if (categoryDto == null) {
-			logger.info("NOT FOUND CATEGORY !");
-			throw new ResourceNotFoundException("Thất bại", "Không tìm thấy loại sản phẩm", "");
-		}
-		logger.info("FIND CATEGORY BY ID SUCCESSFULLY !");
-		return ResponseEntity.status(HttpStatus.OK).body(
-				new ResponseObject("Thành công", "Tìm kiếm sản phẩm theo Id thành công", categoryDto));
-	}		
-	
-	
 	/*>>>>>>>>>> API Find manufacturer by category's name <<<<<<<<<<*/
 	@GetMapping(value = "/categories/manufacturers")
 	public ResponseEntity<ResponseObject> findManufacturerByCategoryName(@RequestParam String name) 

@@ -13,8 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Statusss")
-public class Status implements Serializable {
+@Table(name = "Status_auction")
+public class StatusAuction implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,8 +23,8 @@ public class Status implements Serializable {
 	
 	private String status;
 	
-	@OneToMany(mappedBy = "status", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	List<OrderStatus> listOrderStatus;
+	@OneToMany(mappedBy = "statusAuction", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Auction> auctions;
 
 	public int getId() {
 		return id;
@@ -42,11 +42,11 @@ public class Status implements Serializable {
 		this.status = status;
 	}
 
-	public List<OrderStatus> getListOrderStatus() {
-		return listOrderStatus;
+	public List<Auction> getAuctions() {
+		return auctions;
 	}
 
-	public void setListOrderStatus(List<OrderStatus> listOrderStatus) {
-		this.listOrderStatus = listOrderStatus;
+	public void setAuctions(List<Auction> auctions) {
+		this.auctions = auctions;
 	}
 }

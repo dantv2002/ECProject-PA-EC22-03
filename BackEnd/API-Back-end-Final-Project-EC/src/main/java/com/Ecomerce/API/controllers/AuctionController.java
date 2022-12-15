@@ -22,29 +22,16 @@ public class AuctionController {
 	@Autowired
 	AuctionService service;
 	
-	@GetMapping(value = "/auctions")
-	public ResponseEntity<ResponseObject> findAll() {
-		List<AuctionDto> auctionsDto = service.findAll();
-		
-		if(auctionsDto.isEmpty() || auctionsDto == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-					new ResponseObject("Thất bại", "Không có phiên đấu giá nào tồn tại", ""));
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(
-				new ResponseObject("Hoàn thành", "Lấy tất cả sản phẩm thành công", auctionsDto));
-	}
-	
-	
 	/*>>>>>>>>>> API Find auction is during <<<<<<<<<<*/
-	@GetMapping(value = "/auctions/auctionings")
-	public ResponseEntity<ResponseObject> findAuctioning(@RequestParam int amount) {
-		List<AuctionDto> auctionsDto = service.findByAmount(amount);
-		
-		if(auctionsDto.isEmpty() || auctionsDto == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-					new ResponseObject("Thất bại", "Không có phiên đấu giá nào tồn tại", ""));
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(
-				new ResponseObject("Hoàn thành", "Lấy các phiên đấu giá thành công", auctionsDto));
-	}
+//	@GetMapping(value = "/auctions/auctionings")
+//	public ResponseEntity<ResponseObject> findAuctioning(@RequestParam int amount) {
+//		List<AuctionDto> auctionsDto = service.findByAmount(amount);
+//		
+//		if(auctionsDto.isEmpty() || auctionsDto == null) {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+//					new ResponseObject("Thất bại", "Không có phiên đấu giá nào tồn tại", ""));
+//		}
+//		return ResponseEntity.status(HttpStatus.OK).body(
+//				new ResponseObject("Hoàn thành", "Lấy các phiên đấu giá thành công", auctionsDto));
+//	}
 }

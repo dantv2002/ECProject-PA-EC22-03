@@ -4,28 +4,30 @@ import java.sql.Time;
 
 public class AuctionDto {
 	private int id;
-	private int waitingAuctionId;
+	private String buyer;
+	private int productId;
 	private Time timeStart;
 	private Time timeEnd;
 	private int priceTransaction;
 	private int priceShipping;
 	private int commission;
 	private String sellerEnd;
-	private String status;
+	private int statusAuction;
 	
 	public AuctionDto() {}
 	
-	public AuctionDto(int id, int waitingAuctionId, Time timeStart, Time timeEnd,
-			int priceTransaction, int priceShipping, int commission, String sellerEnd, String status) {
+	public AuctionDto(int id, String buyer, int productId, Time timeStart, Time timeEnd,
+			int priceTransaction, int priceShipping, int commission, String sellerEnd, int statusAuction) {
 		this.id = id;
-		this.waitingAuctionId = waitingAuctionId;
+		this.buyer = buyer;
+		this.productId = productId;
 		this.timeStart = timeStart;
 		this.timeEnd = timeEnd;
 		this.priceTransaction = priceTransaction;
 		this.priceShipping = priceShipping;
 		this.commission = commission;
 		this.sellerEnd = sellerEnd;
-		this.status = status;
+		this.statusAuction= statusAuction;
 	}
 
 	public int getId() {
@@ -36,12 +38,20 @@ public class AuctionDto {
 		this.id = id;
 	}
 
-	public int getWaitingAuctionId() {
-		return waitingAuctionId;
+	public String getBuyer() {
+		return buyer;
 	}
 
-	public void setWaitingAuctionId(int waitingAuctionId) {
-		this.waitingAuctionId = waitingAuctionId;
+	public void setBuyer(String buyer) {
+		this.buyer = buyer;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public Time getTimeStart() {
@@ -92,11 +102,11 @@ public class AuctionDto {
 		this.sellerEnd = sellerEnd;
 	}
 
-	public String getStatus() {
-		return status;
+	public int getStatusAuction() {
+		return statusAuction;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusAuction(int statusAuction) {
+		this.statusAuction = statusAuction;
 	}
 }

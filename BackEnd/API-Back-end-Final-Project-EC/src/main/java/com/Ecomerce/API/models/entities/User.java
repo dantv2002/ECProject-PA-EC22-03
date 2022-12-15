@@ -1,7 +1,6 @@
 package com.Ecomerce.API.models.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,9 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table (name = "Users")
@@ -22,38 +20,29 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column (name = "account_name")
 	private String accountName;
 	
 	private String pass;
 	
-	@Column (name = "first_name")
-	private String firstName;
+	@Column(name = "image_user")
+	private String imageUser;
 	
-	@Column (name = "last_name")
-	private String lastName;
-	
-	@Column (name = "birthday")
-	@Temporal (TemporalType.DATE)
-	private Date birthDay;
-	
-	private String email;
-	
-	@Column (name = "status_user")
+	@Column(name = "status_user")
 	private boolean statusUser;
 	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Product> products;
+	
 	@OneToMany(mappedBy = "buyer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<WaitingAuction> waitingAuctions;
+	private List<Auction> auctionsBuyer;
 	
 	@OneToMany(mappedBy = "sellerEnd", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<Auction> auctions;
-
-	@OneToMany(mappedBy = "seller", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<AuctionDetail> auctionDetails;
+	private List<Auction> auctionsSellerEnd;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<UserDetail> userDetails;
+	private List<Notification> notifications;
 	
 	@OneToMany(mappedBy = "sender", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Chat> listChatSender;
@@ -61,7 +50,15 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Chat> listChatReceiver;
 	
-	// Getter and Setter method
+	@OneToMany(mappedBy = "seller", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<AuctionDetail> auctionDetails;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<AddressShipping> addressShippings;
+	
+	@OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private InforUser inforUser;
+
 	public String getAccountName() {
 		return accountName;
 	}
@@ -78,36 +75,12 @@ public class User implements Serializable {
 		this.pass = pass;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getImageUser() {
+		return imageUser;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Date getBirthDay() {
-		return birthDay;
-	}
-
-	public void setBirthDay(Date birthDay) {
-		this.birthDay = birthDay;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setImageUser(String imageUser) {
+		this.imageUser = imageUser;
 	}
 
 	public boolean isStatusUser() {
@@ -118,36 +91,36 @@ public class User implements Serializable {
 		this.statusUser = statusUser;
 	}
 
-	public List<WaitingAuction> getWaitingAuctions() {
-		return waitingAuctions;
+	public List<Product> getProducts() {
+		return products;
 	}
 
-	public void setWaitingAuctions(List<WaitingAuction> waitingAuctions) {
-		this.waitingAuctions = waitingAuctions;
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
-	public List<Auction> getAuctions() {
-		return auctions;
+	public List<Auction> getAuctionsBuyer() {
+		return auctionsBuyer;
 	}
 
-	public void setAuctions(List<Auction> auctions) {
-		this.auctions = auctions;
+	public void setAuctionsBuyer(List<Auction> auctionsBuyer) {
+		this.auctionsBuyer = auctionsBuyer;
 	}
 
-	public List<AuctionDetail> getAuctionDetails() {
-		return auctionDetails;
+	public List<Auction> getAuctionsSellerEnd() {
+		return auctionsSellerEnd;
 	}
 
-	public void setAuctionDetails(List<AuctionDetail> auctionDetails) {
-		this.auctionDetails = auctionDetails;
+	public void setAuctionsSellerEnd(List<Auction> auctionsSellerEnd) {
+		this.auctionsSellerEnd = auctionsSellerEnd;
 	}
 
-	public List<UserDetail> getUserDetails() {
-		return userDetails;
+	public List<Notification> getNotifications() {
+		return notifications;
 	}
 
-	public void setUserDetails(List<UserDetail> userDetails) {
-		this.userDetails = userDetails;
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
 	}
 
 	public List<Chat> getListChatSender() {
@@ -164,5 +137,29 @@ public class User implements Serializable {
 
 	public void setListChatReceiver(List<Chat> listChatReceiver) {
 		this.listChatReceiver = listChatReceiver;
+	}
+
+	public List<AuctionDetail> getAuctionDetails() {
+		return auctionDetails;
+	}
+
+	public void setAuctionDetails(List<AuctionDetail> auctionDetails) {
+		this.auctionDetails = auctionDetails;
+	}
+
+	public List<AddressShipping> getAddressShippings() {
+		return addressShippings;
+	}
+
+	public void setAddressShippings(List<AddressShipping> addressShippings) {
+		this.addressShippings = addressShippings;
+	}
+
+	public InforUser getInforUser() {
+		return inforUser;
+	}
+
+	public void setInforUser(InforUser inforUser) {
+		this.inforUser = inforUser;
 	}
 }

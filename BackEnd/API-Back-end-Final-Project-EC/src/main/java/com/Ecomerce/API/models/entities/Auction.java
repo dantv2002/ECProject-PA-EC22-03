@@ -26,8 +26,12 @@ public class Auction implements Serializable {
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "waiting_auction_id")
-	private WaitingAuction waitingAuction;
+	@JoinColumn(name = "buyer")
+	private User buyer;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_product")
+	private Product product;
 	
 	@Column(name = "time_start")
 	private Time timeStart;
@@ -47,13 +51,21 @@ public class Auction implements Serializable {
 	@JoinColumn(name = "seller_end")
 	private User sellerEnd;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "status")
+	private StatusAuction statusAuction;
+	
+	@OneToMany(mappedBy = "auction", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Notification> notifications;
+	
+	@OneToMany(mappedBy = "auction", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Order> orders;
+	
+	@OneToMany(mappedBy = "auction", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Comment> comments;
+	
 	@OneToMany(mappedBy = "auction", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<AuctionDetail> auctionDetails;
-	
-	@OneToMany(mappedBy = "auction", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<OrderStatus> listOrderStatus;
-	
-	private String status;
 
 	public int getId() {
 		return id;
@@ -63,12 +75,20 @@ public class Auction implements Serializable {
 		this.id = id;
 	}
 
-	public WaitingAuction getWaitingAuction() {
-		return waitingAuction;
+	public User getBuyer() {
+		return buyer;
 	}
 
-	public void setWaitingAuction(WaitingAuction waitingAuction) {
-		this.waitingAuction = waitingAuction;
+	public void setBuyer(User buyer) {
+		this.buyer = buyer;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public Time getTimeStart() {
@@ -119,12 +139,36 @@ public class Auction implements Serializable {
 		this.sellerEnd = sellerEnd;
 	}
 
-	public String getStatus() {
-		return status;
+	public StatusAuction getStatusAuction() {
+		return statusAuction;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusAuction(StatusAuction statusAuction) {
+		this.statusAuction = statusAuction;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	public List<AuctionDetail> getAuctionDetails() {
@@ -133,13 +177,5 @@ public class Auction implements Serializable {
 
 	public void setAuctionDetails(List<AuctionDetail> auctionDetails) {
 		this.auctionDetails = auctionDetails;
-	}
-
-	public List<OrderStatus> getListOrderStatus() {
-		return listOrderStatus;
-	}
-
-	public void setListOrderStatus(List<OrderStatus> listOrderStatus) {
-		this.listOrderStatus = listOrderStatus;
 	}
 }

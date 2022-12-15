@@ -32,15 +32,23 @@ public class Product implements Serializable {
 	@Column (name = "image_product")
 	private String imageProduct;
 	
+	private int amount;
+	
 	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "category_id")
 	private Category category;
 	
-	@Column (name = "account_name")
-	private String accountName;
+	@ManyToOne (fetch = FetchType.EAGER)
+	@JoinColumn (name = "account_name")
+	private User user;
+	
+	private boolean status;
 	
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<WaitingAuction> waitingAuctions;
+	private List<Auction> auctions;
+	
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Notification> notifications;
 
 	public int getId() {
 		return id;
@@ -82,6 +90,14 @@ public class Product implements Serializable {
 		this.imageProduct = imageProduct;
 	}
 
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
 	public Category getCategory() {
 		return category;
 	}
@@ -90,19 +106,35 @@ public class Product implements Serializable {
 		this.category = category;
 	}
 
-	public String getAccountName() {
-		return accountName;
+	public User getUser() {
+		return user;
 	}
 
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public List<WaitingAuction> getWaitingAuctions() {
-		return waitingAuctions;
+	public boolean isStatus() {
+		return status;
 	}
 
-	public void setWaitingAuctions(List<WaitingAuction> waitingAuctions) {
-		this.waitingAuctions = waitingAuctions;
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public List<Auction> getAuctions() {
+		return auctions;
+	}
+
+	public void setAuctions(List<Auction> auctions) {
+		this.auctions = auctions;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
 	}
 }

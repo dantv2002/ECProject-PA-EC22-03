@@ -19,16 +19,5 @@ public class UserController {
 	@Autowired
 	UserService service;
 	
-	@GetMapping (value = "/users")
-	public ResponseEntity<ResponseObject> findAll() {
-		List<UserDto> usersDto = service.findAll();
-		
-		if (usersDto.isEmpty() || usersDto == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-					new ResponseObject("Thất bại", "Không thể lấy tất cả thông tin người dùng", ""));
-		}
-		
-		return ResponseEntity.status(HttpStatus.OK).body(
-				new ResponseObject("Hoàn thành", "Lấy tất cả thông tin người dùng thành công", usersDto));
-	}
+	
 }

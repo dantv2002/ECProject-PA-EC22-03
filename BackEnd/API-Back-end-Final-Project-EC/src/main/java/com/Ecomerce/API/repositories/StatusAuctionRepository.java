@@ -3,9 +3,9 @@ package com.Ecomerce.API.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.Ecomerce.API.models.entities.WaitingAuction;
+import com.Ecomerce.API.models.entities.StatusAuction;
 
 @Repository
-public interface WaitingAuctionRepository extends JpaRepository<WaitingAuction, Integer> {
-	
+public interface StatusAuctionRepository extends JpaRepository<StatusAuction, Integer>{
+
 }

@@ -23,8 +23,8 @@ public class Comment implements Serializable{
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "order_id")
-	private OrderStatus orderStatus;
+	@JoinColumn(name = "auction_id")
+	private Auction auction;
 	
 	@Column(name = "comment_time")
 	private Time commentTime;
@@ -42,12 +42,12 @@ public class Comment implements Serializable{
 		this.id = id;
 	}
 
-	public OrderStatus getOrderStatus() {
-		return orderStatus;
+	public Auction getAuction() {
+		return auction;
 	}
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setAuction(Auction auction) {
+		this.auction = auction;
 	}
 
 	public Time getCommentTime() {

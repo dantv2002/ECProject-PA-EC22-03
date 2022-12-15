@@ -6,11 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.Ecomerce.API.models.entities.Auction;
+import com.Ecomerce.API.models.entities.StatusAuction;
 
 public interface AuctionRepository extends JpaRepository<Auction, Integer> {
-
-	List<Auction> findByStatusLike(String string);
-
-	List<Auction> findByStatusLike(String string, PageRequest pagerq);
-
+	List<Auction> findByStatusAuction(StatusAuction status);
 }
