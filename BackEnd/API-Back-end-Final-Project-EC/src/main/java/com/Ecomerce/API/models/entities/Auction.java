@@ -1,7 +1,9 @@
 package com.Ecomerce.API.models.entities;
 
 import java.io.Serializable;
-import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Auction")
@@ -34,10 +38,10 @@ public class Auction implements Serializable {
 	private Product product;
 	
 	@Column(name = "time_start")
-	private Time timeStart;
+	private Timestamp timeStart;
 	
 	@Column(name = "time_end")
-	private Time timeEnd;
+	private Timestamp timeEnd;
 	
 	@Column(name = "price_transaction")
 	private int priceTransaction;
@@ -91,19 +95,19 @@ public class Auction implements Serializable {
 		this.product = product;
 	}
 
-	public Time getTimeStart() {
+	public Timestamp getTimeStart() {
 		return timeStart;
 	}
 
-	public void setTimeStart(Time timeStart) {
+	public void setTimeStart(Timestamp timeStart) {
 		this.timeStart = timeStart;
 	}
 
-	public Time getTimeEnd() {
+	public Timestamp getTimeEnd() {
 		return timeEnd;
 	}
 
-	public void setTimeEnd(Time timeEnd) {
+	public void setTimeEnd(Timestamp timeEnd) {
 		this.timeEnd = timeEnd;
 	}
 

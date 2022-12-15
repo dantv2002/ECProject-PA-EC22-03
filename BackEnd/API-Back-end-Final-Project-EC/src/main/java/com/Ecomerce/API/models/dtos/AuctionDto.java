@@ -1,13 +1,14 @@
 package com.Ecomerce.API.models.dtos;
 
-import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class AuctionDto {
 	private int id;
 	private String buyer;
 	private int productId;
-	private Time timeStart;
-	private Time timeEnd;
+	private String timeStart;
+	private String timeEnd;
 	private int priceTransaction;
 	private int priceShipping;
 	private int commission;
@@ -18,7 +19,7 @@ public class AuctionDto {
 	
 	public AuctionDto() {}
 	
-	public AuctionDto(int id, String buyer, int productId, Time timeStart, Time timeEnd,
+	public AuctionDto(int id, String buyer, int productId, String timeStart, String timeEnd,
 			int priceTransaction, int priceShipping, int commission, String sellerEnd, int statusAuction,
 			String productName, String imageProduct) {
 		this.id = id;
@@ -57,19 +58,19 @@ public class AuctionDto {
 		this.productId = productId;
 	}
 
-	public Time getTimeStart() {
+	public String getTimeStart() {
 		return timeStart;
 	}
 
-	public void setTimeStart(Time timeStart) {
+	public void setTimeStart(String timeStart) {
 		this.timeStart = timeStart;
 	}
 
-	public Time getTimeEnd() {
+	public String getTimeEnd() {
 		return timeEnd;
 	}
 
-	public void setTimeEnd(Time timeEnd) {
+	public void setTimeEnd(String timeEnd) {
 		this.timeEnd = timeEnd;
 	}
 

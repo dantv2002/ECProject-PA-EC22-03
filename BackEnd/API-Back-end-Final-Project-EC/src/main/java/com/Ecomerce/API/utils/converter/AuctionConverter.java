@@ -1,5 +1,7 @@
 package com.Ecomerce.API.utils.converter;
 
+import java.text.SimpleDateFormat;
+
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.AuctionDto;
@@ -14,8 +16,21 @@ public class AuctionConverter {
 		auctionDto.setId(auction.getId());
 		auctionDto.setBuyer(auction.getBuyer().getAccountName());
 		auctionDto.setProductId(auction.getProduct().getId());
-		auctionDto.setTimeStart(auction.getTimeStart());
-		auctionDto.setTimeEnd(auction.getTimeEnd());
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss");
+			auctionDto.setTimeStart(sdf.format(auction.getTimeStart()));
+			auctionDto.setTimeEnd(sdf.format(auction.getTimeEnd()));
+		}
+		catch(Exception e) {
+			if (auction.getTimeStart() == null) {
+				auction.setTimeStart(null);
+			}
+			if (auction.getTimeEnd() == null) {
+				auction.setTimeEnd(null);
+			}
+		}
+		
 		auctionDto.setPriceTransaction(auction.getPriceTransaction());
 		auctionDto.setPriceShipping(auction.getPriceShipping());
 		auctionDto.setCommission(auction.getCommission());
