@@ -13,11 +13,14 @@ public class AuctionDto {
 	private int commission;
 	private String sellerEnd;
 	private int statusAuction;
+	private String productName;
+	private String imageProduct;
 	
 	public AuctionDto() {}
 	
 	public AuctionDto(int id, String buyer, int productId, Time timeStart, Time timeEnd,
-			int priceTransaction, int priceShipping, int commission, String sellerEnd, int statusAuction) {
+			int priceTransaction, int priceShipping, int commission, String sellerEnd, int statusAuction,
+			String productName, String imageProduct) {
 		this.id = id;
 		this.buyer = buyer;
 		this.productId = productId;
@@ -108,5 +111,21 @@ public class AuctionDto {
 
 	public void setStatusAuction(int statusAuction) {
 		this.statusAuction = statusAuction;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getImageProduct() {
+		return imageProduct;
+	}
+
+	public void setImageProduct(String imageProduct) {
+		this.imageProduct = imageProduct;
 	}
 }
