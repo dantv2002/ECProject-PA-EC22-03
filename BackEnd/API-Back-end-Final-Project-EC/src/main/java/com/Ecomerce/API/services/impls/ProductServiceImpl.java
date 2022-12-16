@@ -63,7 +63,9 @@ public class ProductServiceImpl implements ProductService {
 		List<Auction> auctions = auctionRepository.findByStatusAuction(statusAuction);
 		List<AuctionDto> listAuctionDto = new ArrayList<AuctionDto>();
 		for (Auction auction : auctions) {
-			listAuctionDto.add(auctionConverter.convertToDto(auction));
+			if (auction.getProduct().getName().contains(keyValue)) {
+				listAuctionDto.add(auctionConverter.convertToDto(auction));
+			}
 		}
 		
 		return listAuctionDto;
