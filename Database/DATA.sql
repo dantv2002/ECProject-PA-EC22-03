@@ -891,13 +891,14 @@ VALUES
 (22, 21, 30000),
 (22, 22, 0);
 -- Thêm data bảng Admin --
-INSERT INTO Admins VALUES ('admin', '123', null, 1);
+--INSERT INTO Admins VALUES ('admin', '123', null, 1);
 -- Thêm data bảng User --
-INSERT INTO Users VALUES ('vanan', '123', null, 1);
-INSERT INTO Users VALUES ('vanbao', '123', null, 1);
-INSERT INTO Users VALUES ('vancao', '123', null, 1);
-INSERT INTO Users VALUES ('vandat', '123', null, 1);
-INSERT INTO Users VALUES ('vanhoa', '123', null, 1);
+INSERT INTO Users VALUES ('admin', '123', null, 1, N'ADMIN');
+INSERT INTO Users VALUES ('vanan', '123', null, 1, 'USER');
+INSERT INTO Users VALUES ('vanbao', '123', null, 1, 'USER');
+INSERT INTO Users VALUES ('vancao', '123', null, 1, 'USER');
+INSERT INTO Users VALUES ('vandat', '123', null, 1, 'USER');
+INSERT INTO Users VALUES ('vanhoa', '123', null, 1, 'USER');
 -- Thêm data bảng In4_User
 INSERT INTO In4_User VALUES ('vanan', N'Nguyễn Văn', N'An', '2002-02-22', 'vanan@gmail.com', '0981121134', 30, N'78/90 Nguyễn Thị Minh Khai'); -- Người mua --
 INSERT INTO In4_User VALUES ('vanbao', N'Nguyễn Văn', N'Bảo', '2002-10-10', 'vanbao@gmail.com', '0125738742', 67, N'4C Lý Thường Kiệt');

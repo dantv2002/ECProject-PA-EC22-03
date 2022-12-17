@@ -10,4 +10,8 @@ import com.Ecomerce.API.models.entities.StatusAuction;
 
 public interface AuctionRepository extends JpaRepository<Auction, Integer> {
 	List<Auction> findByStatusAuction(StatusAuction status);
+	List<Auction> findByStatusAuctionAndPriceTransactionGreaterThanEqualAndPriceTransactionLessThanEqualOrderByPriceTransactionAsc(
+			StatusAuction statusAuction, int maxPrice, int minPrice);
+	List<Auction> findByStatusAuctionAndPriceTransactionGreaterThanEqualAndPriceTransactionLessThanEqualOrderByPriceTransactionDesc(
+			StatusAuction statusAuction, int maxPrice, int minPrice);
 }

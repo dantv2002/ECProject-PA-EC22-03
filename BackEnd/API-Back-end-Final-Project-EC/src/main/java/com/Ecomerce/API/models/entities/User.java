@@ -32,6 +32,9 @@ public class User implements Serializable {
 	@Column(name = "status_user")
 	private boolean statusUser;
 	
+	@Column(name = "roles")
+	private String role;
+	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Product> products;
 	
@@ -161,5 +164,13 @@ public class User implements Serializable {
 
 	public void setInforUser(InforUser inforUser) {
 		this.inforUser = inforUser;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

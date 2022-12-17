@@ -1,9 +1,11 @@
 package com.Ecomerce.API.services;
 
-import java.util.List;
-
 import com.Ecomerce.API.models.dtos.UserDto;
+import com.Ecomerce.API.models.entities.User;
 
 public interface UserService {
-
+	UserDto convertToDto(User user);
+	User convertToEntity(UserDto userDto);
+	UserDto findUserByName(String name);
+	void save(UserDto user);
 }

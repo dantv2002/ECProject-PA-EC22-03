@@ -2,16 +2,7 @@
 GO
 USE ReverseAuction
 GO
---Tạo table đăng nhập cho Admin--
-CREATE TABLE Admins
-(
-	account varchar(20) NOT NULL,
-	pass varchar(20) NOT NULL,
-	image_admin TEXT,
-	status_admin bit default 1,
-	CONSTRAINT pk_Admin PRIMARY KEY (account)
-)
-GO
+
 -- Tạo bảng DICTRICT --
 CREATE TABLE DISTRICT
 (
@@ -37,6 +28,7 @@ CREATE TABLE Users
 	pass varchar(20) NOT NULL,
 	image_user TEXT,
 	status_user bit default 1,
+	roles varchar(20) default N'USER' NOT NULL,
 	CONSTRAINT pk_NguoiDung PRIMARY KEY (account_Name)
 )
 GO

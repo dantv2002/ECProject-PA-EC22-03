@@ -1,21 +1,21 @@
 package com.Ecomerce.API.models.dtos;
 
-import java.util.Date;
-
 public class UserDto {
 	
 	private String accountName;
 	private String pass;
 	private String imageUser;
 	private boolean statusUser;
+	private String role;
 	
 	public UserDto () {}
 	
-	public UserDto (String accountName, String pass, String imageUser, boolean statusUser) {
+	public UserDto (String accountName, String pass, String imageUser, boolean statusUser, String role) {
 		this.accountName = accountName;
 		this.pass = pass;
 		this.imageUser = imageUser;
 		this.statusUser = statusUser;
+		this.role = role;
 	}
 
 	public String getAccountName() {
@@ -49,4 +49,13 @@ public class UserDto {
 	public void setStatusUser(boolean statusUser) {
 		this.statusUser = statusUser;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 }
