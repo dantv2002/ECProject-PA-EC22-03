@@ -57,14 +57,14 @@ export const HomeSlice = createSlice({
         })
 
         builder.addCase(getAuctioning.fulfilled, (state,action) => {
-            const newList = action.payload.map((product) => {
+            
+            const newList = action.payload.map((auction) => {
                 return {
-                    ...product,
-                    imageProduct: product.imageProduct.substring(1)
+                    ...auction,
+                    imageProduct: auction.imageProduct.substring(1)
                 }
             })
             state.auctionList = newList
-            console.log(state.auctionList)
             state.loading = false
         })
 

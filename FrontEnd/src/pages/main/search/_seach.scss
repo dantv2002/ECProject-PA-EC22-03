@@ -24,12 +24,21 @@
         }
 
         &__body{
+            position: relative;
             .item{
                 background-color: $main-text-color-white;
                 border: 1px solid #d7ebf4;
 
-                img{
+                .item__image {
                     width: 100%;
+                    height: 230px;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 100%;
+
+                    }
                 }
 
                 &__info{
@@ -96,19 +105,28 @@
         }
 
         &__body{
+            position: relative;
             .item{
                 background-color: $main-text-color-white;
                 border: 1px solid #d7ebf4;
 
-                img{
+                .item__image {
                     width: 100%;
+                    height: 230px;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 100%;
+
+                    }
                 }
 
                 &__info{
                     padding: 10px;
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
+
                     justify-content: center;
 
                     .item-now-price{

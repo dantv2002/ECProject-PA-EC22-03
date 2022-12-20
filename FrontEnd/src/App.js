@@ -24,6 +24,9 @@ import { HomePage } from './pages/admin/homepage/HomePage';
 import { Shipping } from './pages/admin/shipping/Shipping';
 import { ProductDirectory } from './pages/admin/productDirectory/ProductDirectory';
 import { UserManage } from './pages/admin/userManage/UserManage';
+import { Authentication } from './templates/authentication/Authentication';
+import { Login } from './pages/main/login/Login';
+import { Register } from './pages/main/register/Register';
 
 function App() {
   return (
@@ -55,6 +58,10 @@ function App() {
           <Route path='/admin/usermanage' element={<UserManage/>}/>
         </Route>
         <Route path='/proceed' element={<Proceed/>}/>
+        <Route element={<Authentication/>}>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
     </PayPalScriptProvider>

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Slider,InputNumber } from 'antd';
+import React, { useEffect } from 'react'
+import { Slider, InputNumber } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 
@@ -8,22 +8,50 @@ import {
     changeSearchPrice,
     changeSearchNecess,
     changeMidPrice,
-    changeMaxPrice
+    changeMaxPrice,
+    getProducerList,
+    getCategoryForFilter,
+    cleanProducerList,
+    fullSearch,
+    getCategory
 } from '../../redux/filter/filterSlice'
+import {
+    SearchOutlined
+} from '@ant-design/icons';
+
 
 
 
 
 
 export const Filter = () => {
-    const {typeList,producerList,priceList,searchMinPrice,searchMidPrice,NecessitiesList ,searchNecess} = useSelector((store) => store.filter)
+    const {
+        typeList,
+        producerList,
+        priceList,
+        searchMinPrice,
+        searchMidPrice,
+        NecessitiesList,
+        searchNecess,
+        searchType,
+        searchProducer,
+        searchPrice,
+        searchMaxPrice,
+        searchWord
+    } = useSelector((store) => store.filter)
+    const { categoryList } = useSelector((store) => store.home)
     const dispatch = useDispatch()
     const renderProduceType = () => {
         return typeList.map((item) => {
-            return <li 
+            return <li
                 key={item.typeName}
                 className={item.displayStatus}
-                onClick={() => dispatch(changeSearchType(item.typeName))}
+                onClick={() => {
+                    dispatch(changeSearchType(item.typeName))
+                    if (item.typeName !== "All")
+                        dispatch(getProducerList(item.typeName))
+                    else dispatch(cleanProducerList())
+                }}
             >
                 {item.typeName}
             </li>
@@ -31,10 +59,10 @@ export const Filter = () => {
     }
 
     const renderProducer = () => {
-        return producerList.map((item,index) => {
+        return producerList.map((item, index) => {
             return <li
                 key={index}
-                className={item.displayStatus} 
+                className={item.displayStatus}
                 onClick={() => dispatch(changeSearchProducer(item.producerName))}
             >
                 {item.producerName}
@@ -43,10 +71,10 @@ export const Filter = () => {
     }
 
     const renderPrice = () => {
-        return priceList.map((item,index) => {
+        return priceList.map((item, index) => {
             return <li
                 key={index}
-                className={item.displayStatus} 
+                className={item.displayStatus}
                 onClick={() => dispatch(changeSearchPrice(item.priceName))}
             >
                 {item.priceName}
@@ -55,16 +83,22 @@ export const Filter = () => {
     }
 
     const renderNecess = () => {
-        return NecessitiesList.map((item,index) => {
+        return NecessitiesList.map((item, index) => {
             return <li
                 key={index}
-                className={item.displayStatus} 
+                className={item.displayStatus}
                 onClick={() => dispatch(changeSearchNecess(item.necessName))}
             >
                 {item.necessName}
             </li>
         })
     }
+
+
+
+    useEffect(() => {
+        dispatch(getCategory())
+    }, [])
 
     return (
         <div className="filter">
@@ -80,7 +114,7 @@ export const Filter = () => {
                     {renderProducer()}
                 </ul>
             </div>
-            <div className="filter__price" style={{display: searchNecess == "Suggestion" ? "none" : "block"}}>
+            <div className="filter__price" style={{ display: searchNecess == "Suggestion" ? "none" : "block" }}>
                 <h2>Price</h2>
                 <div className="my-flex">
                     <ul>
@@ -88,17 +122,17 @@ export const Filter = () => {
                     </ul>
                     <div className="choose-price">
                         <InputNumber
-                            style={{width: "100px"}}
-                            min={searchMinPrice} 
+                            style={{ width: "100px" }}
+                            min={searchMinPrice}
                             onChange={(value) => dispatch(changeMidPrice(value))}
                             defaultValue={0}
                         />
                         <span className="middle-line">-</span>
                         <InputNumber
-                            style={{width: "110px"}}
-                            min={searchMidPrice + 1}  
+                            style={{ width: "110px" }}
+                            min={searchMidPrice + 1}
                             onChange={(value) => dispatch(changeMaxPrice(value))}
-                            defaultValue={1000000000 }
+                            defaultValue={1000000000}
                         />
                     </div>
                 </div>
@@ -109,7 +143,25 @@ export const Filter = () => {
                 <ul>
                     {renderNecess()}
                 </ul>
+
             </div>
+            <button
+                className="search-btn"
+                onClick={() => {
+                    const newObj = {
+                        nameCategory: searchType.toLowerCase(),
+                        nameManufacturer: searchProducer === "All" ? "all" : searchProducer,
+                        statusProduct: searchNecess.toLowerCase(),
+                        increase: searchPrice === "" ? "" : searchPrice === "Ascending" ? true : false,
+                        maxPrice: searchMaxPrice,
+                        minPrice: searchMidPrice,
+                        keyValue: searchWord
+                    }
+                    dispatch(fullSearch(newObj))
+                }}
+            >
+                <SearchOutlined />Search
+            </button>
         </div>
     )
 }

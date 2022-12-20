@@ -29,16 +29,14 @@
     .search-bar {
         position: relative;
 
-        form {
-            width: 95%;
-            border: 1px solid $main-text-color-white;
+      
+            
 
             button {
                 background-color: $color-green-100;
                 border-color: $color-green-100;
             }
 
-        }
 
         .search-result-box {
             position: absolute;
