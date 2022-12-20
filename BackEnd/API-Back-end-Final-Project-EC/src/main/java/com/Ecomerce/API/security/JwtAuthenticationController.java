@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecomerce.API.controllers.ProductController;
+import com.Ecomerce.API.exceptions.ExceptionCustom;
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.entities.User;
 import com.Ecomerce.API.models.objects.ResponseObject;
@@ -46,19 +47,22 @@ public class JwtAuthenticationController {
 	private UserRepository userRepository;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws ExceptionCustom,Exception {
 		logger.info("Create Authentication Token is Starting");
+		UserDetails userDetails = null;
+		try {
+			userDetails = userDetailsService
+					.loadUserByUsername(authenticationRequest.getAccountName());
+		} catch(Exception e) {
+			throw new ExceptionCustom("Thất bại","Không xác thực được người dùng", "");
+		}
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getAccountName(), authenticationRequest.getPassword()));
-		} catch (BadCredentialsException e) {
-			logger.info("Create Authentication Token is ended");
-			throw new Exception("Thông tin người dùng không hợp lệ");
 		} catch (Exception e) {
 			logger.info("Create Authentication Token is ended");
-			throw new Exception("Không xác thực được người dùng");
+			throw new ExceptionCustom("Thất bại","Không xác thực được người dùng", "");
 		}
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getAccountName());
+		
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		logger.info("Create Authentication Token is ended");

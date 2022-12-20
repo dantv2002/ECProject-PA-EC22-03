@@ -14,4 +14,9 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
 				new ResponseObject(e.getStatus(), e.getMessage(), e.getData()));
 	}
+	@ExceptionHandler(ExceptionCustom.class)
+	public ResponseEntity<?> exceptionCustom(ExceptionCustom e) {
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+				new ResponseObject(e.getStatus(), e.getMessage(), e.getData()));
+	}
 }

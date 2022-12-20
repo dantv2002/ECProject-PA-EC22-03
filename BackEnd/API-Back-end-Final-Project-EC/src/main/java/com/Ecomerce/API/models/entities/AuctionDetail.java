@@ -53,14 +53,6 @@ public class AuctionDetail implements Serializable {
 		this.auction = auction;
 	}
 
-	public User getSelller() {
-		return seller;
-	}
-
-	public void setSelller(User selller) {
-		this.seller = selller;
-	}
-
 	public int getPrice() {
 		return price;
 	}

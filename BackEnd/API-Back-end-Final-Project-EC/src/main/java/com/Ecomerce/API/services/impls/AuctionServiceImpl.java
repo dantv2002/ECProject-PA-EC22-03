@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Ecomerce.API.models.dtos.AuctionDetailDto;
 import com.Ecomerce.API.models.dtos.AuctionDto;
 import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.StatusAuction;
@@ -47,5 +48,13 @@ public class AuctionServiceImpl implements AuctionService{
 		List<AuctionDto> productsOnAuction = findAuctionWithStatusAuction(amount, 2);	
 		
 		return productsOnAuction;
+	}
+
+	@Override
+	public AuctionDetailDto displayAuctionDetail(int id) {
+		Auction auction = repository.findById(id).orElse(null);		
+		//AuctionDetailDto auctionDetail = converter.convertToAuctionDetailDto(auction);
+		
+		return null;
 	}
 }
