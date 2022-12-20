@@ -1,9 +1,16 @@
 package com.Ecomerce.API.utils.converter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Ecomerce.API.models.dtos.CommentProductDetailDto;
+import com.Ecomerce.API.models.dtos.ProductDetailDto;
 import com.Ecomerce.API.models.dtos.ProductDto;
+import com.Ecomerce.API.models.entities.Auction;
+import com.Ecomerce.API.models.entities.Comment;
 import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.repositories.CategoryRepository;
 import com.Ecomerce.API.repositories.UserRepository;
@@ -55,5 +62,30 @@ public class ProductConverter {
 		productDto.setStatus(product.isStatus());
 		
 		return productDto;
+	}
+	
+	public ProductDetailDto covertToProductDetailDto(Product product) {
+		ProductDetailDto response = new ProductDetailDto();
+		response.setName(product.getName());
+		response.setImageProduct(product.getImageProduct());
+		response.setDescription(product.getDescription());
+		response.setSeller(product.getUser().getAccountName());
+		response.setManufacturer(product.getManufacturer());
+		response.setCategoryId(product.getCategory().getId());
+		response.setCategoryName(product.getCategory().getName());
+		response.setAmount(product.getAmount());
+		
+		List<CommentProductDetailDto> commentsDto = new ArrayList<CommentProductDetailDto>();
+		List<Auction> auctions = product.getAuctions();
+		for (Auction auction : auctions) {
+			if (auction.getStatusAuction().getId() == 3) {
+				List<Comment> comments = auction.getComments();
+				for (Comment comment : comments) {
+					commentsDto.add(new CommentProductDetailDto(auction.getBuyer().getAccountName(), comment.getComment()));
+				}
+			}
+		}
+		response.setComments(commentsDto);
+		return response;
 	}
 }

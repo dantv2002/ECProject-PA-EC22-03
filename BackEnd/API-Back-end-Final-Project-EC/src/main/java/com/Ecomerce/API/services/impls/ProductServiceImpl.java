@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.AuctionDto;
+import com.Ecomerce.API.models.dtos.ProductDetailDto;
 import com.Ecomerce.API.models.dtos.ProductDto;
 import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.Category;
@@ -311,6 +312,16 @@ public class ProductServiceImpl implements ProductService {
 
 		return map;
 	}
-
+	
 	/*--------------------------------------------------------------------------------------------------*/
+	
+	@Override
+	public ProductDetailDto displayProductOnPage(int id) {
+		Product product = repository.findById(id).orElse(null);
+		if (product == null) {
+			return null;
+		}
+		return converter.covertToProductDetailDto(product);
+	}
+
 }
