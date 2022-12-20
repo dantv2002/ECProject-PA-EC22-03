@@ -116,7 +116,7 @@ public class AuctionConverter {
 				auctionDetailDto.setTimeEnd(null);
 			}
 		}
-		Collections.sort(listPrice);
+		Collections.sort(listPrice, Collections.reverseOrder());
 		auctionDetailDto.setStartPrice(listPrice.get(0));
 		auctionDetailDto.setAuctionId(auction.getId());
 		auctionDetailDto.setBuyer(auction.getBuyer().getAccountName());
