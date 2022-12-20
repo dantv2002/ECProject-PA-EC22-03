@@ -2,6 +2,8 @@ package com.Ecomerce.API.utils.converter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -69,21 +71,55 @@ public class AuctionConverter {
 		return auctionInfo;
 	}
 	
-//	public AuctionDetailDto convertToAuctionDetailDto(Auction auction) {
-//		if (auction == null) {
-//			return null;
-//		}
-//		
-//		AuctionDetailDto auctionDetailDto = new AuctionDetailDto();
-//		auctionDetailDto.setProductName(auction.getProduct().getName());
-//		auctionDetailDto.setImageProduct(auction.getProduct().getImageProduct());
-//		auctionDetailDto.setCurrentPrice(auction.getPriceTransaction());
-//		
-//		List<AuctionBasicInfoDto> infoAuctionsDto = new ArrayList<AuctionBasicInfoDto>();
-//		List<AuctionDetail> infoAuctions = auction.getAuctionDetails();
-//		for (AuctionDetail infoAuction : infoAuctions) {
-//			infoAuctionsDto.add(convertToAuctionBasicInfoDto(infoAuction));
-//		}
-//		auctionDetailDto.setInfoAuction(infoAuctionsDto);
-//	}
+	public AuctionDetailDto convertToAuctionDetailDto(Auction auction) {
+		if (auction == null) {
+			return null;
+		}
+		
+		AuctionDetailDto auctionDetailDto = new AuctionDetailDto();
+		auctionDetailDto.setProductName(auction.getProduct().getName());
+		auctionDetailDto.setImageProduct(auction.getProduct().getImageProduct());
+		auctionDetailDto.setCurrentPrice(auction.getPriceTransaction());
+		
+		List<AuctionBasicInfoDto> infoAuctionsDto = new ArrayList<AuctionBasicInfoDto>();
+		List<AuctionDetail> infoAuctions = auction.getAuctionDetails();
+		
+		// List contain Seller join Auction
+		List<String> listSellers = new ArrayList<String>();
+		
+		// List contain price is offered during auction
+		List<Integer> listPrice = new ArrayList<Integer>(); 
+		
+		// Set Amount Product is started with 0
+		auctionDetailDto.setAmountSeller(0);
+		
+		for (AuctionDetail infoAuction : infoAuctions) {
+			infoAuctionsDto.add(convertToAuctionBasicInfoDto(infoAuction));
+			listPrice.add(infoAuction.getPrice());
+			if (!listSellers.contains(infoAuction.getSeller().getAccountName())) {
+				listSellers.add(infoAuction.getSeller().getAccountName());
+				auctionDetailDto.setAmountSeller(auctionDetailDto.getAmountSeller() + 1);
+			}
+		}
+		auctionDetailDto.setInfoAuction(infoAuctionsDto);
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss");
+			auctionDetailDto.setTimeStart(sdf.format(auction.getTimeStart()));
+			auctionDetailDto.setTimeEnd(sdf.format(auction.getTimeEnd()));
+		}
+		catch(Exception e) {
+			if (auctionDetailDto.getTimeStart() == null) {
+				auctionDetailDto.setTimeStart(null);
+			}
+			if (auctionDetailDto.getTimeEnd() == null) {
+				auctionDetailDto.setTimeEnd(null);
+			}
+		}
+		Collections.sort(listPrice);
+		auctionDetailDto.setStartPrice(listPrice.get(0));
+		auctionDetailDto.setAuctionId(auction.getId());
+		auctionDetailDto.setBuyer(auction.getBuyer().getAccountName());
+		return auctionDetailDto;
+	}
 }

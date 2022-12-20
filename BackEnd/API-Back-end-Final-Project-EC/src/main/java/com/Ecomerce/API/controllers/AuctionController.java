@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Ecomerce.API.models.dtos.AuctionDetailDto;
 import com.Ecomerce.API.models.dtos.AuctionDto;
 import com.Ecomerce.API.models.objects.ResponseObject;
 import com.Ecomerce.API.services.AuctionService;
@@ -33,5 +34,18 @@ public class AuctionController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ResponseObject("Hoàn thành", "Lấy các phiên đấu giá thành công", auctionsDto));
+	}
+	
+	/*>>>>>>>>>> API Find auction is during <<<<<<<<<<*/
+	@GetMapping(value = "/auctions/infoauctioning")
+	public ResponseEntity<ResponseObject> displayInfoAuctionDetail(@RequestParam int id) {
+		AuctionDetailDto auction = service.displayAuctionDetail(id);
+		
+		if(auction == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+					new ResponseObject("Thất bại", "Không có phiên đấu giá nào tồn tại", ""));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(
+				new ResponseObject("Hoàn thành", "Lấy các phiên đấu giá thành công", auction));
 	}
 }

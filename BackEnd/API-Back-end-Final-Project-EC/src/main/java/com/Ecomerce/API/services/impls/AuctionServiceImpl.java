@@ -53,8 +53,8 @@ public class AuctionServiceImpl implements AuctionService{
 	@Override
 	public AuctionDetailDto displayAuctionDetail(int id) {
 		Auction auction = repository.findById(id).orElse(null);		
-		//AuctionDetailDto auctionDetail = converter.convertToAuctionDetailDto(auction);
+		AuctionDetailDto auctionDetail = converter.convertToAuctionDetailDto(auction);
 		
-		return null;
+		return auctionDetail;
 	}
 }
