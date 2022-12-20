@@ -7,5 +7,5 @@ public interface UserService {
 	UserDto convertToDto(User user);
 	User convertToEntity(UserDto userDto);
 	UserDto findUserByName(String name);
-	void save(UserDto user);
+	UserDto save(UserDto user);
 }

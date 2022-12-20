@@ -25,7 +25,7 @@ CREATE TABLE WARD
 CREATE TABLE Users
 (
 	account_name varchar(20) unique,
-	pass varchar(20) NOT NULL,
+	pass varchar(1000) NOT NULL,
 	image_user TEXT,
 	status_user bit default 1,
 	roles varchar(20) default N'USER' NOT NULL,

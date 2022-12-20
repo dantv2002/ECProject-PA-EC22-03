@@ -101,7 +101,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	// Service handle API Filter
 	/*--------------------------------------------------------------------------------------------------*/
-	private List<ProductDto> findProductOnAuctionAndSort(String keyValue, int minPrice, int maxPrice,
+	private List<AuctionDto> findProductOnAuctionAndSort(String keyValue, int minPrice, int maxPrice,
 			boolean increase) {
 		StatusAuction statusAuction = statusAuctionRepository.findById(2).orElse(null);
 		List<Auction> auctions;
@@ -114,17 +114,17 @@ public class ProductServiceImpl implements ProductService {
 					.findByStatusAuctionAndPriceTransactionGreaterThanEqualAndPriceTransactionLessThanEqualOrderByPriceTransactionDesc(
 							statusAuction, minPrice, maxPrice);
 		}
-		List<ProductDto> productsDto = new ArrayList<ProductDto>();
+		List<AuctionDto> auctionsDto = new ArrayList<AuctionDto>();
 		for (Auction auction : auctions) {
 			if (auction.getProduct().getName().toLowerCase().contains(keyValue.toLowerCase())) {
-				productsDto.add(converter.convertToDto(auction.getProduct()));
+				auctionsDto.add(auctionConverter.convertToDto(auction));
 			}
 		}
 
-		return productsDto;
+		return auctionsDto;
 	}
 	
-	private List<ProductDto> findProductOnAuctionAndSortThatBelongToCategory(String keyValue, int minPrice, 
+	private List<AuctionDto> findProductOnAuctionAndSortThatBelongToCategory(String keyValue, int minPrice, 
 			int maxPrice, boolean increase, String categoryName) {
 		StatusAuction statusAuction = statusAuctionRepository.findById(2).orElse(null);
 		List<Auction> auctions;
@@ -137,15 +137,15 @@ public class ProductServiceImpl implements ProductService {
 					.findByStatusAuctionAndPriceTransactionGreaterThanEqualAndPriceTransactionLessThanEqualOrderByPriceTransactionDesc(
 							statusAuction, minPrice, maxPrice);
 		}
-		List<ProductDto> productsDto = new ArrayList<ProductDto>();
+		List<AuctionDto> auctionsDto = new ArrayList<AuctionDto>();
 		for (Auction auction : auctions) {
 			if (auction.getProduct().getName().toLowerCase().contains(keyValue.toLowerCase()) && 
 					auction.getProduct().getCategory().getName().equals(categoryName)) {
-				productsDto.add(converter.convertToDto(auction.getProduct()));
+				auctionsDto.add(auctionConverter.convertToDto(auction));
 			}
 		}
 
-		return productsDto;
+		return auctionsDto;
 	}
 
 	public List<ProductDto> findAll() {
@@ -208,12 +208,12 @@ public class ProductServiceImpl implements ProductService {
 					List<ProductDto> productsDto = searchProductWithKeyValue(keyValue);
 					map.put("Products is selling on page", productsDto);
 				} else if (statusProduct.equals("Đang đấu giá")) {
-					List<ProductDto> productsOnAuction = findProductOnAuctionAndSort(keyValue, minPrice, 
+					List<AuctionDto> productsOnAuction = findProductOnAuctionAndSort(keyValue, minPrice, 
 							maxPrice, increase);
 					map.put("Products on auction", productsOnAuction);
 				} else {
 					// Case Status Product equal with "all"
-					List<ProductDto> productsOnAuction = findProductOnAuctionAndSort(keyValue, minPrice, 
+					List<AuctionDto> productsOnAuction = findProductOnAuctionAndSort(keyValue, minPrice, 
 							maxPrice, increase);
 					List<ProductDto> productsDto = searchProductWithKeyValue(keyValue);
 					map.put("Products on auction", productsOnAuction);
@@ -225,12 +225,13 @@ public class ProductServiceImpl implements ProductService {
 					productsDto = findWithKeyValue(productsDto, keyValue);
 					map.put("Products is selling on page", productsDto);
 				} else if (statusProduct.equals("Đang đấu giá")) {
-					List<ProductDto> productsOnAuctionTemp = findProductOnAuctionAndSort(keyValue, minPrice, 
+					List<AuctionDto> productsOnAuctionTemp = findProductOnAuctionAndSort(keyValue, minPrice, 
 							maxPrice, increase);
-					List<ProductDto> productsOnAuction = new ArrayList<ProductDto>();
+					List<AuctionDto> productsOnAuction = new ArrayList<AuctionDto>();
 					
-					for (ProductDto element : productsOnAuctionTemp) {
-						if (element.getManufacturer().equals(nameManufacturer)) {
+					for (AuctionDto element : productsOnAuctionTemp) {
+						Product product = repository.findById(element.getProductId()).orElse(null);
+						if (product.getManufacturer().equals(nameManufacturer)) { 
 							productsOnAuction.add(element);
 						}
 					}
@@ -241,12 +242,13 @@ public class ProductServiceImpl implements ProductService {
 					productsDto = findWithKeyValue(productsDto, keyValue);
 					map.put("Products is selling on page", productsDto);
 					
-					List<ProductDto> productsOnAuctionTemp = findProductOnAuctionAndSort(keyValue, minPrice, 
+					List<AuctionDto> productsOnAuctionTemp = findProductOnAuctionAndSort(keyValue, minPrice, 
 							maxPrice, increase);
-					List<ProductDto> productsOnAuction = new ArrayList<ProductDto>();
+					List<AuctionDto> productsOnAuction = new ArrayList<AuctionDto>();
 					
-					for (ProductDto element : productsOnAuctionTemp) {
-						if (element.getManufacturer().equals(nameManufacturer)) {
+					for (AuctionDto element : productsOnAuctionTemp) {
+						Product product = repository.findById(element.getProductId()).orElse(null);
+						if (product.getManufacturer().equals(nameManufacturer)) { 
 							productsOnAuction.add(element);
 						}
 					}
@@ -260,14 +262,14 @@ public class ProductServiceImpl implements ProductService {
 					productsDto = findWithKeyValue(productsDto, keyValue);
 					map.put("Products is selling on page", productsDto);
 				} else if (statusProduct.equals("Đang đấu giá")) {
-					List<ProductDto> productsOnAuction = findProductOnAuctionAndSortThatBelongToCategory(
+					List<AuctionDto> productsOnAuction = findProductOnAuctionAndSortThatBelongToCategory(
 							keyValue, minPrice, maxPrice, increase, nameCategory);
 					map.put("Products on auction", productsOnAuction);
 				} else {
 					List<ProductDto> productsDto = findProductByCategoryName(nameCategory);
 					productsDto = findWithKeyValue(productsDto, keyValue);
 					map.put("Products is selling on page", productsDto);
-					List<ProductDto> productsOnAuction = findProductOnAuctionAndSortThatBelongToCategory(
+					List<AuctionDto> productsOnAuction = findProductOnAuctionAndSortThatBelongToCategory(
 							keyValue, minPrice, maxPrice, increase, nameCategory);
 					map.put("Products on auction", productsOnAuction);
 				}
@@ -278,18 +280,30 @@ public class ProductServiceImpl implements ProductService {
 					productsDto = findWithKeyValue(productsDto, keyValue);
 					map.put("Products is selling on page", productsDto);
 				} else if (statusProduct.equals("Đang đấu giá")) {
-					List<ProductDto> productsOnAuction = findProductOnAuctionAndSortThatBelongToCategory(
+					List<AuctionDto> productsOnAuctionTemp = findProductOnAuctionAndSortThatBelongToCategory(
 							keyValue, minPrice, maxPrice, increase, nameCategory);
-					productsOnAuction = findByManufacturerOnList(productsOnAuction, nameManufacturer);
+					List<AuctionDto> productsOnAuction = new ArrayList<AuctionDto>();
+					for (AuctionDto auction : productsOnAuctionTemp) {
+						Product product = repository.findById(auction.getProductId()).orElse(null);
+						if (product.getManufacturer().toLowerCase().equals(nameManufacturer.toLowerCase())) {
+							productsOnAuction.add(auction);
+						}
+					}
 					map.put("Products on auction", productsOnAuction);
 				} else {
 					List<ProductDto> productsDto = findProductByCategoryName(nameCategory);
 					productsDto = findByManufacturerOnList(productsDto, nameManufacturer);
 					productsDto = findWithKeyValue(productsDto, keyValue);
 					map.put("Products is selling on page", productsDto);
-					List<ProductDto> productsOnAuction = findProductOnAuctionAndSortThatBelongToCategory(
+					List<AuctionDto> productsOnAuctionTemp = findProductOnAuctionAndSortThatBelongToCategory(
 							keyValue, minPrice, maxPrice, increase, nameCategory);
-					productsOnAuction = findByManufacturerOnList(productsOnAuction, nameManufacturer);
+					List<AuctionDto> productsOnAuction = new ArrayList<AuctionDto>();
+					for (AuctionDto auction : productsOnAuctionTemp) {
+						Product product = repository.findById(auction.getProductId()).orElse(null);
+						if (product.getManufacturer().toLowerCase().equals(nameManufacturer.toLowerCase())) {
+							productsOnAuction.add(auction);
+						}
+					}
 					map.put("Products on auction", productsOnAuction);
 				}
 			} 

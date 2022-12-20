@@ -69,8 +69,8 @@ public class ProductController {
 					filterProductDto.getIncrease(), filterProductDto.getMaxPrice(), filterProductDto.getMinPrice(), 
 						filterProductDto.getKeyValue());
 		if (searchProducts.isEmpty() || searchProducts == null || 
-				(searchProducts.get("Products is selling on page").isEmpty() 
-						&& searchProducts.get("Products on auction").isEmpty())) {
+				((searchProducts.get("Products is selling on page") == null || searchProducts.get("Products is selling on page").isEmpty()) 
+						&& (searchProducts.get("Products on auction") == null || searchProducts.get("Products on auction").isEmpty()))) {
 			throw new ResourceNotFoundException("Thất bại", "Không tìm thấy sản phẩm được yêu cầu", "");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(

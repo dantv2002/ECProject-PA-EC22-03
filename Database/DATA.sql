@@ -893,7 +893,7 @@ VALUES
 -- Thêm data bảng Admin --
 --INSERT INTO Admins VALUES ('admin', '123', null, 1);
 -- Thêm data bảng User --
-INSERT INTO Users VALUES ('admin', '123', null, 1, N'ADMIN');
+INSERT INTO Users VALUES ('admin', '$2a$10$xEW6RyXtEkFJ6t6gDEF1x.GANdSc0yPcv8ckAIyTjbRWjEwPoXS.G', null, 1, N'ADMIN');
 INSERT INTO Users VALUES ('vanan', '123', null, 1, 'USER');
 INSERT INTO Users VALUES ('vanbao', '123', null, 1, 'USER');
 INSERT INTO Users VALUES ('vancao', '123', null, 1, 'USER');

@@ -49,8 +49,9 @@ public class UserServiceImpl implements UserService {
 		return convertToDto(repository.findById(name).orElse(null));
 	}
 	
-	public void save(UserDto user) {
-		User userEntity = convertToEntity(user);
+	public UserDto save(UserDto userDto) {
+		User userEntity = convertToEntity(userDto);
 		repository.save(userEntity);
+		return userDto;
 	}
 }
