@@ -8,4 +8,5 @@ public interface UserService {
 	User convertToEntity(UserDto userDto);
 	UserDto findUserByName(String name);
 	UserDto save(UserDto user);
+	boolean isUserSellingThisProduct(String userName, int productId);
 }

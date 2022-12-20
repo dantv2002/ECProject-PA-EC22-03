@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.UserDto;
+import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.models.entities.User;
+import com.Ecomerce.API.repositories.ProductRepository;
 import com.Ecomerce.API.repositories.UserRepository;
 import com.Ecomerce.API.services.UserService;
 
@@ -12,6 +14,9 @@ import com.Ecomerce.API.services.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 	
 	@Override
 	public UserDto convertToDto(User user) {
@@ -53,5 +58,19 @@ public class UserServiceImpl implements UserService {
 		User userEntity = convertToEntity(userDto);
 		repository.save(userEntity);
 		return userDto;
+	}
+
+	@Override
+	public boolean isUserSellingThisProduct(String userName, int productId) {
+		User user = repository.findById(userName).orElse(null);
+		Product product = productRepository.findById(productId).orElse(null);
+		if (user == null || product == null) {
+			return false;
+		}
+		if (user == product.getUser()) {
+			return true;
+		}
+		
+		return false;
 	}
 }
