@@ -4,6 +4,7 @@ import counterReducer from '../counter/counterSlice';
 import filterReducer from '../filter/filterSlice'
 import HomeSlice from '../home/HomeSlice';
 import paymentAddressSlice from '../paymentAddress/paymentAddressSlice';
+import ProductSlice from '../product/ProductSlice';
 import userNotificationSlice from '../usernotification/userNotificationSlice';
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     cart: cartSlice,
     home: HomeSlice,
     paymentAddress: paymentAddressSlice,
-    userNotification: userNotificationSlice
+    userNotification: userNotificationSlice,
+    product: ProductSlice
   },
 });

@@ -15,6 +15,8 @@ import {
   changeSearchProducer,
   changeSearchPrice,
   changeSearchNecess,
+  filterWithWord,
+
 } from '../../redux/filter/filterSlice'
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -26,15 +28,15 @@ export const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const onSearch = (value) => {
-    dispatch(changeSearchWord(value))
-    dispatch(changeSearchType("All"))
-    dispatch(changeSearchProducer("All"))
-    dispatch(changeSearchPrice(""))
-    dispatch(changeSearchNecess("All"))
+  const onSearch = async (value,object) => {
+    await dispatch(changeSearchWord(value))
+    await dispatch(changeSearchType("All"))
+    await dispatch(changeSearchProducer("All"))
+    await dispatch(changeSearchPrice(""))
+    await dispatch(changeSearchNecess("All"))
+    await dispatch(filterWithWord(value))
     navigate("/seachresult")
   };
-  const [searchResultStatus, setSearchResultStatus] = useState(false)
   const [userOptionStatus, setUserOptionStatus] = useState(false)
   const [cartDetailStatus, setCartDetailStatus] = useState(false)
   const [notiDetailStatus, setNotiDetailStatus] = useState(false)
@@ -60,6 +62,8 @@ export const Header = () => {
     ))
   )
 
+ 
+
   return (
     <>
       <Row className="my-container" gutter={16}>
@@ -67,49 +71,14 @@ export const Header = () => {
           <Link to=""><span>My Logo</span></Link>
         </Col>
         <Col xl={9} className="search-bar">
-          <form>
+      
             <Search
-              onBlur={(e) => {
-                setTimeout(() => {
-                  setSearchResultStatus(false)
-                }, 100)
-
-              }}
-              onFocus={() => setSearchResultStatus(true)}
-
               placeholder="input search text"
               onSearch={onSearch}
               enterButton size='large'
             />
-          </form>
-          <div className='search-result-box' style={{ display: searchResultStatus ? "block" : "none" }}>
-            <div className='search-result-box__header'>
-              <span className="label">Products</span>
-              <span className="number-of-result">See all (17)</span>
-            </div>
-            <div className='search-result-box__body'>
-              <ul>
-                <li>
-                  <span className="product-img">
-                    <img src="./electronic_20_1.jpeg" />
-                  </span>
-                  <div className="product-info">
-                    <span className="product-name">May xay sinh to</span>
-                    <span className="product-price">100.000 VND</span>
-                  </div>
-                </li>
-                <li>
-                  <span className="product-img">
-                    <img src="./electronic_20_1.jpeg" />
-                  </span>
-                  <div className="product-info">
-                    <span className="product-name">May xay sinh to</span>
-                    <span className="product-price">100.000 VND</span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+  
+  
         </Col>
         <Col xl={10} className="cart-user">
           <div
