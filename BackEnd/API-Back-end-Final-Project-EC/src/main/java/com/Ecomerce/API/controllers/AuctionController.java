@@ -2,6 +2,8 @@ package com.Ecomerce.API.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +40,9 @@ public class AuctionController {
 	
 	/*>>>>>>>>>> API Find auction is during <<<<<<<<<<*/
 	@GetMapping(value = "/auctions/infoauctioning")
-	public ResponseEntity<ResponseObject> displayInfoAuctionDetail(@RequestParam int id) {
-		AuctionDetailDto auction = service.displayAuctionDetail(id);
+	public ResponseEntity<ResponseObject> displayInfoAuctionDetail(@Valid @RequestParam int id, 
+			@RequestParam String accountName) {
+		AuctionDetailDto auction = service.displayAuctionDetail(id, accountName);
 		
 		if(auction == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
@@ -47,5 +50,18 @@ public class AuctionController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ResponseObject("Hoàn thành", "Lấy các phiên đấu giá thành công", auction));
+	}
+	
+	/*>>>>>>>>>> API Delete Auction <<<<<<<<<<*/
+	@GetMapping(value = "auth/user/auctions/delete")
+	public ResponseEntity<ResponseObject> deleteAuction(@Valid @RequestParam int id) {
+		boolean check = service.deleteAuction(id);
+		
+		if(!check) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+					new ResponseObject("Thất bại", "Phiên đấu giá không tồn tại hoặc đã bị xóa", check));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(
+				new ResponseObject("Hoàn thành", "Xóa phiên đấu giá thành công", check));
 	}
 }

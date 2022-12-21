@@ -7,5 +7,6 @@ import com.Ecomerce.API.models.dtos.AuctionDto;
 
 public interface AuctionService {
 	List<AuctionDto> findAuctionIsHappening(int amount);
-	AuctionDetailDto displayAuctionDetail(int id); 
+	AuctionDetailDto displayAuctionDetail(int id, String accountName); 
+	boolean deleteAuction(int id);
 }

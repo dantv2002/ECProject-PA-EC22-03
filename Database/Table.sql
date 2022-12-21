@@ -133,6 +133,7 @@ CREATE TABLE Auction
 	commission int,
 	seller_end varchar(20),
 	"status" int,
+	exist bit,
 	CONSTRAINT pk_Auction PRIMARY KEY (id)
 )
 GO

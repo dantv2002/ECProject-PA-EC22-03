@@ -78,7 +78,7 @@ public class AuctionConverter {
 		return auctionInfo;
 	}
 	
-	public AuctionDetailDto convertToAuctionDetailDto(Auction auction) {
+	public AuctionDetailDto convertToAuctionDetailDto(Auction auction, String accountName) {
 		if (auction == null) {
 			return null;
 		}
@@ -135,6 +135,25 @@ public class AuctionConverter {
 		auctionDetailDto.setBuyer(auction.getBuyer().getAccountName());
 		auctionDetailDto.setNameBuyer(auction.getBuyer().getInforUser().getFirstName() + " " 
 				+ auction.getBuyer().getInforUser().getLastName());
+		
+		if (accountName.equals("") || accountName == null) {
+			auctionDetailDto.setStatusOfCurrentUser(4);
+		} else {
+			if (accountName.equals(auction.getBuyer().getAccountName())) {
+				auctionDetailDto.setStatusOfCurrentUser(1);
+			} else {
+				for (AuctionDetail infoAuction : infoAuctions) {
+					if (accountName.equals(infoAuction.getSeller().getAccountName())) {
+						auctionDetailDto.setStatusOfCurrentUser(2);
+						break;
+					}
+				}
+				
+				if (auctionDetailDto.getStatusOfCurrentUser() != 2) {
+					auctionDetailDto.setStatusOfCurrentUser(3);
+				}
+			}
+		}
 		return auctionDetailDto;
 	}
 	

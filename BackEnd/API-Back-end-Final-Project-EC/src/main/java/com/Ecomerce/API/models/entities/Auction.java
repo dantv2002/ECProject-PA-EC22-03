@@ -59,6 +59,8 @@ public class Auction implements Serializable {
 	@JoinColumn(name = "status")
 	private StatusAuction statusAuction;
 	
+	private boolean exist;
+	
 	@OneToMany(mappedBy = "auction", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Notification> notifications;
 	
@@ -181,5 +183,13 @@ public class Auction implements Serializable {
 
 	public void setAuctionDetails(List<AuctionDetail> auctionDetails) {
 		this.auctionDetails = auctionDetails;
+	}
+
+	public boolean isExist() {
+		return exist;
+	}
+
+	public void setExist(boolean exist) {
+		this.exist = exist;
 	}
 }

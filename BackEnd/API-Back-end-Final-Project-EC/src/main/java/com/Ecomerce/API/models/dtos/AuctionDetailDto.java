@@ -14,6 +14,7 @@ public class AuctionDetailDto {
 	private int auctionId;
 	private String buyer;
 	private String nameBuyer;
+	private int statusOfCurrentUser;
 	
 	public AuctionDetailDto() {}
 
@@ -118,5 +119,13 @@ public class AuctionDetailDto {
 
 	public void setNameBuyer(String nameBuyer) {
 		this.nameBuyer = nameBuyer;
+	}
+
+	public int getStatusOfCurrentUser() {
+		return statusOfCurrentUser;
+	}
+
+	public void setStatusOfCurrentUser(int statusOfCurrentUser) {
+		this.statusOfCurrentUser = statusOfCurrentUser;
 	}
 }

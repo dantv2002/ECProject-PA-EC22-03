@@ -51,10 +51,29 @@ public class AuctionServiceImpl implements AuctionService{
 	}
 
 	@Override
-	public AuctionDetailDto displayAuctionDetail(int id) {
+	public AuctionDetailDto displayAuctionDetail(int id, String accountName) {
 		Auction auction = repository.findById(id).orElse(null);		
-		AuctionDetailDto auctionDetail = converter.convertToAuctionDetailDto(auction);
+		AuctionDetailDto auctionDetail = converter.convertToAuctionDetailDto(auction, accountName);
 		
 		return auctionDetail;
+	}
+
+	@Override
+	public boolean deleteAuction(int id) {
+		Auction auction = repository.findById(id).orElse(null);
+		if (auction == null || !auction.isExist()) {
+			return false;
+		}
+		
+		try {
+			if (auction.getStatusAuction().getId() == 1 || auction.getStatusAuction().getId() == 2) {
+				auction.setStatusAuction(statusAuctionRepository.findById(4).orElse(null));			
+			}
+			auction.setExist(false);
+		} catch (Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
