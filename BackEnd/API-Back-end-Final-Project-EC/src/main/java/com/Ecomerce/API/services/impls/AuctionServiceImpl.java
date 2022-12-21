@@ -70,6 +70,7 @@ public class AuctionServiceImpl implements AuctionService{
 				auction.setStatusAuction(statusAuctionRepository.findById(4).orElse(null));			
 			}
 			auction.setExist(false);
+			repository.save(auction);
 		} catch (Exception e){
 			e.printStackTrace();
 			return false;
