@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,5 +90,17 @@ public class AddressShippingController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(new ResponseObject("Thành công", "Lấy danh sách các Huyện thành công", wards));
 		
+	}
+	
+	@PutMapping("/auth/user/shippingaddress")
+	public ResponseEntity<ResponseObject> update(@Valid @RequestParam int id, 
+			@RequestBody AddressShippingInsertDto addressShippingDto) throws ResourceNotFoundException {
+		AddressShippingInsertDto addressShippingToResponse = service.update(id, addressShippingDto);
+
+		if (addressShippingToResponse == null) {
+			throw new ResourceNotFoundException("Thất bại", "Không thể cập nhật dữ liệu vào database", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Cập nhật địa chỉ thành công", addressShippingToResponse));
 	}
 }

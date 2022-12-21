@@ -31,6 +31,9 @@ public class AddressShippingServiceImpl implements AddressShippingService {
 	DistrictRepository districtRepository;
 	
 	@Autowired
+	WardRepository wardRepository;
+	
+	@Autowired
 	ShippingAddressConverter converter;
 	
 	@Override
@@ -89,5 +92,24 @@ public class AddressShippingServiceImpl implements AddressShippingService {
 		
 		List<WardDto> wardsDto = converter.convertToListWardDto(district.getWards());
 		return wardsDto;
+	}
+
+	@Override
+	public AddressShippingInsertDto update(int id, AddressShippingInsertDto addressShippingDto) {
+		AddressShipping addressShipping = addressShippingRepository.findById(id).orElse(null);
+		
+		addressShipping.setUser(userRepository.findById(addressShippingDto.getAcccountName()).orElse(null));
+		addressShipping.setWard(wardRepository.findById(addressShippingDto.getWardId()).orElse(null));
+		addressShipping.setPhone(addressShippingDto.getPhone());
+		addressShipping.setFullName(addressShippingDto.getFullName());
+		addressShipping.setAddressDetails(addressShippingDto.getAddressDetails());
+		addressShipping.setStatus(addressShippingDto.isStatus());
+		try {
+			addressShippingRepository.save(addressShipping);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return addressShippingDto;
 	}
 }
