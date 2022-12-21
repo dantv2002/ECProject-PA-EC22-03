@@ -8,5 +8,5 @@ import com.Ecomerce.API.models.entities.AddressShipping;
 import com.Ecomerce.API.models.entities.User;
 
 public interface AddressShippingRepository extends JpaRepository<AddressShipping, Integer> {
-	List<AddressShipping> findByUser(User user);
+	List<AddressShipping> findByUserAndStatus(User user, boolean status);
 }

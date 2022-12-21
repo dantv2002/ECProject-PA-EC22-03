@@ -42,7 +42,7 @@ public class AddressShippingServiceImpl implements AddressShippingService {
 		if (user == null) {
 			return null;
 		}
-		List<AddressShipping> shippingAddressList = addressShippingRepository.findByUser(user);
+		List<AddressShipping> shippingAddressList = addressShippingRepository.findByUserAndStatus(user, true);
 		
 		return converter.convertToListShippingAddressDto(shippingAddressList);
 	}
