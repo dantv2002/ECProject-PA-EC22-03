@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.StatusAuction;
+import com.Ecomerce.API.models.entities.User;
 
 public interface AuctionRepository extends JpaRepository<Auction, Integer> {
 	List<Auction> findByStatusAuction(StatusAuction status);
@@ -14,4 +15,5 @@ public interface AuctionRepository extends JpaRepository<Auction, Integer> {
 			StatusAuction statusAuction, int maxPrice, int minPrice);
 	List<Auction> findByStatusAuctionAndPriceTransactionGreaterThanEqualAndPriceTransactionLessThanEqualOrderByPriceTransactionDesc(
 			StatusAuction statusAuction, int maxPrice, int minPrice);
+	List<Auction> findByBuyerAndStatusAuction(User user, StatusAuction statusAuction);
 }

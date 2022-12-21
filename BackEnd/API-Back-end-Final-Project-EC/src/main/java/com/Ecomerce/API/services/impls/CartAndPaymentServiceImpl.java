@@ -1,0 +1,51 @@
+package com.Ecomerce.API.services.impls;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.Ecomerce.API.models.dtos.ProductInCartDto;
+import com.Ecomerce.API.models.entities.Auction;
+import com.Ecomerce.API.models.entities.StatusAuction;
+import com.Ecomerce.API.models.entities.User;
+import com.Ecomerce.API.repositories.AuctionRepository;
+import com.Ecomerce.API.repositories.StatusAuctionRepository;
+import com.Ecomerce.API.repositories.UserRepository;
+import com.Ecomerce.API.services.CartAndPaymentService;
+import com.Ecomerce.API.utils.converter.AuctionConverter;
+
+@Service
+public class CartAndPaymentServiceImpl implements CartAndPaymentService {
+	@Autowired
+	AuctionRepository auctionRepository;
+	
+	@Autowired
+	StatusAuctionRepository statusAuctionRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	AuctionConverter auctionConverter;
+	
+	@Override
+	public List<ProductInCartDto> getProductInCart(String accountName) {
+		User user = userRepository.findById(accountName).orElse(null);
+		if (user == null) {
+			return null;
+		}
+		StatusAuction statusAuction = statusAuctionRepository.findById(3).orElse(null);
+		
+		List<Auction> auctions = auctionRepository.findByBuyerAndStatusAuction(user, statusAuction);
+		List<ProductInCartDto> productsInCart = new ArrayList<ProductInCartDto>();
+		for (Auction auction : auctions) {
+			if (auction.getOrders() != null || !auction.getOrders().isEmpty()) {
+				productsInCart.add(auctionConverter.convertToProductInCartDto(auction));
+			}
+		}
+		return productsInCart;
+	}
+	
+}

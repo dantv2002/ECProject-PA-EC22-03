@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.Ecomerce.API.models.dtos.AuctionBasicInfoDto;
 import com.Ecomerce.API.models.dtos.AuctionDetailDto;
 import com.Ecomerce.API.models.dtos.AuctionDto;
+import com.Ecomerce.API.models.dtos.ProductInCartDto;
 import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.AuctionDetail;
 import com.Ecomerce.API.models.entities.User;
@@ -135,5 +136,20 @@ public class AuctionConverter {
 		auctionDetailDto.setNameBuyer(auction.getBuyer().getInforUser().getFirstName() + " " 
 				+ auction.getBuyer().getInforUser().getLastName());
 		return auctionDetailDto;
+	}
+	
+	public ProductInCartDto convertToProductInCartDto(Auction auction) {
+		if (auction == null) {
+			return null;
+		}
+		ProductInCartDto productInCart = new ProductInCartDto();
+		productInCart.setProductName(auction.getProduct().getName());
+		productInCart.setImageProduct(auction.getProduct().getImageProduct());
+		productInCart.setAccountNameOfSeller(auction.getSellerEnd().getAccountName());
+		productInCart.setNameOfSeller(auction.getSellerEnd().getInforUser().getFirstName() + " " 
+				+ auction.getSellerEnd().getInforUser().getLastName());
+		productInCart.setPrice(auction.getPriceTransaction());
+		
+		return productInCart;
 	}
 }
