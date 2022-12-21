@@ -1,6 +1,5 @@
 package com.Ecomerce.API.controllers;
 
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -34,7 +33,7 @@ public class UserController {
 		return null;
 	}
 	
-	@GetMapping(value = "/users/checkproductofuser")
+	@GetMapping(value = "/auth/user/users/checkproductofuser")
 	public ResponseEntity<ResponseObject> isUserSellingThisProduct(@Valid @RequestParam String userName, 
 			@Valid @RequestParam int productId) throws ExceptionCustom {
 		boolean check = service.isUserSellingThisProduct(userName, productId);

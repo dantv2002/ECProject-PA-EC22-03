@@ -51,8 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
 		.and()
 		.authorizeRequests()
-		.antMatchers("auth/api/admin/**").hasRole("ADMIN")
-		.antMatchers("/test", "auth/api/user/**").hasAnyRole("USER","ADMIN")
+		.antMatchers("/api/auth/admin/**").hasRole("ADMIN")
+		.antMatchers("/api/auth/user/**").hasAnyRole("USER","ADMIN")
 		.antMatchers("/register","/login", "/api/products/**", "/api/auctions/**", "/api/users/**", 
 				"/api/categories/**").permitAll()
 		.anyRequest().authenticated()
