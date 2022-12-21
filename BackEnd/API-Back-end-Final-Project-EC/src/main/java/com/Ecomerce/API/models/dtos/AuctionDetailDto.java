@@ -3,6 +3,7 @@ package com.Ecomerce.API.models.dtos;
 import java.util.List;
 
 public class AuctionDetailDto {
+	private int productId;
 	private String productName;
 	private String imageProduct;
 	private int currentPrice;
@@ -127,5 +128,13 @@ public class AuctionDetailDto {
 
 	public void setStatusOfCurrentUser(int statusOfCurrentUser) {
 		this.statusOfCurrentUser = statusOfCurrentUser;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 }

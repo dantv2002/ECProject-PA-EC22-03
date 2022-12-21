@@ -1,6 +1,7 @@
 package com.Ecomerce.API.models.dtos;
 
 public class ProductInCartDto {
+	private int productId;
 	private String productName;
 	private String imageProduct;
 	private String accountNameOfSeller;
@@ -55,5 +56,13 @@ public class ProductInCartDto {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 }

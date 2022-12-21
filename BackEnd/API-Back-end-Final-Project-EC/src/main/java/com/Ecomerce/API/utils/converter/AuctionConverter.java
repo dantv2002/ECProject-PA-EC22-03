@@ -84,6 +84,7 @@ public class AuctionConverter {
 		}
 		
 		AuctionDetailDto auctionDetailDto = new AuctionDetailDto();
+		auctionDetailDto.setProductId(auction.getProduct().getId());
 		auctionDetailDto.setProductName(auction.getProduct().getName());
 		auctionDetailDto.setImageProduct(auction.getProduct().getImageProduct());
 		auctionDetailDto.setCurrentPrice(auction.getPriceTransaction());
@@ -162,6 +163,7 @@ public class AuctionConverter {
 			return null;
 		}
 		ProductInCartDto productInCart = new ProductInCartDto();
+		productInCart.setProductId(auction.getProduct().getId());
 		productInCart.setProductName(auction.getProduct().getName());
 		productInCart.setImageProduct(auction.getProduct().getImageProduct());
 		productInCart.setAccountNameOfSeller(auction.getSellerEnd().getAccountName());
