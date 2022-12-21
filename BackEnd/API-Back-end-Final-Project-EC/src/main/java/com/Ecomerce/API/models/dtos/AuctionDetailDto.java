@@ -13,6 +13,7 @@ public class AuctionDetailDto {
 	private int amountSeller;
 	private int auctionId;
 	private String buyer;
+	private String nameBuyer;
 	
 	public AuctionDetailDto() {}
 
@@ -109,5 +110,13 @@ public class AuctionDetailDto {
 
 	public void setBuyer(String buyer) {
 		this.buyer = buyer;
+	}
+
+	public String getNameBuyer() {
+		return nameBuyer;
+	}
+
+	public void setNameBuyer(String nameBuyer) {
+		this.nameBuyer = nameBuyer;
 	}
 }

@@ -22,6 +22,8 @@ public class AuctionConverter {
 		AuctionDto auctionDto = new AuctionDto();
 		auctionDto.setId(auction.getId());
 		auctionDto.setBuyer(auction.getBuyer().getAccountName());
+		auctionDto.setNameBuyer(auction.getBuyer().getInforUser().getFirstName() + 
+				" " + auction.getBuyer().getInforUser().getLastName());
 		auctionDto.setProductId(auction.getProduct().getId());
 		
 		try {
@@ -46,6 +48,8 @@ public class AuctionConverter {
 		
 		User sellerEnd = auction.getSellerEnd();
 		auctionDto.setSellerEnd(sellerEnd == null ? null : sellerEnd.getAccountName());
+		auctionDto.setNameSellerEnd(sellerEnd == null ? null : sellerEnd.getInforUser().getFirstName() + " "
+				+ sellerEnd.getInforUser().getLastName());
 		
 		auctionDto.setStatusAuction(auction.getStatusAuction().getId());
 		
@@ -54,7 +58,9 @@ public class AuctionConverter {
 	
 	public AuctionBasicInfoDto convertToAuctionBasicInfoDto(AuctionDetail auctionDetail) {
 		AuctionBasicInfoDto auctionInfo = new AuctionBasicInfoDto();
-		auctionInfo.setPersonOfferingPrice(auctionDetail.getSeller().getAccountName());
+		auctionInfo.setPersonOfferingPrice(auctionDetail.getSeller().getInforUser().getFirstName() + " " 
+				+ auctionDetail.getSeller().getInforUser().getLastName());
+		auctionInfo.setAccountNamePerson(auctionDetail.getSeller().getAccountName());
 		auctionInfo.setOfferedPrice(auctionDetail.getPrice());
 		auctionInfo.setComment(auctionDetail.getComment());
 		
@@ -89,7 +95,7 @@ public class AuctionConverter {
 		
 		// List contain price is offered during auction
 		List<Integer> listPrice = new ArrayList<Integer>(); 
-		
+
 		// Set Amount Product is started with 0
 		auctionDetailDto.setAmountSeller(0);
 		
@@ -116,10 +122,18 @@ public class AuctionConverter {
 				auctionDetailDto.setTimeEnd(null);
 			}
 		}
-		Collections.sort(listPrice, Collections.reverseOrder());
-		auctionDetailDto.setStartPrice(listPrice.get(0));
+		
+		if (listPrice == null || listPrice.isEmpty()) {			
+			auctionDetailDto.setStartPrice(0);
+		} else {
+			Collections.sort(listPrice, Collections.reverseOrder());
+			auctionDetailDto.setStartPrice(listPrice.get(0));
+		}
+
 		auctionDetailDto.setAuctionId(auction.getId());
 		auctionDetailDto.setBuyer(auction.getBuyer().getAccountName());
+		auctionDetailDto.setNameBuyer(auction.getBuyer().getInforUser().getFirstName() + " " 
+				+ auction.getBuyer().getInforUser().getLastName());
 		return auctionDetailDto;
 	}
 }

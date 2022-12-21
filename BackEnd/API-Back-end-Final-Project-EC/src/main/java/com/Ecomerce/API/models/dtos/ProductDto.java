@@ -9,6 +9,7 @@ public class ProductDto {
 	private int amount;
 	private int categoryId;	
 	private String accountName;
+	private String userName;
 	private boolean status;
 	
 	public int getId() {
@@ -64,5 +65,11 @@ public class ProductDto {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

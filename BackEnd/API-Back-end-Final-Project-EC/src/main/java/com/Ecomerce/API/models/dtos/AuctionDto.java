@@ -6,6 +6,7 @@ import java.util.Date;
 public class AuctionDto {
 	private int id;
 	private String buyer;
+	private String nameBuyer;
 	private int productId;
 	private String timeStart;
 	private String timeEnd;
@@ -13,6 +14,7 @@ public class AuctionDto {
 	private int priceShipping;
 	private int commission;
 	private String sellerEnd;
+	private String nameSellerEnd;
 	private int statusAuction;
 	private String productName;
 	private String imageProduct;
@@ -128,5 +130,21 @@ public class AuctionDto {
 
 	public void setImageProduct(String imageProduct) {
 		this.imageProduct = imageProduct;
+	}
+
+	public String getNameBuyer() {
+		return nameBuyer;
+	}
+
+	public void setNameBuyer(String nameBuyer) {
+		this.nameBuyer = nameBuyer;
+	}
+
+	public String getNameSellerEnd() {
+		return nameSellerEnd;
+	}
+
+	public void setNameSellerEnd(String nameSellerEnd) {
+		this.nameSellerEnd = nameSellerEnd;
 	}
 }

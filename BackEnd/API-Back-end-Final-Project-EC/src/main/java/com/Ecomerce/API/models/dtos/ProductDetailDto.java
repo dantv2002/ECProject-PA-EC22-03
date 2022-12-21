@@ -8,6 +8,7 @@ public class ProductDetailDto {
 	private String imageProduct;
 	private String description;
 	private String seller;
+	private String sellerName;
 	private String manufacturer;
 	private int categoryId;
 	private String categoryName;
@@ -100,5 +101,13 @@ public class ProductDetailDto {
 
 	public void setComments(List<CommentProductDetailDto> comments) {
 		this.comments = comments;
+	}
+
+	public String getSellerName() {
+		return sellerName;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
 	}	
 }

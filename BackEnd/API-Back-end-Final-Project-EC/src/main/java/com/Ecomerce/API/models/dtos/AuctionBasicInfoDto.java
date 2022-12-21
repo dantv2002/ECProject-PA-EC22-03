@@ -2,6 +2,7 @@ package com.Ecomerce.API.models.dtos;
 
 public class AuctionBasicInfoDto {
 	private String personOfferingPrice;
+	private String accountNamePerson;
 	private int offeredPrice;
 	private String comment;
 	private String timeOffer;
@@ -40,5 +41,13 @@ public class AuctionBasicInfoDto {
 	}
 	public void setTimeOffer(String timeOffer) {
 		this.timeOffer = timeOffer;
+	}
+
+	public String getAccountNamePerson() {
+		return accountNamePerson;
+	}
+
+	public void setAccountNamePerson(String accountNamePerson) {
+		this.accountNamePerson = accountNamePerson;
 	}
 }

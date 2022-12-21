@@ -12,6 +12,7 @@ import com.Ecomerce.API.models.dtos.ProductDto;
 import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.Comment;
 import com.Ecomerce.API.models.entities.Product;
+import com.Ecomerce.API.models.entities.User;
 import com.Ecomerce.API.repositories.CategoryRepository;
 import com.Ecomerce.API.repositories.UserRepository;
 
@@ -37,7 +38,7 @@ public class ProductConverter {
 		product.setManufacturer(productDto.getManufacturer());
 		product.setImageProduct(productDto.getImageProduct());
 		product.setAmount(productDto.getAmount());
-		product.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));		
+		product.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
 		product.setUser(userRepository.findById(productDto.getAccountName()).orElse(null));
 		product.setStatus(productDto.isStatus());
 		
@@ -58,7 +59,15 @@ public class ProductConverter {
 		productDto.setImageProduct(product.getImageProduct());
 		productDto.setAmount(product.getAmount());
 		productDto.setCategoryId(product.getCategory().getId());
-		productDto.setAccountName(product.getUser().getAccountName());
+		
+		User user = product.getUser();
+		if (user == null) {
+			productDto.setAccountName(null);
+			productDto.setUserName(null);
+		} else {
+			productDto.setAccountName(user.getAccountName());
+			productDto.setUserName(user.getInforUser().getFirstName() + " " + user.getInforUser().getLastName());
+		}
 		productDto.setStatus(product.isStatus());
 		
 		return productDto;
@@ -70,6 +79,8 @@ public class ProductConverter {
 		response.setImageProduct(product.getImageProduct());
 		response.setDescription(product.getDescription());
 		response.setSeller(product.getUser().getAccountName());
+		response.setSellerName(product.getUser().getInforUser().getFirstName() + " " + 
+				product.getUser().getInforUser().getLastName());
 		response.setManufacturer(product.getManufacturer());
 		response.setCategoryId(product.getCategory().getId());
 		response.setCategoryName(product.getCategory().getName());
@@ -81,7 +92,10 @@ public class ProductConverter {
 			if (auction.getStatusAuction().getId() == 3) {
 				List<Comment> comments = auction.getComments();
 				for (Comment comment : comments) {
-					commentsDto.add(new CommentProductDetailDto(auction.getBuyer().getAccountName(), comment.getComment()));
+					String userName = auction.getBuyer().getInforUser().getFirstName() + " " + 
+							auction.getBuyer().getInforUser().getLastName();
+
+					commentsDto.add(new CommentProductDetailDto(auction.getBuyer().getAccountName(), userName, comment.getComment()));
 				}
 			}
 		}
