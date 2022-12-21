@@ -170,6 +170,7 @@ public class AuctionConverter {
 		productInCart.setNameOfSeller(auction.getSellerEnd().getInforUser().getFirstName() + " " 
 				+ auction.getSellerEnd().getInforUser().getLastName());
 		productInCart.setPrice(auction.getPriceTransaction());
+		productInCart.setAuctionId(auction.getId());
 		
 		return productInCart;
 	}

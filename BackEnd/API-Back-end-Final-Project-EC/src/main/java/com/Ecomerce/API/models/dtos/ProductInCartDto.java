@@ -7,6 +7,7 @@ public class ProductInCartDto {
 	private String accountNameOfSeller;
 	private String nameOfSeller;
 	private int price;
+	private int auctionId;
 	
 	public ProductInCartDto() {}
 
@@ -64,5 +65,13 @@ public class ProductInCartDto {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+
+	public int getAuctionId() {
+		return auctionId;
+	}
+
+	public void setAuctionId(int auctionId) {
+		this.auctionId = auctionId;
 	}
 }
