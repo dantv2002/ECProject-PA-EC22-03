@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecomerce.API.exceptions.ResourceNotFoundException;
+import com.Ecomerce.API.models.dtos.AddressShippingDto;
 import com.Ecomerce.API.models.dtos.ProductInCartDto;
 import com.Ecomerce.API.models.objects.ResponseObject;
 import com.Ecomerce.API.services.CartAndPaymentService;
@@ -24,18 +25,28 @@ import com.Ecomerce.API.services.CartAndPaymentService;
 public class CartAndPaymentController {
 	@Autowired
 	CartAndPaymentService service;
-	
+
 	@GetMapping("/auth/user/cart")
 	public ResponseEntity<ResponseObject> getProductInCart(@Valid @RequestParam String accountName)
-						throws ResourceNotFoundException {
+			throws ResourceNotFoundException {
 		List<ProductInCartDto> productsInCart = service.getProductInCart(accountName);
-		
+
 		if (productsInCart == null || productsInCart.isEmpty()) {
 			throw new ResourceNotFoundException("Thất bại", "Không tìm thấy sản phẩm nào trong giỏ hàng", "");
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(
-				new ResponseObject("Thành công", "Lấy các sản phẩm trong giỏ hàng thành công", productsInCart));
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Lấy các sản phẩm trong giỏ hàng thành công", productsInCart));
 	}
-	
-	
+
+	@GetMapping("/auth/user/shippingaddress")
+	public ResponseEntity<ResponseObject> getShippingAddress(@Valid @RequestParam String accountName)
+			throws ResourceNotFoundException {
+		List<AddressShippingDto> listShippingAddress = service.getShippingAddress(accountName);
+
+		if (listShippingAddress == null || listShippingAddress.isEmpty()) {
+			throw new ResourceNotFoundException("Thất bại", "Không tìm địa chỉ giao hàng nào", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Lấy địa chỉ giao hàng thành công", listShippingAddress));
+	}
 }
