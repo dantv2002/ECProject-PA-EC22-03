@@ -4,22 +4,29 @@ public class AddressShippingDto {
 	private int idAddress;
 	private String receiver;
 	private int idDistrict;
+	private String nameDistrict;
 	private int idWard;
+	private String nameWard;
 	private String addressDetail;
 	private String phoneNumber;
 	
 	public AddressShippingDto() {}
 
-	public AddressShippingDto(int idAddress, String receiver, int idDistrict, int idWard, String addressDetail,
-			String phoneNumber) {
-		super();
+	
+
+	public AddressShippingDto(int idAddress, String receiver, int idDistrict, String nameDistrict, int idWard,
+			String nameWard, String addressDetail, String phoneNumber) {
 		this.idAddress = idAddress;
 		this.receiver = receiver;
 		this.idDistrict = idDistrict;
+		this.nameDistrict = nameDistrict;
 		this.idWard = idWard;
+		this.nameWard = nameWard;
 		this.addressDetail = addressDetail;
 		this.phoneNumber = phoneNumber;
 	}
+
+
 
 	public int getIdAddress() {
 		return idAddress;
@@ -67,5 +74,21 @@ public class AddressShippingDto {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getNameDistrict() {
+		return nameDistrict;
+	}
+
+	public void setNameDistrict(String nameDistrict) {
+		this.nameDistrict = nameDistrict;
+	}
+
+	public String getNameWard() {
+		return nameWard;
+	}
+
+	public void setNameWard(String nameWard) {
+		this.nameWard = nameWard;
 	}
 }

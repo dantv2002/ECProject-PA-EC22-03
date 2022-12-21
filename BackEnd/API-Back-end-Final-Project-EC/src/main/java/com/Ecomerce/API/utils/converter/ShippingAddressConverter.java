@@ -33,7 +33,9 @@ public class ShippingAddressConverter {
 		shippingAddressDto.setIdAddress(entity.getId());
 		shippingAddressDto.setReceiver(entity.getFullName());
 		shippingAddressDto.setIdDistrict(entity.getWard().getDistrict().getId());
+		shippingAddressDto.setNameDistrict(entity.getWard().getDistrict().getName());
 		shippingAddressDto.setIdWard(entity.getWard().getId());
+		shippingAddressDto.setNameWard(entity.getWard().getName());
 		shippingAddressDto.setAddressDetail(entity.getAddressDetails());
 		shippingAddressDto.setPhoneNumber(entity.getPhone());
 		
