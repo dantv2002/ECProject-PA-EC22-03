@@ -18,8 +18,13 @@ public interface UserService {
 	UserInfoDto updateInfoCurrentUser(String accountName, UserInfoDto userDto);
 	List<NotificationDto> getNotificationOfUser(String accountName);
 	List<UserDto> findAllUser();
+<<<<<<< HEAD
 	boolean deleteNotification(int id);
 	List<OrderOfUserDto> getOrderOfUser(String accountName);
 	DetailOrderOfUserDto getDetailOrderOfUser(int orderId);
 	boolean changeStatusOrder(int orderId);
+=======
+	UserDto changeStatus(UserDto user);
+	List<UserInfoDto> findAllInfoUser();
+>>>>>>> 0c09068654946da76ecd8d550edba503f7bc14b2
 }
