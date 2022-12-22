@@ -12,14 +12,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.NotificationDto;
-<<<<<<< HEAD
+
 import com.Ecomerce.API.models.dtos.OrderOfUserDto;
 import com.Ecomerce.API.models.dtos.AuctionDto;
 import com.Ecomerce.API.models.dtos.DetailOrderOfUserDto;
-=======
->>>>>>> 0c09068654946da76ecd8d550edba503f7bc14b2
+
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
+import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.InforUser;
 import com.Ecomerce.API.models.entities.Notification;
 import com.Ecomerce.API.models.entities.Order;
@@ -191,7 +191,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public boolean deleteNotification(int id) {
 		Notification notification = notificationRepository.findById(id).orElse(null);
 		if (notification == null || !notification.isStatus()) {
@@ -253,7 +253,7 @@ public class UserServiceImpl implements UserService {
 		
 		return true;
 	}
-=======
+	
 	public List<UserInfoDto> findAllInfoUser() {
 		List<User> users = repository.findAll();
 		List<UserInfoDto> listInfoUser = new ArrayList<UserInfoDto>();
@@ -271,7 +271,4 @@ public class UserServiceImpl implements UserService {
 		repository.save(userEntity);
 		return converter.convertToDto(userEntity);
 	}
-
-
->>>>>>> 0c09068654946da76ecd8d550edba503f7bc14b2
 }
