@@ -3,6 +3,7 @@ package com.Ecomerce.API.services.impls;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import com.Ecomerce.API.models.dtos.NotificationDto;
+=======
+import com.Ecomerce.API.models.dtos.AuctionDto;
+>>>>>>> e2a1165350d7f5c963d64bbf8399395475e2a640
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
+import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.InforUser;
 import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.models.entities.User;
@@ -27,26 +33,26 @@ import com.Ecomerce.API.utils.converter.UserConverter;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private InforUserRepository inforUserRepository;
-	
+
 	@Autowired
 	private UserConverter converter;
-	
+
 	@Autowired
 	private WardRepository wardRepository;
-	
+
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 	@Override
 	public UserDto findUserByName(String name) {
-		
+
 		return converter.convertToDto(repository.findById(name).orElse(null));
 	}
 
@@ -60,14 +66,14 @@ public class UserServiceImpl implements UserService {
 		if (user == product.getUser()) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
 	@Override
 	public UserInfoDto findInfoCurrentUser(String accountName) {
 		User user = repository.findById(accountName).orElse(null);
-		
+
 		return converter.convertToUserInfoDto(user);
 	}
 
@@ -95,32 +101,32 @@ public class UserServiceImpl implements UserService {
 		if (user == null) {
 			return false;
 		}
-		
+
 		user.setAccountName(userDto.getAccountName());
 		user.setPass(passwordEncoder().encode(userDto.getPass()));
 		user.setImageUser(userDto.getImageUser());
-		user.setStatusUser(true); 
+		user.setStatusUser(true);
 		user.setRole("USER");
-		
+
 		InforUser userInfo;
 		if (user.getInforUser() == null) {
 			userInfo = new InforUser();
 		} else {
-			userInfo = inforUserRepository.findById(accountName).orElse(null);			
+			userInfo = inforUserRepository.findById(accountName).orElse(null);
 		}
 		userInfo.setAccountName(accountName);
 		userInfo.setFirstName(userDto.getFirstName());
 		userInfo.setLastName(userDto.getLastName());
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = sdf.parse(userDto.getBirthday());
-		 java.sql.Date sqlDate = new Date(date.getTime());
+		java.sql.Date sqlDate = new Date(date.getTime());
 		userInfo.setBirthDay(sqlDate);
 		userInfo.setEmail(userDto.getEmail());
 		userInfo.setPhone(userDto.getPhone());
-		userInfo.setWard(wardRepository.findById(userDto.getWardId()).orElse(null));		
-		userInfo.setAddressDetail(userDto.getAddressDetail());		
-		
+		userInfo.setWard(wardRepository.findById(userDto.getWardId()).orElse(null));
+		userInfo.setAddressDetail(userDto.getAddressDetail());
+
 		try {
 			repository.save(user);
 			inforUserRepository.save(userInfo);
@@ -128,13 +134,24 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<NotificationDto> getNotificationOfUser(String accountName) {
 		// TODO Auto-generated method stub
 		return null;
+=======
+	public List<UserDto> findAllUser() {
+		List<User> users = repository.findAll();
+		List<UserDto> listUser = new ArrayList<UserDto>();
+
+		for (User user : users) {
+			listUser.add(converter.convertToDto(user));
+		}
+		return listUser;
+>>>>>>> e2a1165350d7f5c963d64bbf8399395475e2a640
 	}
 }
