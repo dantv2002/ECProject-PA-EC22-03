@@ -136,4 +136,18 @@ public class UserStoreController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(new ResponseObject("Thành công", "Lấy các sản phẩm thành công" , productsDto));
 	}
+	
+	@GetMapping(value = "/userstore/products")
+	public ResponseEntity<ResponseObject> getProductByCategoryWithoutToken(@Valid @RequestParam String categoryName, 
+			@Valid @RequestParam String accountName) 
+			throws ResourceNotFoundException {
+	
+		List<ProductDto> productsDto = service.findProductWithCategory(categoryName, accountName);
+		
+		if (productsDto == null || productsDto.isEmpty()) {
+			throw new ResourceNotFoundException("Thất bại", "Không thể lấy các sản phẩm", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Lấy các sản phẩm thành công" , productsDto));
+	}
 }
