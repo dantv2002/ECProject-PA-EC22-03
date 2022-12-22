@@ -102,6 +102,7 @@ public class UserConverter {
 		dto.setProductName(entity.getAuction().getProduct().getName());
 		dto.setImageProduct(entity.getAuction().getProduct().getImageProduct());
 		dto.setStatusAuction(entity.getAuction().getStatusAuction().getId());
+		dto.setType(entity.isType());
 		
 		return dto;
 	}

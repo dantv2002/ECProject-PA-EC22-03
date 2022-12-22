@@ -18,6 +18,7 @@ public class NotificationDto {
 	private int statusAuction;
 	private String productName;
 	private String imageProduct;
+	private boolean type;
 	
 	public NotificationDto() {}
 
@@ -169,5 +170,13 @@ public class NotificationDto {
 
 	public void setImageProduct(String imageProduct) {
 		this.imageProduct = imageProduct;
+	}
+
+	public boolean isType() {
+		return type;
+	}
+
+	public void setType(boolean type) {
+		this.type = type;
 	}	
 }
