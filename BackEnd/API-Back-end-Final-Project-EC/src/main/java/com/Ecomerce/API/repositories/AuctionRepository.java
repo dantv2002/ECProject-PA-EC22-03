@@ -16,4 +16,6 @@ public interface AuctionRepository extends JpaRepository<Auction, Integer> {
 	List<Auction> findByStatusAuctionAndPriceTransactionGreaterThanEqualAndPriceTransactionLessThanEqualOrderByPriceTransactionDesc(
 			StatusAuction statusAuction, int maxPrice, int minPrice);
 	List<Auction> findByBuyerAndStatusAuctionAndExist(User user, StatusAuction statusAuction, boolean check);
+	List<Auction> findBySellerEndAndStatusAuctionAndExist(User seller, StatusAuction statusAuction, boolean check);
+	List<Auction> findByStatusAuctionAndExist(StatusAuction statusAuction, boolean check);
 }
