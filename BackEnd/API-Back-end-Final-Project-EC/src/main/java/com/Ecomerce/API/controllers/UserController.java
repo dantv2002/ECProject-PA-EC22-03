@@ -2,6 +2,7 @@ package com.Ecomerce.API.controllers;
 
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecomerce.API.exceptions.ExceptionCustom;
 import com.Ecomerce.API.exceptions.ResourceNotFoundException;
+import com.Ecomerce.API.models.dtos.NotificationDto;
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.objects.ResponseObject;
@@ -71,5 +73,18 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(new ResponseObject("Thành công", "Cập nhật thành công thông tin cho user " + accountName 
 						, userDto));
+	}
+	
+	@GetMapping(value = "/auth/user/users/notification")
+	public ResponseEntity<ResponseObject> getNotificationOfUser(@RequestHeader("Authorization") String token) 
+			throws ResourceNotFoundException, ParseException {
+		String accountName = jwtTokenUtil.getUsernameFromToken(token.substring(7));
+		List<NotificationDto> dtos = service.getNotificationOfUser(accountName);
+		
+		if (dtos == null || dtos.isEmpty()) {
+			throw new ResourceNotFoundException("Thất bại", "Không lấy được các thông báo của người dùng", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Lấy các thông báo của người dùng thành công" , dtos));
 	}
 }
