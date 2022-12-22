@@ -9,4 +9,6 @@ import com.Ecomerce.API.models.entities.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	List<Category> findByName(String name);
+
+	Category findOneById(int id);
 }

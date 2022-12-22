@@ -16,13 +16,13 @@ import com.Ecomerce.API.services.AuctionService;
 import com.Ecomerce.API.utils.converter.AuctionConverter;
 
 @Service
-public class AuctionServiceImpl implements AuctionService{
+public class AuctionServiceImpl implements AuctionService {
 	@Autowired
 	private AuctionRepository repository;
-	
+
 	@Autowired
 	private StatusAuctionRepository statusAuctionRepository;
-	
+
 	@Autowired
 	private AuctionConverter converter;
 
@@ -39,22 +39,22 @@ public class AuctionServiceImpl implements AuctionService{
 				break;
 			}
 		}
-		
+
 		return auctionsDto;
 	}
 
 	@Override
 	public List<AuctionDto> findAuctionIsHappening(int amount) {
-		List<AuctionDto> productsOnAuction = findAuctionWithStatusAuction(amount, 2);	
-		
+		List<AuctionDto> productsOnAuction = findAuctionWithStatusAuction(amount, 2);
+
 		return productsOnAuction;
 	}
 
 	@Override
 	public AuctionDetailDto displayAuctionDetail(int id, String accountName) {
-		Auction auction = repository.findById(id).orElse(null);		
+		Auction auction = repository.findById(id).orElse(null);
 		AuctionDetailDto auctionDetail = converter.convertToAuctionDetailDto(auction, accountName);
-		
+
 		return auctionDetail;
 	}
 
@@ -64,17 +64,29 @@ public class AuctionServiceImpl implements AuctionService{
 		if (auction == null || !auction.isExist()) {
 			return false;
 		}
-		
+
 		try {
 			if (auction.getStatusAuction().getId() == 1 || auction.getStatusAuction().getId() == 2) {
-				auction.setStatusAuction(statusAuctionRepository.findById(4).orElse(null));			
+				auction.setStatusAuction(statusAuctionRepository.findById(4).orElse(null));
 			}
 			auction.setExist(false);
 			repository.save(auction);
-		} catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<AuctionDto> findAllAuction() {
+		List<Auction> auctions = repository.findAll();
+		List<AuctionDto> auctionsDto = new ArrayList<AuctionDto>();
+
+		for (Auction auction : auctions) {
+			auctionsDto.add(converter.convertToDto(auction));
+		}
+
+		return auctionsDto;
 	}
 }

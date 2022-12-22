@@ -161,9 +161,10 @@ GO
 -- Tạo table thể hiện trạng thái của đơn hàng --
 CREATE TABLE Orders
 (
+	id int IDENTITY(1,1),
 	auction_id int,
 	status_id int,
-	CONSTRAINT pk_Order_status PRIMARY KEY (auction_id, status_id)
+	CONSTRAINT pk_Order_status PRIMARY KEY (id)
 )
 GO
 -- Tạo table lưu thông báo --
@@ -171,9 +172,9 @@ CREATE TABLE Notifications
 (
 	id int IDENTITY(1,1),
 	account_name varchar(20),
-	id_product int,
 	"time" datetime,
 	auction_id int,
+	type bit,
 	"status" bit default 1, -- Thông báo xem hay chưa --
 )
 GO
@@ -319,16 +320,9 @@ references Users(account_name)
 GO
 
 alter table Notifications
-add constraint Not_product
-foreign key (id_product)
-references Product(id)
-GO
-
-alter table Notifications
 add constraint Not_auction
 foreign key (auction_id)
 references Auction(id)
 GO
-
 
 

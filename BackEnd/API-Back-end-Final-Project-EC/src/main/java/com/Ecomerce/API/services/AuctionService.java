@@ -9,4 +9,5 @@ public interface AuctionService {
 	List<AuctionDto> findAuctionIsHappening(int amount);
 	AuctionDetailDto displayAuctionDetail(int id, String accountName); 
 	boolean deleteAuction(int id);
+	List<AuctionDto> findAllAuction();
 }
