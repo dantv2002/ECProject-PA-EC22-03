@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.UserDto;
+import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.models.entities.User;
 import com.Ecomerce.API.repositories.ProductRepository;
@@ -51,10 +52,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto findInfoCurrentUser(String accountName) {
+	public UserInfoDto findInfoCurrentUser(String accountName) {
 		User user = repository.findById(accountName).orElse(null);
 		
-		return converter.convertToDto(user);
+		return converter.convertToUserInfoDto(user);
 	}
 
 	@Override

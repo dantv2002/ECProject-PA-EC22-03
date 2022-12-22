@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Ecomerce.API.exceptions.ExceptionCustom;
 import com.Ecomerce.API.exceptions.ResourceNotFoundException;
 import com.Ecomerce.API.models.dtos.UserDto;
+import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.objects.ResponseObject;
 import com.Ecomerce.API.security.JwtTokenUtil;
 import com.Ecomerce.API.services.UserService;
@@ -47,7 +48,7 @@ public class UserController {
 	@GetMapping(value = "/auth/user/users/info")
 	public ResponseEntity<ResponseObject> findInfoCurrentUser(@RequestHeader("Authorization") String token) throws ResourceNotFoundException {
 		String accountname = jwtTokenUtil.getUsernameFromToken(token.substring(7));
-		UserDto userDto = service.findInfoCurrentUser(accountname);
+		UserInfoDto userDto = service.findInfoCurrentUser(accountname);
 		
 		if (userDto == null) {
 			throw new ResourceNotFoundException("Thất bại", "Không tìm được thông tin cho user " + accountname, "");

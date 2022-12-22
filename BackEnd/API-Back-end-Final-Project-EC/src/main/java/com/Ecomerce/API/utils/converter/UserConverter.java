@@ -1,8 +1,11 @@
 package com.Ecomerce.API.utils.converter;
 
+import java.text.SimpleDateFormat;
+
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.UserDto;
+import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.entities.User;
 
 @Service
@@ -34,5 +37,31 @@ public class UserConverter {
 		user.setRole(userDto.getRole());
 		
 		return user;
+	}
+	
+	public UserInfoDto convertToUserInfoDto(User user) {
+		UserInfoDto userInfo = new UserInfoDto();
+		userInfo.setAccountName(user.getAccountName());
+		userInfo.setPass(user.getPass());
+		userInfo.setImageUser(user.getImageUser());
+		userInfo.setStatusUser(user.isStatusUser());
+		userInfo.setRoles(user.getRole());
+		
+		if (user.getInforUser() == null) {
+			return userInfo;
+		}
+		
+		userInfo.setFirstName(user.getInforUser().getFirstName());
+		userInfo.setLastName(user.getInforUser().getLastName());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		userInfo.setBirthday(sdf.format(user.getInforUser().getBirthDay()));		
+		userInfo.setEmail(user.getInforUser().getEmail());
+		userInfo.setPhone(user.getInforUser().getPhone());
+		userInfo.setWardId(user.getInforUser().getWard().getId());
+		userInfo.setWardName(user.getInforUser().getWard().getName());
+		userInfo.setAddressDetail(user.getInforUser().getAddressDetail());
+		
+		return userInfo;
 	}
 }
