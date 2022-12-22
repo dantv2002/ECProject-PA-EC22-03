@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecomerce.API.exceptions.ResourceNotFoundException;
 import com.Ecomerce.API.models.dtos.AuctionDto;
+import com.Ecomerce.API.models.dtos.ChangeStatusUserDto;
 import com.Ecomerce.API.models.dtos.ProductInCartDto;
 import com.Ecomerce.API.models.dtos.RevenueStactisticsDto;
 import com.Ecomerce.API.models.dtos.UserDto;
@@ -161,6 +164,22 @@ public class AdminPageController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Thành công",
 				"Thống kê thông tin user hiện tại thành công", allUser));
+	}
+	@PostMapping("/auth/admin/change-user-status")
+	public ResponseEntity<ResponseObject> changeUserStatus(@RequestBody ChangeStatusUserDto changeStatusUserDto) throws ResourceNotFoundException{
+		UserDto user = new UserDto();
+		Boolean status = null;
+		try {
+			user = userService.findUserByName(changeStatusUserDto.getAccountName());
+			user = userService.changeStatus(user);
+			status = user.isStatusUser();
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Thất bại", "Không tìm được thông tin user", "");
+		}
+		Map<String, Boolean> map = new HashMap<>();
+		map.put("status", status);
+		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Thành công",
+				"Thay đổi trạng thái user thành công", map));
 	}
 	
 }

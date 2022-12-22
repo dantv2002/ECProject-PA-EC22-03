@@ -17,4 +17,5 @@ public interface UserService {
 	UserInfoDto updateInfoCurrentUser(String accountName, UserInfoDto userDto);
 	List<NotificationDto> getNotificationOfUser(String accountName);
 	List<UserDto> findAllUser();
+	UserDto changeStatus(UserDto user);
 }

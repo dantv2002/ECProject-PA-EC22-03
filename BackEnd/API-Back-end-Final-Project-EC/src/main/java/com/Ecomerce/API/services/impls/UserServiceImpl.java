@@ -150,4 +150,14 @@ public class UserServiceImpl implements UserService {
 		}
 		return listUser;
 	}
+
+	@Override
+	public UserDto changeStatus(UserDto userDto) {
+		User userEntity = converter.convertToEntity(userDto);
+		userEntity.setStatusUser(!userDto.isStatusUser());
+		repository.save(userEntity);
+		return converter.convertToDto(userEntity);
+	}
+
+
 }
