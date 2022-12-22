@@ -1015,9 +1015,137 @@ INSERT INTO Auction VALUES
 ('vanan', 3, '2022-12-10 07:10:00', null, 20000000, 0, 0, null, 2, 1),
 ('vanan', 4, '2022-12-12 08:00:00', null, 12000000, 0, 0, null, 2, 1),
 ('vanan', 5, '2022-12-10 09:00:00', '2022-12-12 09:00:00', 12000000, 35000, 120000, 'vandat', 3, 1),
-('vanan', 6, '2022-12-10 09:00:00', '2022-12-12 09:00:00', 15000000, 28000, 150000, 'vanhoa', 4, 0),
-('vanbao', 5, '2022-12-10 09:00:00', '2022-12-12 09:00:00', 18000000, 28000, 180000, 'vandat', 3, 0),
-('vanbao', 5, '2022-10-10 09:00:00', '2022-10-12 09:00:00', 18000000, 28000, 200000, 'vandat', 3, 0);
+('vanan', 6, '2022-12-10 09:00:00', '2022-12-12 09:00:00', 15000000, 28000, 150000, 'vanhoa', 4, 0);
+INSERT INTO Auction VALUES
+('vanan', 12, '2022-11-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 13, '2022-10-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 14, '2022-09-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 15, '2022-08-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 16, '2022-07-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 17, '2022-06-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 18, '2022-05-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 19, '2022-04-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 20, '2022-03-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 21, '2022-02-10 09:00:00', null, 0, 0, 0, null, 3, 1),
+('vanan', 22, '2022-01-10 09:00:00', null, 0, 0, 0, null, 3, 1);
+-- Thêm data vào bảng Auction_details --
+INSERT INTO Auction_details VALUES
+(5, 'vanhoa', 15000000, '2022-12-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(5, 'vancao', 13000000, '2022-12-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(5, 'vandat', 12000000, '2022-12-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(7, 'vanhoa', 17000000, '2022-11-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(7, 'vancao', 16000000, '2022-11-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(7, 'vandat', 15000000, '2022-11-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(8, 'vanhoa', 10000000, '2022-10-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(8, 'vancao', 9000000, '2022-10-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(8, 'vandat', 7000000, '2022-10-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(9, 'vanhoa', 19000000, '2022-09-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(9, 'vancao', 17000000, '2022-09-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(9, 'vandat', 16000000, '2022-09-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(10, 'vanhoa', 16000000, '2022-08-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(10, 'vancao', 15500000, '2022-08-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(10, 'vandat', 12000000, '2022-08-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(11, 'vanhoa', 17000000, '2022-07-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(11, 'vancao', 14000000, '2022-07-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(11, 'vandat', 13000000, '2022-07-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(12, 'vanhoa', 18000000, '2022-06-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(12, 'vancao', 17000000, '2022-06-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(12, 'vandat', 16500000, '2022-06-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(13, 'vanhoa', 15000000, '2022-05-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(13, 'vancao', 13000000, '2022-05-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(13, 'vandat', 11000000, '2022-05-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(14, 'vanhoa', 17000000, '2022-04-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(14, 'vancao', 16000000, '2022-04-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(14, 'vandat', 15000000, '2022-04-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(15, 'vanhoa', 18000000, '2022-03-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(15, 'vancao', 17000000, '2022-03-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(15, 'vandat', 16000000, '2022-03-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(16, 'vanhoa', 19000000, '2022-02-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(16, 'vancao', 17000000, '2022-02-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(16, 'vandat', 15000000, '2022-02-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(17, 'vanhoa', 20000000, '2022-01-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(17, 'vancao', 19000000, '2022-01-11 09:30:00',N'Giá này chắc chắn sẽ ổn');
+INSERT INTO Auction_details VALUES
+(17, 'vandat', 17500000, '2022-01-12 07:30:00',N'Giá này chắc chắn sẽ ổn');
+-- Thêm data vào bảng Order --
+INSERT INTO Orders VALUES
+(7, 1),
+(7, 2),
+(7, 3);
+INSERT INTO Orders VALUES
+(8, 1),
+(8, 2),
+(8, 3);
+INSERT INTO Orders VALUES
+(9, 1),
+(9, 2),
+(9, 3);
+INSERT INTO Orders VALUES
+(10, 1),
+(10, 2),
+(10, 3);
+INSERT INTO Orders VALUES
+(11, 1),
+(11, 2),
+(11, 3);
+INSERT INTO Orders VALUES
+(12, 1),
+(12, 2),
+(12, 3);
+INSERT INTO Orders VALUES
+(13, 1),
+(13, 2),
+(13, 3);
+INSERT INTO Orders VALUES
+(14, 1),
+(14, 2),
+(14, 3);
+INSERT INTO Orders VALUES
+(15, 1),
+(15, 2),
+(15, 3);
+INSERT INTO Orders VALUES
+(16, 1),
+(16, 2),
+(16, 3);
+INSERT INTO Orders VALUES
+(17, 1),
+(17, 2),
+(17, 3);
 -- Thêm data vào bảng Auction_details --
 INSERT INTO Auction_details VALUES
 (5, 'vanhoa', 15000000, '2022-12-10 09:30:00',N'Giá này chắc chắn sẽ ổn'),
@@ -1027,8 +1155,6 @@ INSERT INTO Auction_details VALUES
 (4, 'vancao', 13000000, '2022-12-11 09:30:00',N'Thấp hơn đây rồi, sợ chưa'),
 (4, 'vandat', 12000000, '2022-12-12 07:30:00',N'Lần này chắc chắn sẽ lấy được mối này'),
 (3, 'vanhoa', 20000000, '2022-12-10 09:30:00',N'Giá này chắc chắn sẽ ổn');
-
-
 -- Thêm data vào bảng Order --
 INSERT INTO Orders VALUES
 (5, 3);

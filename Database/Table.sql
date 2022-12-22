@@ -326,4 +326,3 @@ references Auction(id)
 GO
 
 
-
