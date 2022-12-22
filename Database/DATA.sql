@@ -1035,8 +1035,8 @@ INSERT INTO Orders VALUES
 (5, 3);
 -- Thêm data vào bảng Notification --
 INSERT INTO Notifications VALUES
-('vandat', 7, '2022-12-10 08:30:00', null, 1),
-('vandat', 7, '2022-12-11 09:30:00', 5, 1);
+('vandat', '2022-12-10 08:30:00', 5, 0, 1),
+('vandat', '2022-12-11 09:30:00', 5, 1, 1);
 -- Thêm data vào bảng Comment --
 INSERT INTO Comment VALUES
 (5, '2022-12-14 10:30:00', N'Sản phẩm tốt', null);

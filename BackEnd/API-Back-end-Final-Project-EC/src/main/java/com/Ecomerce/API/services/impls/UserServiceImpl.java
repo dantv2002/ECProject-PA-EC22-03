@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.Ecomerce.API.models.dtos.NotificationDto;
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.entities.InforUser;
@@ -129,5 +130,11 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return true;
+	}
+
+	@Override
+	public List<NotificationDto> getNotificationOfUser(String accountName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -171,9 +171,9 @@ CREATE TABLE Notifications
 (
 	id int IDENTITY(1,1),
 	account_name varchar(20),
-	id_product int,
 	"time" datetime,
 	auction_id int,
+	type bit,
 	"status" bit default 1, -- Thông báo xem hay chưa --
 )
 GO
@@ -316,12 +316,6 @@ alter table Notifications
 add constraint Not_user
 foreign key (account_name)
 references Users(account_name)
-GO
-
-alter table Notifications
-add constraint Not_product
-foreign key (id_product)
-references Product(id)
 GO
 
 alter table Notifications
