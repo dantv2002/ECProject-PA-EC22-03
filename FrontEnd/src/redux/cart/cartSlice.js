@@ -13,7 +13,7 @@ const initialState = {
   shippingFee: 0,
   itemList: [],
   buyList: [],
-  dolaCurrnt: 0,
+  dolaCurrnt: 1,
   loading: false,
 };
 

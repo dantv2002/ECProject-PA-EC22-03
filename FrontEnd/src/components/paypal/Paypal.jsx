@@ -16,7 +16,7 @@ export const Paypal = ({ description, value, paymentSuccess ,closeModal }) => {
                         {
                             description: description,
                             amount: {
-                                value: value
+                                value: Math.round(value)
                             }
                         }
                     ]
@@ -30,7 +30,7 @@ export const Paypal = ({ description, value, paymentSuccess ,closeModal }) => {
                     return item.auctionId
                 })
                 dispatch(createOrder(a))
-                //dispatch(ReturnCartToBasic())
+                dispatch(ReturnCartToBasic())
                 
             }}
             onError = {err => {

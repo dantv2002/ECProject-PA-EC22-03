@@ -68,7 +68,7 @@ export const Proceed = () => {
       <HeaderOnlyLogo />
 
       <CusModal status={modalStatus} handleCancel={handleModalCancel}>
-        <Paypal description="Auction Recipt" value={1} paymentSuccess={setIsPaymentSuccess} closeModal={setModalStatus}/>
+        <Paypal description="Auction Recipt" value={dolaCurrnt} paymentSuccess={setIsPaymentSuccess} closeModal={setModalStatus}/>
       </CusModal>
       {isPaymentSuccess ?
         <div>
