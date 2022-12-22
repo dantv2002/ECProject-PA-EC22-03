@@ -14,4 +14,5 @@ public interface UserService {
 	boolean insertAndUpdate(String accountName, UserInfoDto userDto) throws ParseException;
 	UserInfoDto insertInfoCurrentUser(String accountName, UserInfoDto userDto);
 	UserInfoDto updateInfoCurrentUser(String accountName, UserInfoDto userDto);
+	List<UserDto> findAllUser();
 }
