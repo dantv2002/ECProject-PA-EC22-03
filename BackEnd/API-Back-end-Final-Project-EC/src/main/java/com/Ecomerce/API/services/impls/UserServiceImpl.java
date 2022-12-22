@@ -12,10 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.NotificationDto;
-import com.Ecomerce.API.models.dtos.AuctionDto;
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
-import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.InforUser;
 import com.Ecomerce.API.models.entities.Notification;
 import com.Ecomerce.API.models.entities.Product;
@@ -166,6 +164,17 @@ public class UserServiceImpl implements UserService {
 			listUser.add(converter.convertToDto(user));
 		}
 		return listUser;
+	}
+
+	@Override
+	public List<UserInfoDto> findAllInfoUser() {
+		List<User> users = repository.findAll();
+		List<UserInfoDto> listInfoUser = new ArrayList<UserInfoDto>();
+
+		for (User user : users) {
+			listInfoUser.add(converter.convertToUserInfoDto(user));
+		}
+		return listInfoUser;
 	}
 
 	@Override

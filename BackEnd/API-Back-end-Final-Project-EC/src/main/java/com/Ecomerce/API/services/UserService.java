@@ -18,4 +18,5 @@ public interface UserService {
 	List<NotificationDto> getNotificationOfUser(String accountName);
 	List<UserDto> findAllUser();
 	UserDto changeStatus(UserDto user);
+	List<UserInfoDto> findAllInfoUser();
 }

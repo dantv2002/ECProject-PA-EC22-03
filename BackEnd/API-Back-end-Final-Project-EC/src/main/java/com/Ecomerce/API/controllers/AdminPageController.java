@@ -29,6 +29,7 @@ import com.Ecomerce.API.models.dtos.ChangeStatusUserDto;
 import com.Ecomerce.API.models.dtos.ProductInCartDto;
 import com.Ecomerce.API.models.dtos.RevenueStactisticsDto;
 import com.Ecomerce.API.models.dtos.UserDto;
+import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.entities.User;
 import com.Ecomerce.API.models.objects.ResponseObject;
 import com.Ecomerce.API.security.JwtTokenUtil;
@@ -147,23 +148,23 @@ public class AdminPageController {
 	}
 	@GetMapping("/auth/admin/get-all-user")
 	public ResponseEntity<ResponseObject> getAllUsers() throws ResourceNotFoundException{
-		List<UserDto> allAdminAndUser = new ArrayList<>();
+		List<UserInfoDto> allAdminAndUser = new ArrayList<>();
 		try {
-			allAdminAndUser = userService.findAllUser();
+			allAdminAndUser = userService.findAllInfoUser();
 		} catch (Exception e) {
 			throw new ResourceNotFoundException("Thất bại", "Lỗi lấy thông tin user", "");
 		}
 		if (allAdminAndUser.isEmpty()) {
 			throw new ResourceNotFoundException("Thất bại", "Không tìm thấy user nào", "");
 		}
-		List<UserDto> allUser = new ArrayList<>();
-		for(UserDto userDto : allAdminAndUser)
+		List<UserInfoDto> allUser = new ArrayList<>();
+		for(UserInfoDto userInfoDto : allAdminAndUser)
 		{
-			if(!userDto.getRole().equals("ADMIN"))
-				allUser.add(userDto);
+			if(!userInfoDto.getRoles().equals("ADMIN"))
+				allUser.add(userInfoDto);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Thành công",
-				"Thống kê thông tin user hiện tại thành công", allUser));
+				"Thống kê tất cả thông tin user hiện tại thành công", allUser));
 	}
 	@PostMapping("/auth/admin/change-user-status")
 	public ResponseEntity<ResponseObject> changeUserStatus(@RequestBody ChangeStatusUserDto changeStatusUserDto) throws ResourceNotFoundException{
@@ -181,5 +182,20 @@ public class AdminPageController {
 		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Thành công",
 				"Thay đổi trạng thái user thành công", map));
 	}
-	
+	@PostMapping("/auth/admin/add-or-update-category")
+	public ResponseEntity<ResponseObject> addOrUpdateCategory(@RequestBody ChangeStatusUserDto changeStatusUserDto) throws ResourceNotFoundException{
+		UserDto user = new UserDto();
+		Boolean status = null;
+		try {
+			user = userService.findUserByName(changeStatusUserDto.getAccountName());
+			user = userService.changeStatus(user);
+			status = user.isStatusUser();
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Thất bại", "Không tìm được thông tin user", "");
+		}
+		Map<String, Boolean> map = new HashMap<>();
+		map.put("status", status);
+		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Thành công",
+				"Thay đổi trạng thái user thành công", ""));
+	}
 }
