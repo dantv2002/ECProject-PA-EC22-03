@@ -192,7 +192,7 @@ public class AuctionConverter {
 		AuctionDetail auctionDetail = new AuctionDetail();
 		
 		auctionDetail.setAuction(auctionRepository.findOneById(auctionDetailSocketModel.getAuctionId()));
-		auctionDetail.setSeller(userRepository.findOneById(auctionDetailSocketModel.getSeller()));
+		auctionDetail.setSeller(userRepository.findOneByAccountName(auctionDetailSocketModel.getSeller()));
 		auctionDetail.setPrice(auctionDetailSocketModel.getPrice());
 		auctionDetail.setComment(auctionDetailSocketModel.getComment());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss");
