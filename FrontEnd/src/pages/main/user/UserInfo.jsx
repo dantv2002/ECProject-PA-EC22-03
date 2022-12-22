@@ -1,16 +1,21 @@
 import { Avatar, Col, Row } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { UserOutlined, InfoCircleOutlined, NotificationOutlined, ReconciliationOutlined,ShopOutlined } from '@ant-design/icons';
 
 export const UserInfo = () => {
 
   const [tabActive, setTabActive] = useState({
-    info: "",
-    noti: "active",
-    order: "",
-    store: ""
+    info: window.location.pathname === "/user/personalinfo" ? "active" : "",
+    noti: window.location.pathname === "/user/notification" ? "active" : "",
+    order: window.location.pathname === "/user/ordermanage" ? "active" : "",
+    store: window.location.pathname === "/user/ordermanage" ? "active" : "",
   })
+
+  useEffect(() => {
+
+  
+  },[])
 
   return (
     <div className="userinfo-container">
@@ -18,7 +23,7 @@ export const UserInfo = () => {
         <Col xs={24} sm={24} md={7} lg={7} xl={7}>
           <div className="user-firstinfo">
             <div className="avatar">
-              <Avatar size={50} icon={<UserOutlined />} />
+              <Avatar size={50} icon={<UserOutlined />}/>
             </div>
             <div className="info">
               <span>Account of</span>
@@ -60,7 +65,7 @@ export const UserInfo = () => {
               </li>
               </Link>
               <Link 
-                to="user/personalinfo"
+                to="user/ordermanage"
                 onClick={() => {
                   setTabActive({
                     info: "",
@@ -76,7 +81,7 @@ export const UserInfo = () => {
               </li>
               </Link>
               <Link 
-                to="user/personalinfo"
+                to="user/ordermanage"
                 onClick={() => {
                   setTabActive({
                     info: "",

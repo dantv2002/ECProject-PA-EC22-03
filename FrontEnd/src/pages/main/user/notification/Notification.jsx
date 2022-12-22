@@ -1,8 +1,8 @@
-import { Col, Row } from 'antd'
+import { Button, Col, Empty, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { changeNotiTab } from '../../../../redux/usernotification/userNotificationSlice'
+import { changeNotiTab, getAllNoti } from '../../../../redux/usernotification/userNotificationSlice'
 import {ArrowDownOutlined} from '@ant-design/icons';
 
 
@@ -32,7 +32,6 @@ export const Notification = () => {
   }
 
   const fixNotiDescription = () => {
-    const tempArray = []
       realNotiList.forEach(item => {
       if(item.type === "1") {
         // let tempDesArray = item.description.split(" ")
@@ -51,6 +50,7 @@ export const Notification = () => {
   }
 
     
+  
     
 
   const renderNoti = () => (
@@ -58,19 +58,19 @@ export const Notification = () => {
       <li key={noti.id}>
         <Row>
           <Col xs={2} sm={2} md={2} lg={2} xl={2} className="item-info">
-            <img src="https://elmich.vn/FileUpload/Images/1849_1.jpg" />
+            <img src={noti.imageUrl} />
           </Col>
           <Col xs={16} sm={16} md={16} lg={16} xl={16} className="item-info no-center">
             {noti.type === "0" ? 
-            <span>{noti.description} <Link>{noti.productName}</Link></span> 
+            <span>Bạn vừa được mời vào một phiên đấu giá của sản phẩm <Link>{noti.productName}</Link></span> 
             : 
             <span>
-              {noti.description1}
-              <Link>{noti.productName}</Link>
-              {noti.description2}
-              <Link>{noti.auctionId}</Link>
-              {noti.description3}
-              <p><ArrowDownOutlined /> Giảm</p>
+              Sản phẩm 
+              <Link> {noti.productName} </Link>
+              của phiên đấu giá 
+              <Link> {noti.auctionId} </Link>
+          
+              <span style={{color: "red"}}><ArrowDownOutlined /> Đã bị Giảm</span>
             </span>
             }
           </Col>
@@ -112,7 +112,7 @@ export const Notification = () => {
                 info: "active",
                 invitation: ""
               })
-              dispatch(changeNotiTab("info"))
+              dispatch(changeNotiTab("invitation"))
             }}
           >
             Info Notification
@@ -125,14 +125,30 @@ export const Notification = () => {
                 info: "",
                 invitation: "active"
               })
-              dispatch(changeNotiTab("invitation"))
+              dispatch(changeNotiTab("info"))
             }}
           >
             Auction Invitation
           </div>
         </div>
         <ul>
-          {renderNoti()}
+          {renderNoti().length === 0 ? 
+         <Empty
+         image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+         style={{padding: "30px"}}
+         imageStyle={{
+           height: 60,
+         }}
+         description={
+           <span>
+              You don't have any notification
+           </span>
+         }
+       >
+        
+       </Empty>:
+         renderNoti()
+        }
         </ul>
       </div>
     </div>

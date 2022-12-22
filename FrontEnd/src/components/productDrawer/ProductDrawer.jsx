@@ -2,14 +2,25 @@ import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
 import UploadImage from '../uploadImage/UploadImage';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducer } from '../../redux/userStore/UserStoreSlice';
 const { Option } = Select;
-const ProductDrawer = ({drawerStatus,drawerData, showDrawer, onClose, onFinish}) => {
-
+const ProductDrawer = ({ drawerStatus, drawerData, showDrawer, onClose, onFinish }) => {
+  const { categoryLists } = useSelector(store => store.userStore)
+  const dispatch = useDispatch()
+  const onChange = (e) => {
+    console.log(e)
+  }
+  const renderCategoryOptions = () => {
+    return categoryLists.map((category) => {
+      return <option value={category.value}>{category.label}</option>
+    })
+  }
   return (
     <>
       <Drawer
         title="Create a new account"
-        style={{ zIndex:"9999999999"}}
+        style={{ zIndex: "9999999999" }}
         width={720}
         onClose={onClose}
         open={drawerStatus}
@@ -35,17 +46,16 @@ const ProductDrawer = ({drawerStatus,drawerData, showDrawer, onClose, onFinish})
               <Form.Item
                 name="owner"
                 label="Owner"
-               
+
               >
-                <Select placeholder="Please select an owner">
-                  <Option value="xiao">Xiaoxiao Fu</Option>
-                  <Option value="mao">Maomao Zhou</Option>
-                </Select>
+                <select placeholder="Please select an owner" style={{width:"100%", paddingBlock:"5px",borderColor:"rgba(0, 0, 0, 0.2)"}} onChange={onChange}>
+                  {renderCategoryOptions()}
+                </select>
               </Form.Item>
               <Form.Item
                 name="type"
                 label="Type"
-               
+
               >
                 <Select placeholder="Please choose the type">
                   <Option value="private">Private</Option>
@@ -57,13 +67,13 @@ const ProductDrawer = ({drawerStatus,drawerData, showDrawer, onClose, onFinish})
               <Form.Item
                 name="Image"
                 label="image"
-                
+
               >
-               <UploadImage/>
+                <UploadImage imageList={[]} count={1} type="store" />
               </Form.Item>
             </Col>
           </Row>
-         
+
           <Row gutter={16}>
             <Col span={24}>
               <Form.Item
@@ -81,16 +91,16 @@ const ProductDrawer = ({drawerStatus,drawerData, showDrawer, onClose, onFinish})
             </Col>
           </Row>
           <Form.Item
-               
-              >
-                  <Space>
-            <Button onClick={onClose}>Cancel</Button>
-            <Button  type="primary" htmlType='submit'>
-              Submit
-            </Button>
-          </Space>
-              </Form.Item>
-        
+
+          >
+            <Space>
+              <Button onClick={onClose}>Cancel</Button>
+              <Button type="primary" htmlType='submit'>
+                Submit
+              </Button>
+            </Space>
+          </Form.Item>
+
         </Form>
       </Drawer>
     </>

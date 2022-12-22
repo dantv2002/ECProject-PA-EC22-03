@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { PayPalButtons } from "@paypal/react-paypal-js";
-import { useDispatch } from 'react-redux';
-import { ReturnCartToBasic } from '../../redux/cart/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrder, ReturnCartToBasic } from '../../redux/cart/cartSlice';
 
 export const Paypal = ({ description, value, paymentSuccess ,closeModal }) => {
     const dispatch = useDispatch()
-
+    const {buyList} = useSelector(store => store.cart)
 
     return (
         <PayPalButtons
@@ -26,7 +26,12 @@ export const Paypal = ({ description, value, paymentSuccess ,closeModal }) => {
                 const order = await action.order.capture()
                 paymentSuccess(true)
                 closeModal(false)
-                dispatch(ReturnCartToBasic())
+                const a = buyList.map((item) => {
+                    return item.auctionId
+                })
+                dispatch(createOrder(a))
+                //dispatch(ReturnCartToBasic())
+                
             }}
             onError = {err => {
                 console.log(err)

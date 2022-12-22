@@ -10,6 +10,7 @@ import {
     Legend,
   } from 'chart.js';
   import { Line } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
 
   ChartJS.register(
     CategoryScale,
@@ -33,21 +34,35 @@ import {
       },
     },
   };
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  
+
+
+export const RevenueChart = () => {
+  const {monthList,totalRevenueByMonth} = useSelector(store => store.admin)
+  const labels = monthList.map((month) => {
+    const newMonth = new Date(month)
+    const monthRevenue = totalRevenueByMonth[totalRevenueByMonth.findIndex((month) => month.month === newMonth.getMonth() + 1)]?.revenue
+    return newMonth.toLocaleString('default', { month: 'long' })
+  });
+
+  const myData = monthList.map((month) => {
+    const newMonth = new Date(month)
+    const monthRevenue = totalRevenueByMonth[totalRevenueByMonth.findIndex((month) => month.month === newMonth.getMonth() + 1)]?.revenue
+    return monthRevenue
+  });
+  
+
   const data = {
-    labels,
+    labels: labels.reverse(),
     datasets: [
       {
         label: 'Dataset 1',
-        data: [500,200,300,100,400,600],
+        data: myData.reverse(),
         borderColor: 'rgb(3, 201, 215)',
         backgroundColor: 'rgb(3, 201, 215)',
       },
     ],
   };
-
-export const RevenueChart = () => {
-    
   return (
     <div style={{padding: "30px", background:"white", marginTop:"30px", borderRadius:"10px"}}>
 

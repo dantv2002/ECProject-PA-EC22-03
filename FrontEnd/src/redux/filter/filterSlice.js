@@ -89,7 +89,6 @@ export const filterWithWord = createAsyncThunk(
 );
 
 export const fullSearch = createAsyncThunk("filter/fullSearch", async (obj) => {
-  console.log(obj);
   try {
     let res;
     await axios({

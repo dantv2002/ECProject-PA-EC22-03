@@ -9,6 +9,7 @@ import {
     Legend,
   } from 'chart.js';
   import { Bar } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -17,6 +18,11 @@ import {
     Tooltip,
     Legend
   );
+
+
+export const OrderChart = () => {
+  const {totalOrderIn7Month} = useSelector(store => store.admin)
+  console.log(totalOrderIn7Month)
   const options = {
     responsive: true,
     plugins: {
@@ -29,19 +35,29 @@ import {
       },
     },
   };
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const getLabels = () => {
+    return totalOrderIn7Month.map((month) => {
+      return new Date(`${month.year}-${month.month}-01`).toLocaleString('default', { month: 'long' })
+    })
+  }
+
+  const getData = () => {
+    return totalOrderIn7Month.map((month) => {
+      return month.count
+    })
+  }
+  const labels = getLabels().reverse()
   const data = {
     labels,
     datasets: [
       {
         label: 'Dataset 1',
-        data: [10,20,5,30,100,60],
+        data: getData().reverse(),
         backgroundColor: 'rgb(254, 201, 15)',
       },
     ],
   };
 
-export const OrderChart = () => {
   return (
     <div style={{padding: "30px", background:"white", marginTop:"30px", borderRadius:"10px"}}>
 

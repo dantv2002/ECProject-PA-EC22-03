@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import  axios  from 'axios';
-import { auctioningUrl, categoryUrl, productsUrl } from '../../util/constants/mainUrl';
+import { auctioningUrl, categoryUrl, getSellerProductUrl, productsUrl } from '../../util/constants/mainUrl';
 
 const initialState = {
    categoryList: [],
    auctionList: [],
    productList: [],
+   sellerProducts: [],
    loading: false
 };
 
@@ -26,6 +27,13 @@ export const getAuctioning = createAsyncThunk('home/auctioning',
 export const getProducts = createAsyncThunk('home/products',
     async (productAmount) => {
         const res = await axios.get(productsUrl(0,productAmount))
+        return res.data.data
+    }
+)
+
+export const getSellerProduct = createAsyncThunk('home/getSellerProduct',
+    async (obj) => {
+        const res = await axios.get(getSellerProductUrl(obj))
         return res.data.data
     }
 )
@@ -91,6 +99,22 @@ export const HomeSlice = createSlice({
         })
 
         builder.addCase(getProducts.rejected, (state) => {
+            state.loading = false
+        })
+
+         ////////////////////////////////////////////////////////////
+         builder.addCase(getSellerProduct.pending, (state,action) => {
+            state.loading = true
+        })
+
+        builder.addCase(getSellerProduct.fulfilled, (state,action) => {
+
+            state.sellerProducts = action.payload
+
+            state.loading = false
+        })
+
+        builder.addCase(getSellerProduct.rejected, (state) => {
             state.loading = false
         })
 
