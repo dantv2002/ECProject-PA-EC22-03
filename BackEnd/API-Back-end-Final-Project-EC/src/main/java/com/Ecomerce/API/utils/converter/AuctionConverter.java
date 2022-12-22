@@ -1,11 +1,13 @@
 package com.Ecomerce.API.utils.converter;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,7 +199,10 @@ public class AuctionConverter {
 		auctionDetail.setComment(auctionDetailSocketModel.getComment());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss");
 		try {
-			auctionDetail.setTimeAuction((Time) sdf.parse(auctionDetailSocketModel.getTimeAuction()));
+			//auctionDetail.setTimeAuction(sdf.parse(auctionDetailSocketModel.getTimeAuction()));
+			Date parsedDate = sdf.parse(auctionDetailSocketModel.getTimeAuction());
+		    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+		    auctionDetail.setTimeAuction(timestamp);
 		} catch (ParseException e) {
 			auctionDetail.setTimeAuction(null);
 		}
