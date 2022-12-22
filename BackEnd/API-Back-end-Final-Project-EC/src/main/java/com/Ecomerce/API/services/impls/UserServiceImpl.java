@@ -12,17 +12,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.NotificationDto;
+import com.Ecomerce.API.models.dtos.OrderOfUserDto;
 import com.Ecomerce.API.models.dtos.AuctionDto;
+import com.Ecomerce.API.models.dtos.DetailOrderOfUserDto;
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.InforUser;
 import com.Ecomerce.API.models.entities.Notification;
+import com.Ecomerce.API.models.entities.Order;
 import com.Ecomerce.API.models.entities.Product;
+import com.Ecomerce.API.models.entities.StatusAuction;
 import com.Ecomerce.API.models.entities.User;
+import com.Ecomerce.API.repositories.AuctionRepository;
 import com.Ecomerce.API.repositories.InforUserRepository;
 import com.Ecomerce.API.repositories.NotificationRepository;
+import com.Ecomerce.API.repositories.OrderRepository;
 import com.Ecomerce.API.repositories.ProductRepository;
+import com.Ecomerce.API.repositories.StatusAuctionRepository;
+import com.Ecomerce.API.repositories.StatusOrderRepository;
 import com.Ecomerce.API.repositories.UserRepository;
 import com.Ecomerce.API.repositories.WardRepository;
 import com.Ecomerce.API.services.UserService;
@@ -41,6 +49,18 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private NotificationRepository notificationRepository;
+	
+	@Autowired
+	private AuctionRepository auctionRepository;
+	
+	@Autowired
+	private StatusAuctionRepository statusAuctionRepository;
+	
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private StatusOrderRepository statusOrderRepository;
 
 	@Autowired
 	private UserConverter converter;
@@ -166,5 +186,68 @@ public class UserServiceImpl implements UserService {
 			listUser.add(converter.convertToDto(user));
 		}
 		return listUser;
+	}
+
+	@Override
+	public boolean deleteNotification(int id) {
+		Notification notification = notificationRepository.findById(id).orElse(null);
+		if (notification == null || !notification.isStatus()) {
+			return false;
+		}
+		
+		try {
+			notification.setStatus(false);
+			notificationRepository.save(notification);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public List<OrderOfUserDto> getOrderOfUser(String accountName) {
+		User buyer = repository.findById(accountName).orElse(null);
+		if (buyer == null || !buyer.isStatusUser()) {
+			return null;
+		}
+		StatusAuction statusAuction = statusAuctionRepository.findById(3).orElse(null);
+		List<Auction> auctions = auctionRepository.findByBuyerAndStatusAuctionAndExist(buyer, statusAuction, true);
+		List<OrderOfUserDto> ordersOfUserDto = new ArrayList<OrderOfUserDto>();
+		for (Auction auction : auctions) {
+			List<Order> orders = auction.getOrders();
+			for (Order order : orders) {
+				ordersOfUserDto.add(converter.convertToOrderOfUserDto(order));
+			}
+		}
+		return ordersOfUserDto;
+	}
+
+	@Override
+	public DetailOrderOfUserDto getDetailOrderOfUser(int orderId) {
+		Order order = orderRepository.findById(orderId).orElse(null);
+		if (order == null) {
+			return null;
+		}
+		
+		return converter.convertToDetailOrderOfUserDto(order);
+	}
+
+	@Override
+	public boolean changeStatusOrder(int orderId) {
+		Order order = orderRepository.findById(orderId).orElse(null);
+		if (order == null || order.getStatus().getId() == 1 || order.getStatus().getId() == 3) {
+			return false;
+		}
+		
+		try {
+			order.setStatus(statusOrderRepository.findById(3).orElse(null));
+			orderRepository.save(order);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 }

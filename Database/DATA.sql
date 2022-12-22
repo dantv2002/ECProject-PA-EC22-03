@@ -1031,8 +1031,6 @@ INSERT INTO Auction_details VALUES
 
 -- Thêm data vào bảng Order --
 INSERT INTO Orders VALUES
-(5, 1),
-(5, 2),
 (5, 3);
 -- Thêm data vào bảng Notification --
 INSERT INTO Notifications VALUES

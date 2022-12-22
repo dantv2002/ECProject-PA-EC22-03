@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Ecomerce.API.exceptions.ExceptionCustom;
 import com.Ecomerce.API.exceptions.ResourceNotFoundException;
+import com.Ecomerce.API.models.dtos.DetailOrderOfUserDto;
 import com.Ecomerce.API.models.dtos.NotificationDto;
+import com.Ecomerce.API.models.dtos.OrderOfUserDto;
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.objects.ResponseObject;
@@ -86,5 +88,54 @@ public class UserController {
 		}
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(new ResponseObject("Thành công", "Lấy các thông báo của người dùng thành công" , dtos));
+	}
+	
+	@PutMapping(value = "/auth/user/users/notification/delete")
+	public ResponseEntity<ResponseObject> getNotificationOfUser(@Valid @RequestParam int id) 
+			throws ResourceNotFoundException {
+		boolean check = service.deleteNotification(id);
+		
+		if (!check) {
+			throw new ResourceNotFoundException("Thất bại", "Không thể xóa thông báo", check);
+		}
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Xóa thông báo thành công" , check));
+	}
+	
+	@GetMapping(value = "/auth/user/users/orders")
+	public ResponseEntity<ResponseObject> getOrderOfUser(@RequestHeader("Authorization") String token) 
+			throws ResourceNotFoundException {
+		String accountName = jwtTokenUtil.getUsernameFromToken(token.substring(7));
+		List<OrderOfUserDto> orderOfUserDtos = service.getOrderOfUser(accountName);
+		
+		if (orderOfUserDtos == null || orderOfUserDtos.isEmpty()) {
+			throw new ResourceNotFoundException("Thất bại", "Không thể lấy các đơn hàng", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Lấy các đơn hàng thành công" , orderOfUserDtos));
+	}
+	
+	@GetMapping(value = "/auth/user/users/detailorders")
+	public ResponseEntity<ResponseObject> getDetailOrderOfUser(@Valid @RequestParam int id) 
+			throws ResourceNotFoundException {
+		DetailOrderOfUserDto orderOfUserDtos = service.getDetailOrderOfUser(id);
+		
+		if (orderOfUserDtos == null) {
+			throw new ResourceNotFoundException("Thất bại", "Không thể lấy chi tiết đơn hàng", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Lấy chi tiết đơn hàng thành công" , orderOfUserDtos));
+	}
+	
+	@PutMapping(value = "/auth/user/users/orders/changestatus")
+	public ResponseEntity<ResponseObject> changeStatusOrder(@Valid @RequestParam int id) 
+			throws ResourceNotFoundException {
+		boolean check = service.changeStatusOrder(id);
+		
+		if (!check) {
+			throw new ResourceNotFoundException("Thất bại", "Không thể chuyển trạng thái đơn hàng", check);
+		}
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Chuyển trạng thái đơn hàng thành công" , check));
 	}
 }

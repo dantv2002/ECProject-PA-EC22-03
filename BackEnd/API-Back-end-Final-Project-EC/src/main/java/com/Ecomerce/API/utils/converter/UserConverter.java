@@ -1,15 +1,17 @@
 package com.Ecomerce.API.utils.converter;
 
-import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.AuctionDto;
+import com.Ecomerce.API.models.dtos.DetailOrderOfUserDto;
 import com.Ecomerce.API.models.dtos.NotificationDto;
+import com.Ecomerce.API.models.dtos.OrderOfUserDto;
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.entities.Notification;
+import com.Ecomerce.API.models.entities.Order;
 import com.Ecomerce.API.models.entities.User;
 
 @Service
@@ -100,6 +102,47 @@ public class UserConverter {
 		dto.setProductName(entity.getAuction().getProduct().getName());
 		dto.setImageProduct(entity.getAuction().getProduct().getImageProduct());
 		dto.setStatusAuction(entity.getAuction().getStatusAuction().getId());
+		
+		return dto;
+	}
+	
+	public OrderOfUserDto convertToOrderOfUserDto(Order entity) {
+		if (entity == null) {
+			return null;
+		}
+		OrderOfUserDto dto = new OrderOfUserDto();
+		
+		dto.setOrderId(entity.getId());
+		dto.setProductId(entity.getAuction().getProduct().getId());
+		dto.setProductName(entity.getAuction().getProduct().getName());
+		dto.setImageProduct(entity.getAuction().getProduct().getImageProduct());
+		dto.setBuyerAccount(entity.getAuction().getBuyer().getAccountName());
+		dto.setBuyerName(entity.getAuction().getBuyer().getInforUser().getFirstName() + " " + 
+				entity.getAuction().getBuyer().getInforUser().getLastName());
+		dto.setSellerAccount(entity.getAuction().getSellerEnd().getAccountName());
+		dto.setSellerName(entity.getAuction().getSellerEnd().getInforUser().getFirstName() + " " + 
+				entity.getAuction().getSellerEnd().getInforUser().getLastName());
+		dto.setStatusOrder(entity.getStatus().getId());
+		
+		return dto;
+	}
+	
+	public DetailOrderOfUserDto convertToDetailOrderOfUserDto(Order entity) {
+		if (entity == null) {
+			return null;
+		}
+		DetailOrderOfUserDto dto = new DetailOrderOfUserDto();
+		
+		dto.setAddress(entity.getAuction().getBuyer().getInforUser().getAddressDetail());
+		dto.setWardId(entity.getAuction().getBuyer().getInforUser().getWard().getId());
+		dto.setWardName(entity.getAuction().getBuyer().getInforUser().getWard().getName());
+		dto.setDistrictId(entity.getAuction().getBuyer().getInforUser().getWard().getDistrict().getId());
+		dto.setDistrictName(entity.getAuction().getBuyer().getInforUser().getWard().getDistrict().getName());
+		dto.setAccountName(entity.getAuction().getBuyer().getInforUser().getAccountName());
+		dto.setReceiver(entity.getAuction().getBuyer().getInforUser().getFirstName() + " " + 
+				entity.getAuction().getBuyer().getInforUser().getLastName());
+		dto.setEmail(entity.getAuction().getBuyer().getInforUser().getEmail());
+		dto.setPhone(entity.getAuction().getBuyer().getInforUser().getPhone());
 		
 		return dto;
 	}

@@ -161,9 +161,10 @@ GO
 -- Tạo table thể hiện trạng thái của đơn hàng --
 CREATE TABLE Orders
 (
+	id int IDENTITY(1,1),
 	auction_id int,
 	status_id int,
-	CONSTRAINT pk_Order_status PRIMARY KEY (auction_id, status_id)
+	CONSTRAINT pk_Order_status PRIMARY KEY (id)
 )
 GO
 -- Tạo table lưu thông báo --
