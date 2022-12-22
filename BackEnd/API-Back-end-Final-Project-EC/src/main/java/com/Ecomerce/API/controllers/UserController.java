@@ -1,6 +1,8 @@
 package com.Ecomerce.API.controllers;
 
 
+import java.text.ParseException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,13 +59,13 @@ public class UserController {
 				.body(new ResponseObject("Thành công", "Tìm thông tin cho user " + accountname + " thành công", userDto));
 	}
 	
-	@PutMapping(value = "/auth/user/users/info")
-	public ResponseEntity<ResponseObject> updateInfoUser(@RequestHeader("Authorization") String token
-			, @Valid @RequestBody UserDto userDto) throws ResourceNotFoundException {
+	@PostMapping(value = "/auth/user/users/info")
+	public ResponseEntity<ResponseObject> insertAndupdateInfoUser(@RequestHeader("Authorization") String token
+			, @Valid @RequestBody UserInfoDto userDto) throws ResourceNotFoundException, ParseException {
 		String accountName = jwtTokenUtil.getUsernameFromToken(token.substring(7));
-		userDto = service.update(accountName, userDto);
+		boolean check = service.insertAndUpdate(accountName, userDto);
 		
-		if (userDto == null) {
+		if (check == false) {
 			throw new ResourceNotFoundException("Thất bại", "Không cập nhật được thông tin cho user " + accountName, "");
 		}
 		return ResponseEntity.status(HttpStatus.OK)

@@ -1,5 +1,6 @@
 package com.Ecomerce.API.services;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.Ecomerce.API.models.dtos.UserDto;
@@ -10,6 +11,7 @@ public interface UserService {
 	UserDto findUserByName(String name);
 	boolean isUserSellingThisProduct(String userName, int productId);
 	UserInfoDto findInfoCurrentUser(String accountName);
-	UserDto update(String accountName, UserDto userDto);
-	
+	boolean insertAndUpdate(String accountName, UserInfoDto userDto) throws ParseException;
+	UserInfoDto insertInfoCurrentUser(String accountName, UserInfoDto userDto);
+	UserInfoDto updateInfoCurrentUser(String accountName, UserInfoDto userDto);
 }

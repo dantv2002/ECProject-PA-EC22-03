@@ -25,7 +25,6 @@ public class UserConverter {
 		
 		return userDto;
 	}
-	
 
 	public User convertToEntity(UserDto userDto) {
 		User user = new User();
@@ -64,4 +63,6 @@ public class UserConverter {
 		
 		return userInfo;
 	}
+	
+
 }
