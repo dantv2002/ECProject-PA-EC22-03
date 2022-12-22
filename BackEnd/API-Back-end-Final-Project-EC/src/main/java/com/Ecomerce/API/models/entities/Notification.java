@@ -25,15 +25,14 @@ public class Notification implements Serializable {
 	@JoinColumn(name = "account_name")
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_product")
-	private Product product;
 	
 	private Time time;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "auction_id")
 	private Auction auction;
+	
+	private boolean type;
 	
 	private boolean status;
 
@@ -51,14 +50,6 @@ public class Notification implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
 	}
 
 	public Time getTime() {
@@ -83,5 +74,13 @@ public class Notification implements Serializable {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public boolean isType() {
+		return type;
+	}
+
+	public void setType(boolean type) {
+		this.type = type;
 	}
 }

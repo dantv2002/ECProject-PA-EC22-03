@@ -17,9 +17,11 @@ import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.InforUser;
+import com.Ecomerce.API.models.entities.Notification;
 import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.models.entities.User;
 import com.Ecomerce.API.repositories.InforUserRepository;
+import com.Ecomerce.API.repositories.NotificationRepository;
 import com.Ecomerce.API.repositories.ProductRepository;
 import com.Ecomerce.API.repositories.UserRepository;
 import com.Ecomerce.API.repositories.WardRepository;
@@ -36,6 +38,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private InforUserRepository inforUserRepository;
+	
+	@Autowired
+	private NotificationRepository notificationRepository;
 
 	@Autowired
 	private UserConverter converter;
@@ -137,8 +142,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<NotificationDto> getNotificationOfUser(String accountName) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = repository.findById(accountName).orElse(null);
+		if (user == null || !user.isStatusUser()) {
+			return null;
+		}
+		
+		List<NotificationDto> dtos = new ArrayList<NotificationDto>();
+		try {
+			List<Notification> notifications = notificationRepository.findByUserAndStatus(user, true);
+			notifications.forEach(notification -> dtos.add(converter.convertToNotificationDto(notification)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return dtos;
 	}
 		
 	public List<UserDto> findAllUser() {

@@ -47,8 +47,6 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Auction> auctions;
 	
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<Notification> notifications;
 
 	public int getId() {
 		return id;
@@ -128,13 +126,5 @@ public class Product implements Serializable {
 
 	public void setAuctions(List<Auction> auctions) {
 		this.auctions = auctions;
-	}
-
-	public List<Notification> getNotifications() {
-		return notifications;
-	}
-
-	public void setNotifications(List<Notification> notifications) {
-		this.notifications = notifications;
 	}
 }
