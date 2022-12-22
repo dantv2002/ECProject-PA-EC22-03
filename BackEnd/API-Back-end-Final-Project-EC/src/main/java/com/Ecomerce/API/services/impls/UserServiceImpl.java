@@ -11,11 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
 import com.Ecomerce.API.models.dtos.NotificationDto;
-=======
 import com.Ecomerce.API.models.dtos.AuctionDto;
->>>>>>> e2a1165350d7f5c963d64bbf8399395475e2a640
 import com.Ecomerce.API.models.dtos.UserDto;
 import com.Ecomerce.API.models.dtos.UserInfoDto;
 import com.Ecomerce.API.models.entities.Auction;
@@ -139,11 +136,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public List<NotificationDto> getNotificationOfUser(String accountName) {
 		// TODO Auto-generated method stub
 		return null;
-=======
+	}
+		
 	public List<UserDto> findAllUser() {
 		List<User> users = repository.findAll();
 		List<UserDto> listUser = new ArrayList<UserDto>();
@@ -152,6 +149,5 @@ public class UserServiceImpl implements UserService {
 			listUser.add(converter.convertToDto(user));
 		}
 		return listUser;
->>>>>>> e2a1165350d7f5c963d64bbf8399395475e2a640
 	}
 }
