@@ -15,6 +15,8 @@ public class UserInfoDto {
 	private String phone;
 	private int wardId;
 	private String wardName;
+	private int districtId;
+	private String districtName;
 	private String addressDetail;
 	
 	public UserInfoDto() {}
@@ -136,5 +138,21 @@ public class UserInfoDto {
 
 	public void setWardName(String wardName) {
 		this.wardName = wardName;
+	}
+
+	public int getDistrictId() {
+		return districtId;
+	}
+
+	public void setDistrictId(int districtId) {
+		this.districtId = districtId;
+	}
+
+	public String getDistrictName() {
+		return districtName;
+	}
+
+	public void setDistrictName(String districtName) {
+		this.districtName = districtName;
 	}
 }

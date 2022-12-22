@@ -59,6 +59,8 @@ public class UserConverter {
 		userInfo.setPhone(user.getInforUser().getPhone());
 		userInfo.setWardId(user.getInforUser().getWard().getId());
 		userInfo.setWardName(user.getInforUser().getWard().getName());
+		userInfo.setDistrictId(user.getInforUser().getWard().getDistrict().getId());
+		userInfo.setDistrictName(user.getInforUser().getWard().getDistrict().getName());
 		userInfo.setAddressDetail(user.getInforUser().getAddressDetail());
 		
 		return userInfo;
