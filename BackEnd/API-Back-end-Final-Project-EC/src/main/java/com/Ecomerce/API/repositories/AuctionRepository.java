@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.Ecomerce.API.models.entities.Auction;
+import com.Ecomerce.API.models.entities.AuctionDetail;
 import com.Ecomerce.API.models.entities.StatusAuction;
 import com.Ecomerce.API.models.entities.User;
 
@@ -18,4 +19,6 @@ public interface AuctionRepository extends JpaRepository<Auction, Integer> {
 	List<Auction> findByBuyerAndStatusAuctionAndExist(User user, StatusAuction statusAuction, boolean check);
 	List<Auction> findBySellerEndAndStatusAuctionAndExist(User seller, StatusAuction statusAuction, boolean check);
 	List<Auction> findByStatusAuctionAndExist(StatusAuction statusAuction, boolean check);
+	Auction findOneById(int auctionId);
+	AuctionDetail save(AuctionDetail auctionDetail);
 }

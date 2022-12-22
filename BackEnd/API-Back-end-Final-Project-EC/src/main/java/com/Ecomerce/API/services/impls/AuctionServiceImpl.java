@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import com.Ecomerce.API.models.dtos.AuctionDetailDto;
 import com.Ecomerce.API.models.dtos.AuctionDto;
 import com.Ecomerce.API.models.entities.Auction;
+import com.Ecomerce.API.models.entities.AuctionDetail;
 import com.Ecomerce.API.models.entities.StatusAuction;
 import com.Ecomerce.API.repositories.AuctionRepository;
 import com.Ecomerce.API.repositories.StatusAuctionRepository;
 import com.Ecomerce.API.services.AuctionService;
 import com.Ecomerce.API.utils.converter.AuctionConverter;
+import com.Ecomerce.API.websocket.model.AuctionDetailSocketModel;
 
 @Service
 public class AuctionServiceImpl implements AuctionService {
@@ -88,5 +90,28 @@ public class AuctionServiceImpl implements AuctionService {
 		}
 
 		return auctionsDto;
+	}
+
+	@Override
+	public AuctionDetailSocketModel insert(AuctionDetailSocketModel auctionDetailSocketModel) {
+		AuctionDetail auctionDetail = converter.convertToEntity(auctionDetailSocketModel);
+		repository.save(auctionDetail);
+		
+		return converter.convertToModel(auctionDetail);
+	}
+
+	@Override
+	public Boolean changePrice(int auctionId, int price) {
+		Auction auction = repository.findOneById(auctionId);
+		if(auction == null)
+			return false;
+		try {
+			auction.setPriceTransaction(price);
+			repository.save(auction);
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 }
