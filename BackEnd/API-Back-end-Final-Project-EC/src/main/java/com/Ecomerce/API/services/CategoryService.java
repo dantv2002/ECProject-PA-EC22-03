@@ -8,4 +8,6 @@ import com.Ecomerce.API.models.entities.Category;
 public interface CategoryService {
 	List<CategoryDto> findAll();
 	List<String> findManufacturerByCategoryName(String name);
+	CategoryDto insertAndUpdate(CategoryDto categoryDto);
+	Boolean deleteById(int id);
 }

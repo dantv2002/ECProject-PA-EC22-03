@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Ecomerce.API.exceptions.ExceptionCustom;
 import com.Ecomerce.API.exceptions.ResourceNotFoundException;
 import com.Ecomerce.API.models.dtos.AuctionDto;
+import com.Ecomerce.API.models.dtos.CategoryDto;
 import com.Ecomerce.API.models.dtos.ChangeStatusUserDto;
 import com.Ecomerce.API.models.dtos.ProductInCartDto;
 import com.Ecomerce.API.models.dtos.RevenueStactisticsDto;
@@ -34,6 +37,7 @@ import com.Ecomerce.API.models.entities.User;
 import com.Ecomerce.API.models.objects.ResponseObject;
 import com.Ecomerce.API.security.JwtTokenUtil;
 import com.Ecomerce.API.services.AuctionService;
+import com.Ecomerce.API.services.CategoryService;
 import com.Ecomerce.API.services.UserService;
 
 @RestController
@@ -47,6 +51,8 @@ public class AdminPageController {
 	AuctionService auctionService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	CategoryService categoryService;
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminPageController.class);
 
@@ -137,17 +143,18 @@ public class AdminPageController {
 			throw new ResourceNotFoundException("Thất bại", "Không tìm thấy user nào", "");
 		}
 		int count = 0;
-		for(UserDto userDto : allUser) {
-			if(userDto.getRole() != "ADMIN")
+		for (UserDto userDto : allUser) {
+			if (userDto.getRole() != "ADMIN")
 				count++;
 		}
 		Map<String, Integer> map = new HashMap<>();
 		map.put("Count", count);
-		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Thành công",
-				"Thống kê số lượng user hiện tại thành công", map));
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Thống kê số lượng user hiện tại thành công", map));
 	}
+
 	@GetMapping("/auth/admin/get-all-user")
-	public ResponseEntity<ResponseObject> getAllUsers() throws ResourceNotFoundException{
+	public ResponseEntity<ResponseObject> getAllUsers() throws ResourceNotFoundException {
 		List<UserInfoDto> allAdminAndUser = new ArrayList<>();
 		try {
 			allAdminAndUser = userService.findAllInfoUser();
@@ -158,16 +165,17 @@ public class AdminPageController {
 			throw new ResourceNotFoundException("Thất bại", "Không tìm thấy user nào", "");
 		}
 		List<UserInfoDto> allUser = new ArrayList<>();
-		for(UserInfoDto userInfoDto : allAdminAndUser)
-		{
-			if(!userInfoDto.getRoles().equals("ADMIN"))
+		for (UserInfoDto userInfoDto : allAdminAndUser) {
+			if (!userInfoDto.getRoles().equals("ADMIN"))
 				allUser.add(userInfoDto);
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Thành công",
-				"Thống kê tất cả thông tin user hiện tại thành công", allUser));
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Thống kê tất cả thông tin user hiện tại thành công", allUser));
 	}
+
 	@PostMapping("/auth/admin/change-user-status")
-	public ResponseEntity<ResponseObject> changeUserStatus(@RequestBody ChangeStatusUserDto changeStatusUserDto) throws ResourceNotFoundException{
+	public ResponseEntity<ResponseObject> changeUserStatus(@RequestBody ChangeStatusUserDto changeStatusUserDto)
+			throws ResourceNotFoundException {
 		UserDto user = new UserDto();
 		Boolean status = null;
 		try {
@@ -179,23 +187,33 @@ public class AdminPageController {
 		}
 		Map<String, Boolean> map = new HashMap<>();
 		map.put("status", status);
-		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Thành công",
-				"Thay đổi trạng thái user thành công", map));
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(new ResponseObject("Thành công", "Thay đổi trạng thái user thành công", map));
 	}
+
 	@PostMapping("/auth/admin/add-or-update-category")
-	public ResponseEntity<ResponseObject> addOrUpdateCategory(@RequestBody ChangeStatusUserDto changeStatusUserDto) throws ResourceNotFoundException{
-		UserDto user = new UserDto();
-		Boolean status = null;
+	public ResponseEntity<ResponseObject> addOrUpdateCategory(@RequestBody CategoryDto categoryDto)
+			throws ExceptionCustom {
+		CategoryDto newCategoryDto = new CategoryDto();
 		try {
-			user = userService.findUserByName(changeStatusUserDto.getAccountName());
-			user = userService.changeStatus(user);
-			status = user.isStatusUser();
-		} catch (Exception e) {
-			throw new ResourceNotFoundException("Thất bại", "Không tìm được thông tin user", "");
+			newCategoryDto = categoryService.insertAndUpdate(categoryDto);
+		} catch(Exception e) {
+			throw new ExceptionCustom("Thất bại", "Không cập nhật được category", "");
 		}
-		Map<String, Boolean> map = new HashMap<>();
-		map.put("status", status);
-		return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Thành công",
-				"Thay đổi trạng thái user thành công", ""));
+		return ResponseEntity.status(HttpStatus.OK).body(
+				new ResponseObject("Thành công", "Cập nhật thành công category", newCategoryDto));
+	}
+	
+	@DeleteMapping("/auth/admin/delete-category")
+	public ResponseEntity<ResponseObject> deleteCategory(@RequestParam int id)
+			throws ExceptionCustom {
+		try {
+			if(!categoryService.deleteById(id))
+				throw new ResourceNotFoundException("Thất bại", "Không tìm được category", "");;
+		} catch(Exception e) {
+			throw new ExceptionCustom("Thất bại", "Không xóa được category", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(
+				new ResponseObject("Thành công", "Xóa thành công category", ""));
 	}
 }
