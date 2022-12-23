@@ -1,6 +1,7 @@
 import { Button } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import AddItemModal from '../../../../components/addItemModal/AddItemModal'
 import ProductDrawer from '../../../../components/productDrawer/ProductDrawer'
 import StoreTable from '../../../../components/storeTable/StoreTable'
 import { getAllCategory, getAllProduct } from '../../../../redux/userStore/UserStoreSlice'
@@ -25,7 +26,8 @@ export const AllProduct = () => {
     },[])
   return (
     <div>
-        <ProductDrawer drawerStatus={drawerStatus} drawerData={drawerData} showDrawer={showDrawer} onClose={onClose} onFinish={onFinish}/>
+      <AddItemModal drawerStatus={drawerStatus} drawerData={drawerData} showDrawer={showDrawer} onClose={onClose} onFinish={onFinish}/>
+        {/* <ProductDrawer drawerStatus={drawerStatus} drawerData={drawerData} showDrawer={showDrawer} onClose={onClose} onFinish={onFinish}/> */}
         <Button type="primary" onClick={showDrawer}>Add Item</Button>
         <StoreTable setDrawerData={setDrawerData} showDrawer={showDrawer}/>
     </div>

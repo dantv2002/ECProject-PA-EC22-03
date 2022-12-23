@@ -9,6 +9,7 @@ const DescriptionItem = ({ title, content }) => (
 );
 const DetailDrawer = ({open,showDrawer,onClose, type}) => {
     const {userOrderInfo, } = useSelector(store => store.userPage)
+    
     return (
         <>
             <Drawer style={{zIndex:"100000000"}} width={640} placement="right" closable={false} onClose={onClose} open={open}>
@@ -29,7 +30,7 @@ const DetailDrawer = ({open,showDrawer,onClose, type}) => {
 
                                 <Col span={4}>
                                     <span className="image">
-                                        <img style={{ width: '70px', height: '70px' }} src={`./${userOrderInfo?.imageProduct?.substring(1)}`} />
+                                        <img style={{ width: '70px', height: '70px' }} src={`../${userOrderInfo?.imageProduct?.substring(1)}`} />
                                     </span>
                                 </Col>
                                 <Col span={20}>
@@ -67,17 +68,17 @@ const DetailDrawer = ({open,showDrawer,onClose, type}) => {
                     </Col>
                     <Col span={12}>
                         <Descriptions>
-                            <Descriptions.Item label="District">Quận 9</Descriptions.Item>
+                            <Descriptions.Item label="District">{userOrderInfo.districtName}</Descriptions.Item>
                         </Descriptions>
                     </Col>
                     <Col span={12}>
                         <Descriptions>
-                            <Descriptions.Item label="Ward">Phường Tăng Nhơn Phú A</Descriptions.Item>
+                            <Descriptions.Item label="Ward">{userOrderInfo.wardName}</Descriptions.Item>
                         </Descriptions>
                     </Col>
                     <Col span={24}>
                         <Descriptions>
-                            <Descriptions.Item label="Address Detail">484 Lê Văn Việt</Descriptions.Item>
+                            <Descriptions.Item label="Address Detail">{userOrderInfo.address}</Descriptions.Item>
                         </Descriptions>
                     </Col>
                 </Row>

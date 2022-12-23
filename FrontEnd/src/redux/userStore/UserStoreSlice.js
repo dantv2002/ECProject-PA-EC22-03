@@ -6,6 +6,7 @@ const initialState = {
     allproduct: [],
     categoryLists: [],
     producerLists: [],
+    anotherProducerList: [],
     auctionLists: [],
    loading: false
 };
@@ -92,13 +93,13 @@ export const UserStoreSlice = createSlice({
         })
 
         builder.addCase(getProducer.fulfilled, (state,action) => {
-            console.log(action.payload)
-            // state.categoryLists = action.payload.map((category) => {
-            //     return {
-            //         label: category.name,
-            //         value: category.id
-            //     }
-            // })
+         
+            state.anotherProducerList = action.payload.map((producer,index) => {
+                return {
+                    label: producer,
+                    value: index
+                }
+            })  
             state.loading = false
         })
 
