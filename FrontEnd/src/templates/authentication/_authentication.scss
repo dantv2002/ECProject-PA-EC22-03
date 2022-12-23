@@ -1,0 +1,93 @@
+.authentication-container{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction:column;
+    height:100vh;
+    background: linear-gradient(120deg,$color-green-300,#a667c1);
+
+    .login-page{
+        background-color: white;
+        width: 400px;
+        padding: 30px;
+        border-radius: 30px;
+        padding-bottom: 10px;
+
+        .page-name{
+            text-align: center;
+            color: $color-green-100;
+        }
+
+        .main-btn{
+            border: 0;
+            background-color: $color-green-100;
+            font-size: 16px;
+            color: white;
+            padding: 5px 25px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all .2s ease;
+
+            &:hover{
+                background-color: $color-green-300;
+            }
+        }
+
+        .second-btn{
+            border: 0;
+            background-color: transparent;
+            font-size: 16px;
+            color: $color-green-100;
+            padding: 5px 25px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all .2s ease;
+
+            &:hover{
+                color: $color-green-300;
+            }
+        }
+    }
+    .register-page{
+        background-color: white;
+        width: 550px;
+        padding: 30px;
+        border-radius: 30px;
+        padding-bottom: 10px;
+
+        .page-name{
+            text-align: center;
+            color: $color-green-100;
+        }
+
+        .main-btn{
+            border: 0;
+            background-color: $color-green-100;
+            font-size: 16px;
+            color: white;
+            padding: 5px 25px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all .2s ease;
+
+            &:hover{
+                background-color: $color-green-300;
+            }
+        }
+
+        .second-btn{
+            border: 0;
+            background-color: transparent;
+            font-size: 16px;
+            color: $color-green-100;
+            padding: 5px 25px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all .2s ease;
+
+            &:hover{
+                color: $color-green-300;
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+package com.Ecomerce.API.repositories;
+
+public interface AuctionDetailRepository {
+
+}

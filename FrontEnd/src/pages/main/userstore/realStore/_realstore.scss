@@ -1,0 +1,113 @@
+.realStore-container{
+    width: 85%;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 100px;
+
+    .top-link{
+        font-size: 18px;
+        margin-bottom: 30px;
+        color: $color-green-100;
+        display: flex;
+        align-items: center;
+    }
+
+    .header-part{
+        .userback{
+            border-radius: 8px;
+            background-image: url("data:image/jpeg;base64,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");
+            background-color: black;
+            position: relative;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline: 40px;
+           
+
+
+            .layer{
+                background-color: rgba(0, 0, 0, 0.395);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 8px;
+            }
+
+            .info-part{
+                position: relative;
+                z-index: 99;
+                display: flex;
+                align-items: center;
+
+                .nane{
+                    color: white;
+                    font-size: 25px;
+                    margin-left: 30px;
+                }
+            }
+        }
+    }
+    .product-part{
+
+        margin-top: 20px;
+
+        .item-cover{
+            border: 2px solid #d7ebf4;
+            background-color: $main-text-color-white;
+
+            .item__image{
+                width: 40px;
+                height: 40px;
+
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .item__info{
+                padding: 10px;
+                text-align: center;
+               
+
+                .item-name{
+                   color: $color-gray-400; 
+                }
+
+                .join-auction{
+                    padding: 5px 8px;
+                    background-color: $color-green-100;
+                    color: $main-text-color-white;
+                    border: none;
+                    cursor: pointer;
+                    border-radius: 3px;
+                    border: 1px solid transparent;
+                    transition: all 0.2s ease;
+
+                    &:hover{
+                        border: 1px solid $color-green-100;
+                        color: $color-green-100;
+                        background-color: $main-text-color-white;
+                    }
+                }
+            }
+        }
+
+        .ant-tabs-tab{
+            padding: 12px 70px;
+            font-size: 16px;
+
+            // &.ant-tabs-tab-active{
+            //     .ant-tabs-tab-btn{
+            //         color: ;
+            //     }
+            // }
+        }
+    }
+}

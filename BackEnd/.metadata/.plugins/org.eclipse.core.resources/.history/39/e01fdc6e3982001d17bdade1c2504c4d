@@ -1,0 +1,11 @@
+package com.Ecomerce.API.websocket.model;
+
+import com.Ecomerce.API.models.entities.User;
+
+public class AuctionDetailSocketModel {
+	private int auctionId;
+	private String seller;
+	private int price;
+	private String timeAuction;
+	private String comment;
+}
