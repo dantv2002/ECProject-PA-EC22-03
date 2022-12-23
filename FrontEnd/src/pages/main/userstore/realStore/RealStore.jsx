@@ -26,11 +26,11 @@ export const RealStore = ({ type }) => {
         return a.map((product) => {
             return <Col span={4}>
                 <div className="item-cover">
-                    <span className="item__image" style={{width:"100%"}}>
-                        <img src={`../${product.imageProduct.substring(1)}`} style={{width:"100%"}}/>
+                    <span className="item__image">
+                        <img src={`./${product.imageProduct.substring(1)}`} />
                     </span>
                     <div className="item__info">
-                        <h3 className="item-name"><Link to={`/productdetail/${product.id}`}>{product.name}</Link></h3>
+                        <h3 className="item-name">{product.name}</h3>
 
                     </div>
                 </div>

@@ -9,7 +9,7 @@ const ProductDrawer = ({ drawerStatus, drawerData, showDrawer, onClose, onFinish
   const { categoryLists } = useSelector(store => store.userStore)
   const dispatch = useDispatch()
   const onChange = (e) => {
-    
+    console.log(e)
   }
   const renderCategoryOptions = () => {
     return categoryLists.map((category) => {

@@ -1,0 +1,25 @@
+.cart-detail-table{
+    .name-tag{
+        color: $color-gray-200;
+    }
+
+    .quantity{
+        .quantity-number{
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid $color-gray-300;
+            margin: auto;
+        }
+    }
+    .price{
+        text-align: center;
+
+        .price-number{
+            font-weight: bold;
+            color: $color-green-100;
+        }
+    }
+}

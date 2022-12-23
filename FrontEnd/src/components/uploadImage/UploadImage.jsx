@@ -3,32 +3,14 @@ import { Upload } from 'antd';
 import { useDispatch } from 'react-redux';
 import { addUserImage } from '../../redux/userpage/UserPageSlice';
 
-const UploadImage = ({imageList,count,type, setImageList,setImageUrl}) => {
+const UploadImage = ({imageList,count,type, setImageList}) => {
   const dispatch = useDispatch()
 
-  // const onChange = async (newFileList) => {
+  const onChange = async (newFileList) => {
    
-  //   setImageList((current) => {
-  //     return current.push(newFileList)
-  //   })
-  //   let src = await new Promise((resolve) => {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(newFileList.file.originFileObj);
-  //     reader.onload = () => resolve(reader.result);
-  //   });
-  //   if(type === "user") dispatch(addUserImage(src))
-  //   // if(type === "admin") setImageList({
-  //   //   uid: "-1",
-  //   //   name: "image.png",
-  //   //   status: "done",
-  //   //   url: null,
-  //   // },)
-  //   if(type === "store") setImageUrl(src)
-  // };
-  const handleChange = async ({ fileList: newFileList }) => {
     let src = await new Promise((resolve) => {
       const reader = new FileReader();
-      reader.readAsDataURL(newFileList[0].originFileObj);
+      reader.readAsDataURL(newFileList.file.originFileObj);
       reader.onload = () => resolve(reader.result);
     });
     if(type === "user") dispatch(addUserImage(src))
@@ -38,10 +20,8 @@ const UploadImage = ({imageList,count,type, setImageList,setImageUrl}) => {
     //   status: "done",
     //   url: null,
     // },)
-    if(type === "store") setImageUrl(src)
-    setImageList(newFileList);
-  
-  }
+    if(type === "store") console.log(src)
+  };
   const onPreview = async (file) => {
     let src = file.url;
     if (!src) {
@@ -61,7 +41,7 @@ const UploadImage = ({imageList,count,type, setImageList,setImageUrl}) => {
       <Upload
         listType="picture-card"
         fileList={imageList}
-        onChange={handleChange}
+        onChange={onChange}
         onPreview={onPreview}
         maxCount={count}
       >

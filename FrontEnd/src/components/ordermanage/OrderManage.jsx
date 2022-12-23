@@ -4,7 +4,7 @@ import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
 import DetailDrawer from '../detailDrawer/DetailDrawer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserOrder, getUserOrderInfo, moreOrderInfo, userChangeOrderStatus } from '../../redux/userpage/UserPageSlice';
+import { getUserOrder, getUserOrderInfo, moreOrderInfo } from '../../redux/userpage/UserPageSlice';
 import { Link } from 'react-router-dom';
 import { GiBoxUnpacking } from "react-icons/gi";
 import { CiDeliveryTruck } from 'react-icons/ci';
@@ -203,13 +203,7 @@ const OrderManage = ({type}) => {
                         await dispatch(getUserOrderInfo(record.orderId))
                         dispatch(moreOrderInfo(record))
                     }}>Detail</a>
-                    {record.statusOrder === 3 ? "" :  record.statusOrder === 2 && type==="store" ? "" : record.statusOrder === 1 && type==="user" ? "" : 
-                    <Button
-                    onClick={ async () => {
-                        await dispatch(userChangeOrderStatus(record.orderId))
-                        dispatch(getUserOrder())
-                    }} 
-                    size={32} type="primary" loading={false}>
+                    {record.statusOrder === 3 ? "" :  record.statusOrder === 2 && type==="store" ? "" : record.statusOrder === 1 && type==="user" ? "" : <Button size={32} type="primary" loading={false}>
                         Process
                     </Button>}
                    

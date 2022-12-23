@@ -1,0 +1,213 @@
+.payment-confirm-container{
+    .first-row{
+        .payment-methods{
+            margin-top: 10px;
+            h1{
+                font-size: 25px;
+            }
+
+            .radio-check-box{
+                background-color: $color-gray-100;
+                border: 1px solid $color-gray-200;
+                padding: 8px 15px;
+
+                .payment-raido{
+                    
+                    span{
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .paypal-icon{
+                        width: 50px;
+                        height: 50px;
+
+                        img{
+                            width: 50px;
+                            height: 50px;
+                        }
+                    }
+
+                    .radio-info{
+                        margin-left: 10px;
+
+                        h2{
+                            margin: 0;
+                            font-size: 20px;
+                        }
+                        p{
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .address-chosen{
+            margin-top: 10px;
+
+            h1{
+                font-size: 25px;
+            }
+
+            .address-container{
+                background-color: $color-gray-100;
+                display: flex;
+                height: 100%;
+                flex-direction: column;
+                padding: 15px;
+                color: $color-gray-400;
+                border: 1px solid $color-gray-200;
+                cursor: pointer;
+                transition: all .2s ease;
+    
+                .address{
+                    display: flex;
+                    flex-direction: column;
+    
+                    .full-name{
+                        margin-bottom: 5px;
+                        font-weight: bold;
+                        display: block;
+                          display: -webkit-box;
+                        -webkit-line-clamp: 1;  /* số dòng hiển thị */
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        font-size: 16px;
+                    }
+    
+                    .address-detail{
+                        display: block;
+                          display: -webkit-box;
+                        -webkit-line-clamp: 2;  /* số dòng hiển thị */
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+    
+                .change-button{
+                    padding: 5px 30px;
+                    border: 1px solid $main-text-color-white;
+                    margin-top: 10px;
+                    cursor: pointer;
+                    transition: all .2s ease;
+                    background-color: $color-green-100;
+                    color: $main-text-color-white;
+                    
+    
+                    &:hover{
+                        background-color: $color-gray-100;
+                        color: $color-green-100;
+                        border-color: $color-green-100;
+                    }
+                }
+    
+                .delete-button{
+                    padding: 5px 30px;
+                    border: 1px solid red;
+                    margin-top: 10px;
+                    cursor: pointer;
+                    transition: all .2s ease;
+                    background-color: $color-gray-100;
+                    color: red;
+                    
+    
+                    &:hover{
+                        background-color: red;
+                        color: white;
+                    }
+                }
+    
+                &.add-address{
+                    justify-content: center;
+                    align-items: center;
+    
+                }
+    
+                &.active{
+                    background-color: $color-green-100;
+                    color: $main-text-color-white;
+    
+                    .change-button{
+                        &:hover{
+                            background-color: $main-text-color-white;
+                            color: $color-green-100;
+                        }
+                    }
+    
+                    .delete-button{
+                        border: 1px solid white;
+                        background-color: red;
+                        color: white;
+    
+                        &:hover{
+                            background-color: white;
+                            color: red;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .second-row{
+        margin-top: 30px;
+
+        .payment-cart-detail-table{
+            border: 1px solid $color-gray-200;
+            padding: 10px;
+
+            .name-tag{
+                color: $color-gray-200;
+            }
+        
+            .quantity{
+                .quantity-number{
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid $color-gray-300;
+                    margin: auto;
+                }
+            }
+            .price{
+                text-align: center;
+        
+                .price-number{
+                    font-weight: bold;
+                    color: $color-green-100;
+                }
+            }
+        }
+
+        .payment-detail{
+            background-color: $color-gray-100;
+            margin-top: 20px;
+            color: $color-gray-400;
+            display: flex;
+            justify-content: flex-end;
+            padding: 12px;
+            font-size: 15px;
+
+            .payment-detail-container{
+                width: 25%;
+
+                .total-mount,.shipping-fee{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-block: 5px;
+
+                    span{
+                        &:first-child{
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

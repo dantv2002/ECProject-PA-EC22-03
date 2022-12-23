@@ -5,7 +5,6 @@ import {
   getUserOrderUrl,
   productDetailUrl,
   updateUserInfoUrl,
-  userChangeOrderStatusUrl,
   userInfoUrl,
 } from "../../util/constants/mainUrl";
 
@@ -59,18 +58,6 @@ export const getUserOrderInfo = createAsyncThunk(
   }
 );
 
-export const userChangeOrderStatus = createAsyncThunk(
-  "user/userchangeorderstatus",
-  async (orderid) => {
-    const res = await axios.put(userChangeOrderStatusUrl(orderid),{},{
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
-      },
-    });
-    return res.data.data;
-  }
-);
-
 export const UserPageSlice = createSlice({
   name: "product",
   initialState,
@@ -88,9 +75,9 @@ export const UserPageSlice = createSlice({
     moreOrderInfo: (state, action) => {
       state.userOrderInfo = {
         ...state.userOrderInfo,
-        ...action.payload,
-      };
-    },
+        ...action.payload
+      }
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getUserInfo.pending, (state, action) => {
@@ -113,6 +100,7 @@ export const UserPageSlice = createSlice({
     });
 
     builder.addCase(updateUserInfo.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.loading = false;
     });
 
@@ -139,27 +127,12 @@ export const UserPageSlice = createSlice({
     });
 
     builder.addCase(getUserOrderInfo.fulfilled, (state, action) => {
-      state.userOrderInfo = action.payload;
-
+      state.userOrderInfo = action.payload
+      
       state.loading = false;
     });
 
     builder.addCase(getUserOrderInfo.rejected, (state) => {
-      state.loading = false;
-    });
-
-    ////////////////////////////////////////////////////////////
-    builder.addCase(userChangeOrderStatus.pending, (state, action) => {
-      state.loading = true;
-    });
-
-    builder.addCase(userChangeOrderStatus.fulfilled, (state, action) => {
-      console.log(action.payload)
-
-      state.loading = false;
-    });
-
-    builder.addCase(userChangeOrderStatus.rejected, (state) => {
       state.loading = false;
     });
   },

@@ -129,7 +129,7 @@ export const Home = () => {
             </h3>
             <span>Seller: <Link to={`/store/${product.accountName}`}>{product.accountName}</Link></span>
           </div>
-
+          <button className="join-auction">Join Auction</button>
         </div>
       </Col>
     ))
