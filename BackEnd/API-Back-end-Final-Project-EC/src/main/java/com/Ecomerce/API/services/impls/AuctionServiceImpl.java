@@ -144,6 +144,9 @@ public class AuctionServiceImpl implements AuctionService {
 		}
 		auction.setBuyer(buyer);
 		auction.setProduct(product);
+		Date dateCreatedAuction = new Date();
+		Timestamp timestampCreatedAuction = new Timestamp(dateCreatedAuction.getTime());
+		auction.setTimeStart(timestampCreatedAuction);
 		auction.setStatusAuction(statusAuctionRepository.findById(1).orElse(null));
 		try {
 			repository.save(auction);

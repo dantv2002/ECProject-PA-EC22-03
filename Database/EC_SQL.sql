@@ -1370,7 +1370,8 @@ INSERT INTO Status_auction VALUES
 (N'Chờ đấu giá'),
 (N'Đang đấu giá'),
 (N'Đấu giá thành công'),
-(N'Đấu giá thất bại');
+(N'Đấu giá thất bại'),
+(N'Đang chờ xác nhận');
 -- Thêm data vào bảng product --
 INSERT INTO Product VALUES
 ('Iphone 11', N'Apple đã chính thức trình làng bộ 3 siêu phẩm iPhone 11, trong đó phiên bản iPhone 11 64GB có mức giá rẻ nhất nhưng vẫn được nâng cấp mạnh mẽ như iPhone Xr ra mắt trước đó.', 'Apple','.image/iphone11_1.jpg', 10, 1, 'vanbao', 1),
@@ -1450,8 +1451,6 @@ INSERT INTO Tariff VALUES
 (10000000, null, 0.01);
 -- Thêm data vào bảng Auction --
 INSERT INTO Auction VALUES
-('vanan', 1, null, null, 0, 0, 0, null, 1, 1),
-('vanan', 2, null, null, 0, 0, 0, null, 1, 1),
 ('vanan', 3, '2022-12-10 07:10:00', null, 20000000, 0, 0, null, 2, 1),
 ('vanan', 4, '2022-12-12 08:00:00', null, 12000000, 0, 0, null, 2, 1),
 ('vanan', 5, '2022-12-10 09:00:00', '2022-12-12 09:00:00', 12000000, 35000, 120000, 'vandat', 3, 1),
