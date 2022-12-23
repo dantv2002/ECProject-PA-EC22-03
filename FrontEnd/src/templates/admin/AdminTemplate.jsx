@@ -41,19 +41,19 @@ export const AdminTemplate = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if(sessionStorage.getItem("adminName") === null) navigate("/admin")
+        if (sessionStorage.getItem("adminName") === null) navigate("/admin")
         const currentdate = new Date()
         currentdate.setDate(1)
         const newMonthList = []
         for (let i = 0; i < 7; i++) {
-          const newDate = new Date(currentdate)
-          newDate.setMonth(currentdate.getMonth() - i)
+            const newDate = new Date(currentdate)
+            newDate.setMonth(currentdate.getMonth() - i)
             newMonthList.push(newDate.toISOString())
-        } 
-         dispatch(get7MonthList(newMonthList))
-         dispatch(getTotalUser())
-         
-    },[])
+        }
+        dispatch(get7MonthList(newMonthList))
+        dispatch(getTotalUser())
+
+    }, [])
     return (
         <div className="admin-template-container">
             <Layout>
@@ -68,7 +68,10 @@ export const AdminTemplate = () => {
                     }}
                 >
                     <div className="logo">
-                        <h1>Store Name</h1>
+                        <Link to="" style={{ display: 'flex', height: "100px", alignItems: "center" }}>
+                          
+                            <h1>Winner</h1>
+                        </Link>
                     </div>
                     <Menu
                         theme="dark"
@@ -82,16 +85,16 @@ export const AdminTemplate = () => {
                         style={{
                             padding: 0,
                             background: "white",
-                            
+
                         }}
                     >
-                        <div className="admin" style={{textAlign:"right", marginRight:"30px",display:'flex', alignItems:"center",justifyContent:"flex-end"}}>
+                        <div className="admin" style={{ textAlign: "right", marginRight: "30px", display: 'flex', alignItems: "center", justifyContent: "flex-end" }}>
                             <span onClick={() => {
                                 sessionStorage.removeItem("adminName")
                                 sessionStorage.removeItem("adminAccessToken")
                                 navigate("/admin")
-                            }} style={{color: "red", marginRight:"15px", textDecoration:"underline",cursor:"pointer"}}>Logout</span>
-                            <span style={{fontSize:"17px",marginRight:"15px"}}>Welcom, Admin</span>
+                            }} style={{ color: "red", marginRight: "15px", textDecoration: "underline", cursor: "pointer" }}>Logout</span>
+                            <span style={{ fontSize: "17px", marginRight: "15px" }}>Welcom, Admin</span>
                             <Avatar size={48} icon={<UserOutlined />} />
                         </div>
                     </Header>
