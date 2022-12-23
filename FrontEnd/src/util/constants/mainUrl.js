@@ -1,4 +1,4 @@
-export const mainDomain = 'http://Backend-API:8090'
+export const mainDomain = 'http://localhost:8090'
 
 //////////////////////////////////////////////
 export const categoryUrl = () => {

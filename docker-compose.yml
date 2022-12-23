@@ -23,10 +23,10 @@ services:
 
   # Backend
   java-springboot:
-    container_name: Backend-API
+    container_name: apijava
     build: 
       dockerfile: Dockerfile
-      context: ./BackEnd/API-Back-end-Final-Project-EC/
+      context: ./API-Back-end-Final-Project-EC/
     ports:
       -  "8090:8090"
     volumes:
@@ -36,7 +36,7 @@ services:
 
   #Frontend
   reactjs:
-    container_name: Winner
+    container_name: web
     build:
       dockerfile: Dockerfile
       context: ./FrontEnd
