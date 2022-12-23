@@ -55,7 +55,7 @@ export const Header = () => {
       <li key={noti.id}>
         <Row>
           <Col xs={3} sm={3} md={3} lg={3} xl={3} className="item-info">
-            <img src="https://elmich.vn/FileUpload/Images/1849_1.jpg" />
+            <img src={noti.imageUrl} />
           </Col>
           <Col xs={21} sm={21} md={21} lg={21} xl={21} className="item-info no-center">
             {noti.type === "0" ?
@@ -102,7 +102,10 @@ export const Header = () => {
     <>
       <Row className="my-container" gutter={16}>
         <Col xl={5} className="logo">
-          <Link to=""><span>My Logo</span></Link>
+          <Link to="" style={{display:'flex', width:"100px", height:"100px", alignItems:"center"}}>
+            <img style={{width:"100%"}} src="./logo.png"/>
+            <span>Winner</span>
+          </Link>
         </Col>
         <Col xl={9} className="search-bar">
 

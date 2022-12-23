@@ -151,7 +151,7 @@ const StoreTable = ({showDrawer,setDrawerData}) => {
         key: 'imageProduct',
         render: (text) => {
           if(text.slice(0,1) === "."){
-            return <img style={{width: "100%"}} src={`./${text.substring(1)}`}/>
+            return <img style={{width: "100%"}} src={`../${text.substring(1)}`}/>
           }else{
             return <img style={{width: "100%"}} src={text}/>
           }

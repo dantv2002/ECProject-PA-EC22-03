@@ -167,7 +167,7 @@ const AuctioningProduct = () => {
             key: 'imageProduct',
             width: '10%',
             render: (text) => {
-                return <img style={{ width: "100%" }} src={`./${text.substring(1)}`} />
+                return <img style={{ width: "100%" }} src={`../${text.substring(1)}`} />
             }
         },
         {
