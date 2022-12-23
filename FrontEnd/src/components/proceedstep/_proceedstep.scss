@@ -1,0 +1,37 @@
+.proceed-step_container{
+    .ant-steps-item-active{
+        .ant-steps-item-icon{
+            background-color: $color-green-100;
+            border-color: $color-green-100;
+        }
+    }
+
+    .ant-steps-item-finish{
+        .ant-steps-item-icon{
+            border-color: $color-green-100;
+
+            .ant-steps-icon{
+                color: $color-green-100;
+            }
+        }
+
+        .ant-steps-item-title{
+
+            &::after{
+                background-color: $color-green-100 !important;
+            }
+        }
+    }
+}
+
+
+.steps-content {
+    min-height: 200px;
+    margin-top: 16px;
+
+   
+}
+  
+.steps-action {
+margin-top: 24px;
+}

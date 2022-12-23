@@ -98,7 +98,13 @@ public class UserConverter {
 		dto.setPriceTransaction(entity.getAuction().getPriceTransaction());
 		dto.setPriceShipping(entity.getAuction().getPriceShipping());
 		dto.setCommission(entity.getAuction().getCommission());
-		dto.setSellerEnd(entity.getAuction().getSellerEnd().getAccountName());
+		
+		try {
+			dto.setSellerEnd(entity.getAuction().getSellerEnd().getAccountName());
+		} catch(Exception e) {
+			dto.setSellerEnd(null);
+		}
+		
 		dto.setProductName(entity.getAuction().getProduct().getName());
 		dto.setImageProduct(entity.getAuction().getProduct().getImageProduct());
 		dto.setStatusAuction(entity.getAuction().getStatusAuction().getId());

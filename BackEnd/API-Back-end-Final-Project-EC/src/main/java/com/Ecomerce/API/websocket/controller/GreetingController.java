@@ -48,10 +48,10 @@ public class GreetingController {
 			
 			//trả về dữ liệu
 			List<AuctionDetail> auctionDetails = auctionDetailRepository.findAll();
-			List<AuctionDetail> list = new ArrayList<>();
+			List<AuctionDetailSocketModel> list = new ArrayList<>();
 			for(AuctionDetail auctionDetail: auctionDetails) {
 				if(auctionDetail.getAuction().getId() == auctionDetailSocketModel.getAuctionId()) {
-					list.add(auctionDetail);
+					list.add(converter.convertToModel(auctionDetail));
 				}
 			}
 			
@@ -60,7 +60,7 @@ public class GreetingController {
 			if (list.isEmpty()) {
 				return new ResponseObject("Thất bại", "Không có phiên đấu giá nào tồn tại", "");
 			}
-			return new ResponseObject("Hoàn thành", "Lấy các phiên đấu giá thành công", new Gson().toJson(list));
+			return new ResponseObject("Hoàn thành", "Lấy các phiên đấu giá thành công", list);
 		}
 		catch(Exception e){
 			return new ResponseObject("Thất bại", "Không có phiên đấu giá nào tồn tại", "");

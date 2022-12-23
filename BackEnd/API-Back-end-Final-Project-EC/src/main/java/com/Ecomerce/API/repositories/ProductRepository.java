@@ -12,6 +12,7 @@ import com.Ecomerce.API.models.entities.User;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	List<Product> findTop12ByIdIsNotNull();
 	List<Product> findDistinctByName(String name);
+	List<Product> findByName(String name);
 	List<Product> findByNameContaining(String keyValue);
 	List<Product> findByManufacturer(String manufacturer);
 	List<Product> findByUser(User user);

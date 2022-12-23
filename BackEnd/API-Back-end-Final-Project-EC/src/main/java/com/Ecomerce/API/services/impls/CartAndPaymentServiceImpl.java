@@ -57,7 +57,7 @@ public class CartAndPaymentServiceImpl implements CartAndPaymentService {
 		List<Auction> auctions = auctionRepository.findByBuyerAndStatusAuctionAndExist(user, statusAuction, true);
 		List<ProductInCartDto> productsInCart = new ArrayList<ProductInCartDto>();
 		for (Auction auction : auctions) {
-			if (auction.getOrders() != null || !auction.getOrders().isEmpty()) {
+			if (auction.getOrders() == null || auction.getOrders().isEmpty()) {
 				productsInCart.add(auctionConverter.convertToProductInCartDto(auction));
 			}
 		}
@@ -95,6 +95,8 @@ public class CartAndPaymentServiceImpl implements CartAndPaymentService {
 			order.setStatus(statusOrderRepository.findById(1).orElse(null));
 			try {
 				orderRepository.save(order);
+//				auction.setStatusAuction(statusAuctionRepository.findById(3).orElse(null));
+//				auctionRepository.save(auction);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return false;

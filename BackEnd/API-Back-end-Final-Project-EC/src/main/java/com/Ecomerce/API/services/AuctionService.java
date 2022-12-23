@@ -13,4 +13,5 @@ public interface AuctionService {
 	List<AuctionDto> findAllAuction();
 	AuctionDetailSocketModel insert(AuctionDetailSocketModel auctionDetailSocketModel);
 	Boolean changePrice(int auctionId, int price);
+	AuctionDto createAuction(AuctionDto receiver);
 }
