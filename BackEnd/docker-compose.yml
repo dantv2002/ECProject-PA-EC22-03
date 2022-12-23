@@ -1,0 +1,14 @@
+version: '3.4'
+
+#SERVICES
+services:
+  # Backend
+  java-springboot:
+    container_name: apijava
+    build: 
+      dockerfile: Dockerfile
+      context: ./API-Back-end-Final-Project-EC/
+    ports:
+      -  "8090:8090"
+    volumes:
+      - ./API-Back-end-Final-Project-EC:/app
