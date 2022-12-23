@@ -1,0 +1,6 @@
+package com.Ecomerce.API.websocket.model;
+
+public class AuctionDetailSocketModel {
+	private int auction_id;
+	
+}
