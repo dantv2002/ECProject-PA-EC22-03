@@ -1,0 +1,36 @@
+version: '3.4'
+
+#NETWORK
+networks:
+  springboot-app-network:
+    driver: bridge
+
+#SERVICES
+services:
+  #DB
+  SQLSERVER:
+    container_name: DB-SQLSERVER
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      -  "1439:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password789
+    volumes:
+      - ./vmssql:/var/lib/mssqlql/data
+    networks:
+      - springboot-app-network
+
+  # Backend
+  java-springboot:
+    container_name: Backend-API
+    build: 
+      dockerfile: Dockerfile
+      context: ./API-Back-end-Final-Project-EC/
+    ports:
+      -  "8090:8090"
+    volumes:
+      - ./API-Back-end-Final-Project-EC:/app
+    networks:
+      - springboot-app-network
+
