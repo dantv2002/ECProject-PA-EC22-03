@@ -1,50 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { userNotiUrl } from '../../util/constants/mainUrl';
 
 const initialState = {
     notiList: [
-        {
-            id:"1",
-            type: "0",
-            productId: "1",
-            auctionId: "",
-            auctionStatus: "",
-            productName: "Máy xây sinh tố",
-            description: "Bạn đã được mời vào phiên đấu giá sản phẩm",
-            date: "12/12/2012"
-        },
-        {
-            id:"2",
-            type: "0",
-            productId: "1",
-            auctionId: "",
-            auctionStatus: "",
-            productName: "Máy xây sinh tố",
-            description: "Bạn đã được mời vào phiên đấu giá sản phẩm",
-            date: "12/12/2012"
-        },
-        {
-            id:"3",
-            type: "1",
-            productId: "1",
-            auctionId: "123",
-            auctionStatus: "down",
-            productName: "Máy xây sinh tố",
-            description: "Giá sản phẩm của phiên đấu giá mà bạn đang tham gia đã bị ",
-            date: "12/12/2012"
-        },
-        {
-            id:"4",
-            type: "1",
-            productId: "1",
-            auctionId: "456",
-            auctionStatus: "down",
-            productName: "Máy xây sinh tố",
-            description: "Giá sản phẩm của phiên đấu giá mà bạn đang tham gia đã bị ",
-            date: "12/12/2012"
-        },
+  
     ],
     notiActiveTab: "all"
 }
+
+export const getAllNoti = createAsyncThunk('userNoti/getAllNoti',
+    async () => {
+        const res = await axios.get(userNotiUrl(),{'headers': {'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')}})
+        return res.data.data
+    }
+)
+
+export const deleteNoti = createAsyncThunk('userNoti/deleteNoti',
+    async (notiid) => {
+        const res = await axios.put(deleteNoti(notiid),{'headers': {'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')}})
+        return res.data.data
+    }
+)
 
 export const userNotificationSlice = createSlice({
     name: "userNotification",
@@ -53,6 +30,45 @@ export const userNotificationSlice = createSlice({
         changeNotiTab: (state,action) => {
             state.notiActiveTab = action.payload
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getAllNoti.pending, (state,action) => {
+            state.loading = true
+        })
+
+        builder.addCase(getAllNoti.fulfilled, (state,action) => {
+            state.notiList = action.payload.map((noti) => {
+                return   {
+                    id:noti.id,
+                    type: noti.type ? "1" : "0",
+                    productId: noti.productId,
+                    auctionId: noti.auctionId,
+                    auctionStatus: "down",
+                    productName: noti.productName,
+                    date: noti.timeStart,
+                    imageUrl: `./${noti.imageProduct.substring(1)}`
+                }
+            })
+            state.loading = false
+        })
+
+        builder.addCase(getAllNoti.rejected, (state) => {
+            state.loading = false
+        })
+
+        ////////////////////////////////////////////////////////////
+        builder.addCase(deleteNoti.pending, (state,action) => {
+            state.loading = true
+        })
+
+        builder.addCase(deleteNoti.fulfilled, (state,action) => {
+            console.log(action.payload)
+            state.loading = false
+        })
+
+        builder.addCase(deleteNoti.rejected, (state) => {
+            state.loading = false
+        })
     }
 })
 

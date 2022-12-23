@@ -1,11 +1,28 @@
 import { Col, Row } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AiOutlineUser } from 'react-icons/ai';
 import { CiMoneyCheck1 } from "react-icons/ci";
 import { FaReceipt } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
 import { OrderChart } from '../../../components/admin/orderChart/OrderChart';
 import { RevenueChart } from '../../../components/admin/revenueChart/RevenueChart';
+import { cleanTotalRevenue, getTotalOrderIn7Month, getTotalOrderInCurrentMonth, getTotalRevenue } from '../../../redux/admin/AdminSlice';
 export const HomePage = () => {
+    const dispatch = useDispatch()
+    const {monthList,totalRevenueByMonth,totalUser,totalOrderInCurrentMonth} = useSelector(store => store.admin)
+    useEffect(() => {
+        dispatch(cleanTotalRevenue())
+        monthList.forEach( async (month) => {
+            const realMonth = new Date(month)
+            await dispatch(getTotalRevenue({month: realMonth.getMonth()+1, year: realMonth.getFullYear()}))
+        })
+        dispatch(getTotalOrderInCurrentMonth())
+        dispatch(getTotalOrderIn7Month({
+            curentMonth: new Date().getMonth() + 1,
+            currentYear: new Date().getFullYear()
+        }))
+    },[monthList])
+
     return (
         <div className="admin-home-container">
             <div className='statistic-part'>
@@ -18,7 +35,7 @@ export const HomePage = () => {
                             <h3 >
                                 Total Revenue (By month)
                             </h3>
-                            <div className="data" style={{ color: "rgb(3, 201, 215)" }}>300.000 VND</div>
+                            <div className="data" style={{ color: "rgb(3, 201, 215)" }}>{totalRevenueByMonth[totalRevenueByMonth.findIndex((month) => month.month === new Date().getMonth() + 1)]?.revenue.toLocaleString()} VND</div>
                         </div>
                     </Col>
                     <Col span={8}>
@@ -29,7 +46,7 @@ export const HomePage = () => {
                             <h3>
                                 Total Order (By Month)
                             </h3>
-                            <div className="data" style={{ color: "rgb(254, 201, 15)" }}>30</div>
+                            <div className="data" style={{ color: "rgb(254, 201, 15)" }}>{totalOrderInCurrentMonth?.count}</div>
                         </div>
                     </Col>
                     <Col span={8}>
@@ -40,7 +57,7 @@ export const HomePage = () => {
                             <h3>
                                 Total User (Now)
                             </h3>
-                            <div className="data" style={{ color: "rgb(0, 194, 146)" }}>30</div>
+                            <div className="data" style={{ color: "rgb(0, 194, 146)" }}>{totalUser}</div>
                         </div>
                     </Col>
                 </Row>
@@ -50,13 +67,11 @@ export const HomePage = () => {
                     <Col span={24}>
                         <RevenueChart />
                     </Col>
-                    <Col span={12}>
+                    <Col span={24}>
                         <OrderChart />
 
                     </Col>
-                    <Col span={12}>
-                        <OrderChart />
-                    </Col>
+                    
 
                 </Row>
 

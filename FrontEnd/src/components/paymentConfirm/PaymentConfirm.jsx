@@ -1,19 +1,19 @@
-import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+
 import { Col, Radio, Row, Table } from 'antd';
 import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {AutoIncrTotalPayment} from '../../redux/cart/cartSlice'
+import {AutoIncrTotalPayment, changeDola, getShippingFeeList} from '../../redux/cart/cartSlice'
 
 
 
 const columns = [
     {
-        title: "",
+        title: "Image",
         dataIndex: "image",
-        render: (text) => <img src={text} />,
-        width: 1,
+        render: (text) => <img src={text} style={{width:"80%"}} />,
+        width: "10%",
       },
     {
         title: "Name",
@@ -21,7 +21,7 @@ const columns = [
         render: (text) => {
             return <a className="name-tag">{text}</a>;
         },
-        width: 400,
+        width: "30%",
     },
     {
         title: "Seller",
@@ -29,18 +29,19 @@ const columns = [
         render: (text) => {
             return <a className="name-tag">{text}</a>;
         },
+        width: "30%",
     },
     {
         title: "Quantity",
         dataIndex: "quantity",
-        width: 50,
+        width: "10%",
         className: "quantity",
         render: (text) => <span className="quantity-number">{text}</span>,
     },
     {
         title: "Price",
         dataIndex: "price",
-        width: 130,
+        width: "20%",
         className: "price",
         render: (text) => (
             <span className="price-number">{text.toLocaleString()} VND</span>
@@ -49,15 +50,25 @@ const columns = [
 
 ];
 
+
 export const PaymentConfirm = () => {
     const dispatch = useDispatch()
 
-    const { buyList, totalAmount,shippingFee } = useSelector((store) => store.cart);
+    const { buyList, totalAmount,shippingFee,totalPayment } = useSelector((store) => store.cart);
     const {chosenAddress} = useSelector(store => store.paymentAddress)
 
     useEffect(() => {
-        dispatch(AutoIncrTotalPayment())
+      
+        const a = buyList.map((item) => {
+            return item.auctionId
+        })
+      
+            dispatch(getShippingFeeList(a))
+            
     },[])
+    useEffect(() => {
+        dispatch(changeDola(totalPayment))
+    },[totalPayment])
 
     return (
         <div className="payment-confirm-container">

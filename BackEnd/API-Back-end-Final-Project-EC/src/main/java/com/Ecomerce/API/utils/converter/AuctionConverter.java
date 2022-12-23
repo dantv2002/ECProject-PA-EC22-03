@@ -1,11 +1,16 @@
 package com.Ecomerce.API.utils.converter;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Ecomerce.API.models.dtos.AuctionBasicInfoDto;
@@ -15,9 +20,17 @@ import com.Ecomerce.API.models.dtos.ProductInCartDto;
 import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.AuctionDetail;
 import com.Ecomerce.API.models.entities.User;
+import com.Ecomerce.API.repositories.AuctionDetailRepository;
+import com.Ecomerce.API.repositories.AuctionRepository;
+import com.Ecomerce.API.repositories.UserRepository;
+import com.Ecomerce.API.websocket.model.AuctionDetailSocketModel;
 
 @Service
 public class AuctionConverter {
+	@Autowired
+	AuctionRepository auctionRepository;
+	@Autowired
+	UserRepository userRepository;
 	
 	public AuctionDto convertToDto(Auction auction) {
 		AuctionDto auctionDto = new AuctionDto();
@@ -173,5 +186,38 @@ public class AuctionConverter {
 		productInCart.setAuctionId(auction.getId());
 		
 		return productInCart;
+	}
+	
+	public AuctionDetail convertToEntity(AuctionDetailSocketModel auctionDetailSocketModel) {
+		if(auctionDetailSocketModel == null)
+			return null;
+		AuctionDetail auctionDetail = new AuctionDetail();
+		
+		auctionDetail.setAuction(auctionRepository.findOneById(auctionDetailSocketModel.getAuctionId()));
+		auctionDetail.setSeller(userRepository.findOneByAccountName(auctionDetailSocketModel.getSeller()));
+		auctionDetail.setPrice(auctionDetailSocketModel.getPrice());
+		auctionDetail.setComment(auctionDetailSocketModel.getComment());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss");
+		try {
+			//auctionDetail.setTimeAuction(sdf.parse(auctionDetailSocketModel.getTimeAuction()));
+			Date parsedDate = sdf.parse(auctionDetailSocketModel.getTimeAuction());
+		    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+		    auctionDetail.setTimeAuction(timestamp);
+		} catch (ParseException e) {
+			auctionDetail.setTimeAuction(null);
+		}
+		return auctionDetail;
+	}
+	
+	public AuctionDetailSocketModel convertToModel(AuctionDetail auctionDetail) {
+		if(auctionDetail == null)
+			return null;
+		AuctionDetailSocketModel auctionDetailSocketModel = new AuctionDetailSocketModel();
+		auctionDetailSocketModel.setAuctionId(auctionDetail.getAuction().getId());
+		auctionDetailSocketModel.setSeller(auctionDetail.getSeller().getAccountName());
+		auctionDetailSocketModel.setPrice(auctionDetail.getPrice());
+		auctionDetailSocketModel.setComment(auctionDetail.getComment());
+		auctionDetailSocketModel.setTimeAuction(auctionDetail.getTimeAuction().toString());
+		return auctionDetailSocketModel;
 	}
 }

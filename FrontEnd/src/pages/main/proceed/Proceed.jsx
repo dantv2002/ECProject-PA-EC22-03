@@ -15,6 +15,7 @@ import { AutoDecrTotalPayment } from '../../../redux/cart/cartSlice'
 import { poppupNoti } from "../../../util/notification/Notification";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { getAddressList } from "../../../redux/paymentAddress/paymentAddressSlice";
 
 
 const steps = [
@@ -34,7 +35,7 @@ const steps = [
 
 export const Proceed = () => {
   const [current, setCurrent] = useState(0);
-  const { totalPayment } = useSelector(store => store.cart)
+  const { totalPayment, dolaCurrnt } = useSelector(store => store.cart)
   const { addingMoreAddress } = useSelector(store => store.paymentAddress)
   const [modalStatus, setModalStatus] = useState(false)
   const [isPaymentSuccess, setIsPaymentSuccess] = useState(false)
@@ -56,14 +57,18 @@ export const Proceed = () => {
 
   useEffect(() => {
     dispatch(AutoDecrTotalPayment())
+  
+    dispatch(getAddressList(sessionStorage.getItem('accountName')))
+ 
   }, [])
 
+  console.log(dolaCurrnt)
   return (
     <div>
       <HeaderOnlyLogo />
 
       <CusModal status={modalStatus} handleCancel={handleModalCancel}>
-        <Paypal description="Recipt 1011" value={22.99} paymentSuccess={setIsPaymentSuccess} closeModal={setModalStatus}/>
+        <Paypal description="Auction Recipt" value={dolaCurrnt} paymentSuccess={setIsPaymentSuccess} closeModal={setModalStatus}/>
       </CusModal>
       {isPaymentSuccess ?
         <div>

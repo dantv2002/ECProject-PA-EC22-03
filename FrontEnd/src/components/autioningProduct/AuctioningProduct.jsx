@@ -1,8 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
 import DetailDrawer from '../detailDrawer/DetailDrawer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllAuction } from '../../redux/userStore/UserStoreSlice';
+import { useNavigate } from 'react-router-dom';
 const data = [
     {
         key: '1',
@@ -30,8 +33,11 @@ const data = [
     },
 ];
 const AuctioningProduct = () => {
+    const navigate = useNavigate()
     //Drawer Part
     const [open, setOpen] = useState(false);
+    const { auctionLists } = useSelector(store => store.userStore)
+    console.log(auctionLists)
     const showDrawer = () => {
         setOpen(true);
     };
@@ -39,7 +45,7 @@ const AuctioningProduct = () => {
         setOpen(false);
     };
 
-
+    const dispatch = useDispatch()
 
     //Table Part
     const [searchText, setSearchText] = useState('');
@@ -157,36 +163,51 @@ const AuctioningProduct = () => {
         },
         {
             title: 'Image',
-            dataIndex: 'image',
-            key: 'image',
+            dataIndex: 'imageProduct',
+            key: 'imageProduct',
             width: '10%',
+            render: (text) => {
+                return <img style={{ width: "100%" }} src={`./${text.substring(1)}`} />
+            }
         },
         {
             title: 'Product Name',
-            dataIndex: 'age',
-            key: 'age',
+            dataIndex: 'productName',
+            key: 'productName',
             width: '30%',
-            ...getColumnSearchProps('age'),
+            ...getColumnSearchProps('productName'),
         },
         {
             title: 'Buyer Name',
-            dataIndex: 'buyername',
-            key: 'buyername',
+            dataIndex: 'buyer',
+            key: 'buyer',
             width: '25%',
-            ...getColumnSearchProps('age'),
+            ...getColumnSearchProps('buyer'),
         },
         {
             title: 'Auction Price',
-            dataIndex: 'address',
-            key: 'address',
+            dataIndex: 'priceTransaction',
+            key: 'priceTransaction',
             width: '15%',
+            render: (text) => {
+                return <div>{text.toLocaleString()}</div>
+            }
         },
     ];
+
+    useEffect(() => {
+        dispatch(getAllAuction())
+    }, [])
     return <div>
-            <DetailDrawer open={open} showDrawer={showDrawer} onClose={onClose}/>
-          <Table columns={columns} dataSource={data} />
+        <DetailDrawer open={open} showDrawer={showDrawer} onClose={onClose} />
+        <Table columns={columns} dataSource={auctionLists} onRow={(record, rowIndex) => {
+            return {
+                onClick: (event) => {navigate(`/auction/${record.id}`) }, // click row
+
+            };
+        }} />
     </div>
-  
+
 
 };
 export default AuctioningProduct;

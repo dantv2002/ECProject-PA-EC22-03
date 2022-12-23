@@ -7,7 +7,7 @@ import {
   InputNumber
 } from 'antd';
 import {useDispatch, useSelector} from 'react-redux'
-import { addNewAddressDetail, changeAddressDetail, getdistrictList, getWardList } from '../../redux/paymentAddress/paymentAddressSlice';
+import { addNewAddressDetail, changeAddressDetail, getAddressList, getdistrictList, getWardList } from '../../redux/paymentAddress/paymentAddressSlice';
 import { useEffect } from 'react';
 import { poppupNoti } from '../../util/notification/Notification';
 
@@ -60,19 +60,18 @@ const FormDisabledDemo = ({componentDisabled, setComponentDisabled}) => {
     })
   }
   
-  const onSubmit = (formValue) => {
+  const onSubmit = async (formValue) => {
     const newFormValue = {
-      id: formValue.id,
-      name: formValue.name,
-      phonenumber: `0${formValue.phonenumber.toString()}`,
-      cityprovince: addressInfo.city,
-      district: addressInfo.district,
-      ward: addressInfo.ward,
-      addrDetail: formValue.addrDetail,
-      chosen: true
+      acccountName: sessionStorage.getItem('accountName'),
+      phone: `0${formValue.phonenumber.toString()}`,
+      wardId: addressInfo.ward.code,
+      addressDetails: formValue.addrDetail,
+      fullName: formValue.name,
+      status: true
     }
-    addingMoreAddress ? dispatch(addNewAddressDetail(newFormValue)) : dispatch(changeAddressDetail(newFormValue))
-    addingMoreAddress ? poppupNoti.addAddressSuccess() : poppupNoti.changeAddressSuccess()
+
+    addingMoreAddress ? await dispatch(addNewAddressDetail(newFormValue)) : await dispatch(changeAddressDetail(newFormValue))
+    await dispatch(getAddressList(sessionStorage.getItem('accountName')))
     setComponentDisabled(true)
   }
 

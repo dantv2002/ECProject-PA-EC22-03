@@ -1,7 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
+import ShippingModal from '../../../components/admin/shippingModal/ShippingModal';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getShippingFee } from '../../../redux/admin/AdminSlice';
 
 const data = [
     {
@@ -31,9 +35,13 @@ const data = [
   ];
 
 export const Shipping = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {shippingFeeList} = useSelector(store => store.admin)
     const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -139,25 +147,27 @@ export const Shipping = () => {
   });
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Start District',
+      dataIndex: 'addressStartName',
+      key: 'addressStartName',
       width: '30%',
-      ...getColumnSearchProps('name'),
+      ...getColumnSearchProps('addressStartName'),
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'End District',
+      dataIndex: 'addressEndName',
+      key: 'addressEndName',
       width: '30%',
-      ...getColumnSearchProps('age'),
+      ...getColumnSearchProps('addressEndName'),
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-      ...getColumnSearchProps('address'),
-
+      title: 'Shipping Fee',
+      dataIndex: 'price',
+      key: 'price',
+      ...getColumnSearchProps('price'),
+      render: (text) => {
+        return <div>{text.toLocaleString()} VND</div>
+      }
     },
     {
         title: 'Action',
@@ -166,17 +176,21 @@ export const Shipping = () => {
         width:"10%",
         render: () => (
             <div>
-                <button>Edit</button>
+                <button onClick={() => setIsModalOpen(true)}>Edit</button>
             </div>
         )
       },
   ];
-
+useEffect(() => {
+  if(sessionStorage.getItem("adminName") === null) navigate("/admin")
+  dispatch(getShippingFee())
+},[])
 
   return (
     <div className="shipping-container">
+        <ShippingModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
         <h1 className="tab-label">Shipping Fee</h1>
-        <Table columns={columns} dataSource={data}/>;
+        <Table columns={columns} dataSource={shippingFeeList}/>;
     </div>
   )
 }

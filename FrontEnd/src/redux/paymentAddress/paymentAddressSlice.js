@@ -1,31 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getDistrictUrl, getWardUrl } from '../../util/constants/addressApiUrl';
 import  axios  from 'axios';
+import { addAddressUrl, deleteAddressUrl, getAddressListUrl, getDistrictUrl, getWardUrl, updateAddressUrl } from '../../util/constants/mainUrl';
+import { poppupNoti } from '../../util/notification/Notification';
 
 const initialState = {
     districtList: [],
     wardList: [],
     addressList: [
-        {
-            id: 1,
-            name: 'Nguyễn Văn A',
-            phonenumber: '011111111',
-            cityprovince: {name: 'TP Hồ Chí Minh', code:79 } ,
-            district: {name: 'Quận 9', code:769 },
-            ward: {name: 'Phường Tăng Nhơn Phú A', code:26842 },
-            addrDetail: '484 Lê Văn Việt',
-            chosen: true
-        },
-        {
-            id: 2,
-            name: 'Nguyễn Văn B',
-            phonenumber: '011111112',
-            cityprovince: {name: 'TP Hồ Chí Minh', code:79 },
-            district: {name: 'Quận 9', code:769 } ,
-            ward: {name: 'Phường Tăng Nhơn Phú A', code:26842 } ,
-            addrDetail: '484 Lê Văn Việt',
-            chosen: false
-        },
     ],
     chosenAddress: {
         id: 1,
@@ -42,37 +23,46 @@ const initialState = {
 };
 
 export const getdistrictList = createAsyncThunk('process/getdistrictList',
-    async (id) => {
-        const res = await axios.get(getDistrictUrl(id))
-        return res.data.data.data
+    async () => {
+        const res = await axios.get(getDistrictUrl(),  {'headers': {'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')}})
+        return res.data.data
     }
 )
 
 export const getWardList = createAsyncThunk('process/getWardList',
     async (id) => {
-        const res = await axios.get(getWardUrl(id))
-        return res.data.data.data
+        const res = await axios.get(getWardUrl(id),  {'headers': {'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')}})
+        return res.data.data
     }
 )
 
+export const getAddressList = createAsyncThunk('process/getAddress',
+    async (accountName) => {
+        const res = await axios.get(getAddressListUrl(accountName),  {'headers': {'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')}})
+        return res.data.data
+    }
+)
+
+
 export const changeAddressDetail = createAsyncThunk('process/changeAddressDetail',
-    async (formChangedBody) => {
-        const res = await axios.get(getDistrictUrl(79))
-        return formChangedBody
+    async (obj) => {
+
+        const res = await axios.put(updateAddressUrl(obj.id),obj.newFormValue,{'headers': {'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')}})
+        return res.data.data
     }
 )
 
 export const addNewAddressDetail = createAsyncThunk('process/addNewAddressDetail',
     async (formChangedBody) => {
-        const res = await axios.get(getDistrictUrl(79))
-        return formChangedBody
+        const res = await axios.post(addAddressUrl(),formChangedBody,{'headers': {'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')}})
+        return res.data.data
     }
 )
 
 export const deleteAddressDetail = createAsyncThunk('process/deleteAddressDetail',
-    async (id) => {
-        const res = await axios.get(getDistrictUrl(79))
-        return id
+    async (addressId) => {
+        const res = await axios.delete(deleteAddressUrl(addressId),{'headers': {'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')}})
+        return res.data.data
     }
 )
 
@@ -111,16 +101,44 @@ export const paymentAddressSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+        builder.addCase(getAddressList.pending, (state,action) => {
+            state.loading = true
+        })
+
+        builder.addCase(getAddressList.fulfilled, (state,action) => {
+            console.log(action.payload)
+            state.addressList = action.payload.map((address) => {
+                return   {
+                    id: address.idAddress,
+                    name: address.receiver,
+                    phonenumber: address.phoneNumber,
+                    cityprovince: {name: 'TP Hồ Chí Minh', code:79 },
+                    district: {name: address.nameDistrict, code:address.idDistrict } ,
+                    ward: {name: address.nameWard, code:address.idWard } ,
+                    addrDetail: address.addressDetail,
+                    chosen: false
+                }
+            })
+            state.chosenAddress = state.addressList[0]
+            state.chosenAddress.chosen = true
+            state.loading = false
+        })
+
+        builder.addCase(getAddressList.rejected, (state) => {
+            state.loading = false
+        })
+
         ////////////////////////////////////////////   
         builder.addCase(getdistrictList.pending, (state,action) => {
             state.loading = true
         })
 
         builder.addCase(getdistrictList.fulfilled, (state,action) => {
+      
             state.districtList = action.payload.map((district) => {
                 return {
-                    label: district.name_with_type,
-                    value: district.code
+                    label: district.name,
+                    value: district.id
                 }
             })
             state.loading = false
@@ -137,10 +155,11 @@ export const paymentAddressSlice = createSlice({
         })
         
         builder.addCase(getWardList.fulfilled, (state,action) => {
+            console.log(action.payload)
             state.wardList = action.payload.map((ward) => {
                 return {
-                    label: ward.name_with_type,
-                    value: ward.code
+                    label: ward.name,
+                    value: ward.id
                 }
             })
             state.loading = false
@@ -152,19 +171,17 @@ export const paymentAddressSlice = createSlice({
 
         ////////////////////////////////////////////    
         builder.addCase(changeAddressDetail.pending, (state) => {
+      
             state.loading = true
         })
 
         builder.addCase(changeAddressDetail.fulfilled, (state,action) => {
+            console.log(action.payload)
             state.loading = true
 
             //test Code phai chinh sua sau khi co api
         
-            let index = state.addressList.findIndex((address) => address.id === state.chosenAddress.id)
-            if(index >= 0) {
-                state.addressList[index] = action.payload
-                state.chosenAddress = state.addressList[index]
-            }
+           
         })
 
         builder.addCase(changeAddressDetail.rejected, (state) => {
@@ -179,12 +196,9 @@ export const paymentAddressSlice = createSlice({
         builder.addCase(addNewAddressDetail.fulfilled, (state,action) => {
             state.loading = true
 
-            //test Code phai chinh sua sau khi co api
-            const newAddress = action.payload
-            newAddress.id = state.addressList.length + 1
             state.addingMoreAddress = false
-            state.addressList.push(newAddress)
-            state.chosenAddress = newAddress
+          
+            poppupNoti.addAddressSuccess()
         })
 
         builder.addCase(addNewAddressDetail.rejected, (state) => {
@@ -200,32 +214,7 @@ export const paymentAddressSlice = createSlice({
             state.loading = true
   
             //test Code phai chinh sua sau khi co api
-            if(state.chosenAddress.id === action.payload){
-     
-                let index = state.addressList.findIndex((address) => address.id === action.payload)
-                state.addressList.pop(index)
-
-                if(state.addressList.length > 0){
-                    state.addressList[0].chosen = true
-                    state.chosenAddress = state.addressList[0]
-                } else {
-               
-                    state.chosenAddress = {
-                        id: -1,
-                        name: '',
-                        phonenumber: '',
-                        cityprovince: {name: '', code:0 },
-                        district: {name: '', code:0 } ,
-                        ward: {name: '', code:0 } ,
-                        addrDetail: '',
-                        chosen: true
-                    }
-                    
-                }
-            }else {
-                let index = state.addressList.findIndex((address) => address.id === action.payload)
-                state.addressList.pop(index)
-            }
+            console.log(action.payload)
         })
 
         builder.addCase(deleteAddressDetail.rejected, (state) => {

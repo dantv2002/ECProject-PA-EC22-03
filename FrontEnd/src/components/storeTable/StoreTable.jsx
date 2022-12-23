@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
+import { useSelector } from 'react-redux';
 const data = [
   {
     key: '1',
@@ -28,7 +29,8 @@ const data = [
     address: 'London No. 2 Lake Park',
   },
 ];
-const StoreTable = () => {
+const StoreTable = ({showDrawer,setDrawerData}) => {
+  const {allproduct} = useSelector(store => store.userStore)
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -138,45 +140,62 @@ const StoreTable = () => {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'id',
+      key: 'id',
       width: '8%',
-      ...getColumnSearchProps('name'),
+      ...getColumnSearchProps('id'),
     },
     {
         title: 'Image',
-        dataIndex: 'image',
-        key: 'image',
+        dataIndex: 'imageProduct',
+        key: 'imageProduct',
+        render: (text) => {
+          if(text.slice(0,1) === "."){
+            return <img style={{width: "100%"}} src={`./${text.substring(1)}`}/>
+          }else{
+            return <img style={{width: "100%"}} src={text}/>
+          }
+        },
         width: '10%',
       },
     {
       title: 'Product Name',
-      dataIndex: 'age',
-      key: 'age',
-      width: '20%',
-      ...getColumnSearchProps('age'),
+      dataIndex: 'name',
+      key: 'name',
+      width: '15%',
+      ...getColumnSearchProps('name'),
     },
     {
-        title: 'Brand',
-        dataIndex: 'age',
-        key: 'age',
-        width: '20%',
-        ...getColumnSearchProps('age'),
+        title: 'Producer',
+        dataIndex: 'manufacturer',
+        key: 'manufacturer',
+        width: '15%',
+        ...getColumnSearchProps('manufacturer'),
       },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-      ...getColumnSearchProps('address'),
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+      ...getColumnSearchProps('description'),
 
     },
     {
         title: 'Action',
         dataIndex: 'action',
         key: 'action',
-  
+        width: '12%',
+        render: (_,record) => {
+          return (
+            <div>
+              <Button onClick={() => {
+                showDrawer()
+                setDrawerData(record)
+              }} type='primary'>Update</Button>
+            </div>
+          )
+        }
       },
   ];
-  return <Table columns={columns} dataSource={data} />;
+  return <Table columns={columns} dataSource={allproduct} />;
 };
 export default StoreTable;

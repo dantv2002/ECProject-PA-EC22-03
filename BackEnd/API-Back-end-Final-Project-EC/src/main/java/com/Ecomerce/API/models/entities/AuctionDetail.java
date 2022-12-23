@@ -2,6 +2,7 @@ package com.Ecomerce.API.models.entities;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class AuctionDetail implements Serializable {
 	private int price;
 	
 	@Column(name = "time_auction")
-	private Time timeAuction;
+	private Timestamp timeAuction;
 	
 	private String comment;
 
@@ -61,11 +62,11 @@ public class AuctionDetail implements Serializable {
 		this.price = price;
 	}
 
-	public Time getTimeAuction() {
+	public Timestamp getTimeAuction() {
 		return timeAuction;
 	}
 
-	public void setTimeAuction(Time timeAuction) {
+	public void setTimeAuction(Timestamp timeAuction) {
 		this.timeAuction = timeAuction;
 	}
 
