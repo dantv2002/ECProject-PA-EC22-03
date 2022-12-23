@@ -61,7 +61,7 @@ export const OrderChart = () => {
   return (
     <div style={{padding: "30px", background:"white", marginTop:"30px", borderRadius:"10px"}}>
 
-        <h1 style={{fontSize:"20px"}}>Revenue chart (Unit: VND)</h1>
+        <h1 style={{fontSize:"20px"}}>Order chart </h1>
         <Bar options={options} data={data} />;
     </div>
   )
