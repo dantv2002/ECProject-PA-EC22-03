@@ -2,6 +2,7 @@ package com.Ecomerce.API.models.entities;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +27,7 @@ public class Notification implements Serializable {
 	private User user;
 	
 	
-	private Time time;
+	private Timestamp time;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "auction_id")
@@ -52,11 +53,11 @@ public class Notification implements Serializable {
 		this.user = user;
 	}
 
-	public Time getTime() {
+	public Timestamp getTime() {
 		return time;
 	}
 
-	public void setTime(Time time) {
+	public void setTime(Timestamp time) {
 		this.time = time;
 	}
 

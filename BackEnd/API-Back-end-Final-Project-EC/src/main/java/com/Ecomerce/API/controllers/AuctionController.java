@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,5 +66,17 @@ public class AuctionController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(
 				new ResponseObject("Hoàn thành", "Xóa phiên đấu giá thành công", check));
+	}
+	
+	@PostMapping(value = "auth/user/auctions/createauction")
+	public ResponseEntity<ResponseObject> createAuction(@Valid @RequestBody AuctionDto auctionDto) {
+		AuctionDto auctionCreated = service.createAuction(auctionDto); 
+		
+		if(auctionCreated == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+					new ResponseObject("Thất bại", "Không thể tạo phiên đấu giá", ""));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(
+				new ResponseObject("Hoàn thành", "Tạo phiên đấu giá thành công", auctionCreated));
 	}
 }

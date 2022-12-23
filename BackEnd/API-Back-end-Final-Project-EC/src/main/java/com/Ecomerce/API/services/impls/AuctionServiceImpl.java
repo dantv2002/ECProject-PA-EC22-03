@@ -1,6 +1,8 @@
 package com.Ecomerce.API.services.impls;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,15 @@ import com.Ecomerce.API.models.dtos.AuctionDetailDto;
 import com.Ecomerce.API.models.dtos.AuctionDto;
 import com.Ecomerce.API.models.entities.Auction;
 import com.Ecomerce.API.models.entities.AuctionDetail;
+import com.Ecomerce.API.models.entities.Notification;
+import com.Ecomerce.API.models.entities.Product;
 import com.Ecomerce.API.models.entities.StatusAuction;
+import com.Ecomerce.API.models.entities.User;
 import com.Ecomerce.API.repositories.AuctionRepository;
+import com.Ecomerce.API.repositories.NotificationRepository;
+import com.Ecomerce.API.repositories.ProductRepository;
 import com.Ecomerce.API.repositories.StatusAuctionRepository;
+import com.Ecomerce.API.repositories.UserRepository;
 import com.Ecomerce.API.services.AuctionService;
 import com.Ecomerce.API.utils.converter.AuctionConverter;
 import com.Ecomerce.API.websocket.model.AuctionDetailSocketModel;
@@ -24,6 +32,14 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Autowired
 	private StatusAuctionRepository statusAuctionRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
+	
+	@Autowired NotificationRepository notificationRepository;
 
 	@Autowired
 	private AuctionConverter converter;
@@ -113,5 +129,50 @@ public class AuctionServiceImpl implements AuctionService {
 		catch (Exception e) {
 			return false;
 		}
+	}
+	
+
+	@Override
+	public AuctionDto createAuction(AuctionDto receiver) {
+		Auction auction = new Auction();
+		
+		User buyer = userRepository.findById(receiver.getBuyer()).orElse(null);
+		Product product = productRepository.findById(receiver.getProductId()).orElse(null);
+		
+		if (buyer == null || product == null) {
+			return null;
+		}
+		auction.setBuyer(buyer);
+		auction.setProduct(product);
+		auction.setStatusAuction(statusAuctionRepository.findById(1).orElse(null));
+		try {
+			repository.save(auction);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		// Find Buyers are selling that product
+		List<Product> products = productRepository.findByName(product.getName());
+		for (Product item : products) {
+			User userItem = item.getUser();
+			Notification notification = new Notification();
+			notification.setUser(userItem);
+			Date date = new Date();
+			Timestamp timestamp = new Timestamp(date.getTime());
+			notification.setTime(timestamp);
+			notification.setAuction(auction);
+			notification.setType(false);
+			notification.setStatus(true);
+			
+			try {
+				notificationRepository.save(notification);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return converter.convertToDto(auction);
 	}
 }
