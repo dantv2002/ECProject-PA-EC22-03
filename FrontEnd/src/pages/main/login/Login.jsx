@@ -1,15 +1,28 @@
-import { Button, Checkbox, Form, Input } from 'antd'
-import React from 'react'
+import { Button, Checkbox, Form, Input, Spin } from 'antd'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { userLogin } from '../../../redux/userAuthentication/UserAuthenticationSlice';
+import { poppupNoti } from '../../../util/notification/Notification';
 
 export const Login = () => {
     const navigate = useNavigate()
-    const onFinish = (values) => {
-        console.log('Success:', values);
-      };
+    const dispatch = useDispatch()
+    const {isLogin,loading} = useSelector(store => store.userAuthentication)
+    const onFinish = async (values) => {
+      await dispatch(userLogin(values))
+      if(sessionStorage.getItem("accountName") !== null)
+      navigate("/")
+    };
       const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
       };
+  useEffect(() => {
+    if(sessionStorage.getItem("accountName") !== null){
+      navigate("/")
+      poppupNoti.alreadyLoggedIn()
+    }
+  },[])
   return (
     <div className="login-page">
         <h1 className="page-name">Login</h1>
@@ -30,7 +43,7 @@ export const Login = () => {
     >
       <Form.Item
         label="Username"
-        name="username"
+        name="accountName"
         rules={[
           {
             required: true,

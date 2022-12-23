@@ -1,13 +1,15 @@
 import React from "react";
 import { Table } from "antd";
-import { ChangeBuyList, DeleteItem } from "../../redux/cart/cartSlice";
+import { ChangeBuyList, DeleteItem, getCartItems } from "../../redux/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { showConfirm } from "../../util/confirmModal/ConfirmModal";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const CartDetail = () => {
   
   const dispatch = useDispatch();
-  const { itemList, buyList } = useSelector((store) => store.cart);
+  const { itemList, buyList, loading } = useSelector((store) => store.cart);
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -30,16 +32,16 @@ export const CartDetail = () => {
     {
       title: "All",
       dataIndex: "image",
-      render: (text) => <img src={text} />,
-      width: 1,
+      render: (text) => <img src={text} style={{width:"100%"}}/>,
+      width: '10%',
     },
     {
       title: "Name",
       dataIndex: "name",
-      render: (text) => {
-        return <a className="name-tag">{text}</a>;
+      render: (text,record) => {
+        return <Link to={`/productdetail/${record.productId}`} className="name-tag">{text}</Link>;
       },
-      width: 400,
+      width: '28%',
     },
     {
       title: "Seller",
@@ -47,22 +49,23 @@ export const CartDetail = () => {
       render: (text) => {
         return <a className="name-tag">{text}</a>;
       },
+      width: '28%',
     },
     {
       title: "Quantity",
       dataIndex: "quantity",
-      width: 50,
       className: "quantity",
       render: (text) => <span className="quantity-number">{text}</span>,
+      width: '10%',
     },
     {
       title: "Price",
       dataIndex: "price",
-      width: 130,
       className: "price",
       render: (text) => (
         <span className="price-number">{text.toLocaleString()} VND</span>
       ),
+      width: '14%',
     },
     {
       title: "",
@@ -88,9 +91,14 @@ export const CartDetail = () => {
     },
   ];
 
+  useEffect(() => {
+    dispatch(getCartItems(sessionStorage.getItem('accountName')))
+  },[])
+
   return (
     <>
       <Table
+        loading={loading}
         rowSelection={{
           type: "checkbox",
           ...rowSelection,

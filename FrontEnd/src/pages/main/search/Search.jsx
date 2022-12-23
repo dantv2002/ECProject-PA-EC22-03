@@ -22,6 +22,7 @@ export const Search = () => {
     return auctionTime - passTime
   }
   const renderSearchAuction = () => {
+    console.log(searchAuction)
     return searchAuction.map((auction, index) => (
       <Col className='' xl={4} key={index}>
         <div className="item">
@@ -29,7 +30,7 @@ export const Search = () => {
             <img src={`./${auction.imageProduct.substring(1)}`} />
           </span>
           <div className="item__info">
-            <h3 className="item-name">{auction.productName}</h3>
+            <h3 className="item-name"><Link to={`/auction/${auction.id}`}>{auction.productName}</Link></h3>
             <span className="item-now-price">{auction.priceTransaction.toLocaleString()} VND</span>
             <div className="remain-auction-time">
               <Countdown style={{ color: "red" }} title="" value={convertRemainTime(auction.timeStart)} />
@@ -48,7 +49,7 @@ export const Search = () => {
             <img src={`./${product.imageProduct.substring(1)}`} />
           </span>
           <div className="item__info">
-            <h3 className="item-name">{product.name}</h3>
+            <h3 className="item-name"><Link to={`/productdetail/${product.id}`}>{product.name}</Link></h3>
             <Link>{product.accountName}</Link>
           </div>
         </div>

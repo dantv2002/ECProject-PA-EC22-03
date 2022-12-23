@@ -97,7 +97,8 @@ export const Filter = () => {
 
 
     useEffect(() => {
-        dispatch(getCategory())
+        dispatch(getProducerList(searchType))
+      
     }, [])
 
     return (

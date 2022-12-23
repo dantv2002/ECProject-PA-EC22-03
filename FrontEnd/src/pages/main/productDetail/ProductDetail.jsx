@@ -8,6 +8,7 @@ import { Link, useParams } from 'react-router-dom';
 export const ProductDetail = () => {
     const dispatch = useDispatch()
     let { id } = useParams();
+
     const { loading, productDetail } = useSelector(store => store.product)
     console.log(productDetail)
 
@@ -40,7 +41,7 @@ export const ProductDetail = () => {
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                         <div className="all-product-img">
                             <div className="product-img">
-                                <img style={{ width: "100%" }} src="./Laptop.png" />
+                                <img style={{ width: "100%" }} src={`../${productDetail.imageProduct ? productDetail.imageProduct.substring(1) : ""}`} />
                             </div>
                             
                         </div>

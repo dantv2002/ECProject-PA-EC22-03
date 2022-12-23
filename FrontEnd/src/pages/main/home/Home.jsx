@@ -18,9 +18,12 @@ import {
   changeSearchProducer,
   changeSearchPrice,
   fullSearch,
+  getCategory,
 } from '../../../redux/filter/filterSlice'
 import { useEffect } from 'react';
 import { getAuctioning, getcategory, getProducts } from '../../../redux/home/HomeSlice';
+import { getCartItems } from '../../../redux/cart/cartSlice';
+import { getAllNoti } from '../../../redux/usernotification/userNotificationSlice';
 const { Countdown } = Statistic;
 
 
@@ -46,6 +49,8 @@ export const Home = () => {
   const { loading, categoryList, auctionList, productList } = useSelector(store => store.home)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+
 
   const convertRemainTime = (time) => {
     const auctionTime = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 //2 day
@@ -122,7 +127,7 @@ export const Home = () => {
             <h3 className="item-name">
               <Link to={`/productdetail/${product.id}`}>{product.name}</Link>
             </h3>
-            <span>Seller: <Link >{product.accountName}</Link></span>
+            <span>Seller: <Link to={`/store/${product.accountName}`}>{product.accountName}</Link></span>
           </div>
           <button className="join-auction">Join Auction</button>
         </div>
@@ -130,10 +135,14 @@ export const Home = () => {
     ))
   }
 
+
   useEffect(() => {
     dispatch(getcategory())
     dispatch(getAuctioning())
     dispatch(getProducts(12))
+    dispatch(getCategory())
+    dispatch(getCartItems(sessionStorage.getItem('accountName')))
+    dispatch(getAllNoti())
   }, [])
 
   return (
@@ -150,40 +159,7 @@ export const Home = () => {
           {renderCategory()}
         </Row>
       </div>
-      <div className="auctioning">
-        <div className="auctioning__header">
-          <h1>Auctioning</h1>
-          <div
-            style={{color: "#61abc1", cursor:"pointer"}}
-            onClick={ async () => {
-              const newObj = {
-                nameCategory: "all",
-                nameManufacturer: "all",
-                statusProduct: "auctioning",
-                increase: "",
-                maxPrice: 1000000000,
-                minPrice: 0,
-                keyValue: ""
-              }
-              await dispatch(fullSearch(newObj))
-              await dispatch(changeSearchNecess("Auctioning"))
-              await dispatch(changeSearchWord(""))
-              await dispatch(changeSearchType("All"))
-              await dispatch(changeSearchProducer("All"))
-              await dispatch(changeSearchPrice(""))
-              navigate("/seachresult")
-            }}
-
-          >
-            More <ArrowRightOutlined />
-          </div>
-        </div>
-        <div className="auctioning__body">
-          <Slider {...settings}>
-            {renderAuctionList()}
-          </Slider>
-        </div>
-      </div>
+     
 
       <div className="suggestion">
         <div className="suggestion__header">

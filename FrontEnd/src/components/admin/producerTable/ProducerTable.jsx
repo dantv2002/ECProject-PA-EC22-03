@@ -2,37 +2,15 @@ import React, { useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
+import { useSelector } from 'react-redux';
 
-const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Joe Black',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Jim Green',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-    },
-    {
-      key: '4',
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park',
-    },
-  ];
 
-export const ProducerTable = () => {
+export const ProducerTable = ({setIsModalOpen, setActionType, setModalType}) => {
     const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
+  const {
+    producerList,
+} = useSelector((store) => store.filter)
   const searchInput = useRef(null);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -140,23 +118,29 @@ export const ProducerTable = () => {
   const columns = [
     {
       title: 'Producer',
-      dataIndex: 'name',
-      key: 'name',
-      ...getColumnSearchProps('name'),
+      dataIndex: 'producerName',
+      key: 'producerName',
+      ...getColumnSearchProps('producerName'),
     },
     {
         title: 'Action',
         dataIndex: '',
         key: '',
-        width: '30%',
+        width: '35%',
+        render: () => {
+          return <div style={{display: "flex", justifyContent:"space-between"}}>
+            <Button type="primary" 
+            >Update</Button>
+            <Button danger type="text">Delete</Button>
+          </div>
+        }
       },
   ];
 
-
   return (
     <div className="shipping-container">
-        <button className="admin-button">Add Producer</button>
-        <Table columns={columns} dataSource={data}/>;
+        <button className="admin-button" disabled>Add Producer</button>
+        <Table columns={columns} dataSource={producerList.length === 1 ? [] : producerList}/>;
     </div>
   )
 }

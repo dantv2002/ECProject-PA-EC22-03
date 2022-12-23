@@ -9,9 +9,10 @@ export const HeaderOnlyLogo = () => {
     <>
         <Row className="my-container" gutter={16}>
           <Col xl={5} className="logo">
-            <Link to="/"><span>My Logo</span></Link>
-            <span className="middle-line">|</span>
-            <span className="page-name">Cart</span>
+          <Link to="/" style={{display:'flex', width:"100px", height:"100px", alignItems:"center"}}>
+            <img style={{width:"100%"}} src="./logo.png"/>
+            <span>Winner</span>
+          </Link>
           </Col>
         
         </Row>

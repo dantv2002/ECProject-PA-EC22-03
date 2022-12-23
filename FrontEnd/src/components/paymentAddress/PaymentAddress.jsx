@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col, Skeleton } from 'antd';
 import AddressForm from '../addressform/AddressForm';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +6,7 @@ import {
   changeChosenAddress,
   chooseAddMoreAddress,
   deleteAddressDetail,
+  getAddressList,
   getdistrictList,
   getWardList
 } from '../../redux/paymentAddress/paymentAddressSlice'
@@ -19,8 +20,8 @@ export const PaymentAddress = () => {
 
 
   const renderUserAddressList = () => (
-    addressList.map(({ id, name, phonenumber, cityprovince, district, ward, addrDetail, chosen }) => (
-      <Col xs={24} sm={24} md={12} lg={8} xl={6} key={id}>
+    addressList.map(({ id, name, phonenumber, cityprovince, district, ward, addrDetail, chosen }) => {
+      return <Col xs={24} sm={24} md={12} lg={8} xl={6} key={id}>
         <div onClick={async (e) => {
           if (chosenAddress.cityprovince.code !== 0) await dispatch(getdistrictList(chosenAddress.cityprovince.code))
           if (chosenAddress.district.code !== 0) await dispatch(getWardList(chosenAddress.district.code))
@@ -38,6 +39,7 @@ export const PaymentAddress = () => {
             <button
               onClick={async () => {
                 await dispatch(deleteAddressDetail(id))
+                await dispatch(getAddressList(sessionStorage.getItem('accountName')))
                 poppupNoti.deleteAddressSuccess()
               }}
               className="delete-button"
@@ -48,8 +50,9 @@ export const PaymentAddress = () => {
 
         </div>
       </Col>
-    ))
+    })
   )
+
 
 
   return (

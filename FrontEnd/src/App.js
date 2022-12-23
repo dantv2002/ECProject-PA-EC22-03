@@ -27,6 +27,8 @@ import { UserManage } from './pages/admin/userManage/UserManage';
 import { Authentication } from './templates/authentication/Authentication';
 import { Login } from './pages/main/login/Login';
 import { Register } from './pages/main/register/Register';
+import { AdminLogin } from './pages/admin/login/AdminLogin';
+import { Test } from './pages/test/Test';
 
 function App() {
   return (
@@ -41,6 +43,7 @@ function App() {
           <Route element={<UserInfo/>}>
             <Route path='user/notification' element={<Notification/>}/>
             <Route path='user/personalinfo' element={<PersonalInfo/>}/>
+            <Route path='user/ordermanage' element={<OrderManage type="user"/>}/>
           </Route>
           <Route path='/productdetail/:id' element={<ProductDetail/>}/>
           <Route path='/auction/:id' element={<Auction/>}/>
@@ -50,6 +53,7 @@ function App() {
             <Route path='userstore/auctioningproducts' element={<AuctioningProduct type="store"/>}/>
           </Route>
           <Route path='userstore/realstore' element={<RealStore type="owner"/>}/>
+          <Route path='store/:id' element={<RealStore type="seller"/>}/>
         </Route>
         <Route element={<AdminTemplate/>}>
           <Route path='/admin/home' element={<HomePage/>}/>
@@ -61,7 +65,9 @@ function App() {
         <Route element={<Authentication/>}>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>}/>
+          <Route path='/admin' element={<AdminLogin/>}/>
         </Route>
+        <Route path="/test" element={<Test/>}/>
       </Routes>
     </BrowserRouter>
     </PayPalScriptProvider>

@@ -1,8 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
 import DetailDrawer from '../detailDrawer/DetailDrawer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserOrder, getUserOrderInfo, moreOrderInfo, userChangeOrderStatus } from '../../redux/userpage/UserPageSlice';
+import { Link } from 'react-router-dom';
+import { GiBoxUnpacking } from "react-icons/gi";
+import { CiDeliveryTruck } from 'react-icons/ci';
+import { AiOutlineDeliveredProcedure } from 'react-icons/ai';
 const data = [
     {
         key: '1',
@@ -29,17 +35,17 @@ const data = [
         address: 'London No. 2 Lake Park',
     },
 ];
-const OrderManage = () => {
+const OrderManage = ({type}) => {
     //Drawer Part
     const [open, setOpen] = useState(false);
+    const {userOrders} = useSelector(store => store.userPage)
+    const dispatch = useDispatch()
     const showDrawer = () => {
         setOpen(true);
     };
     const onClose = () => {
         setOpen(false);
     };
-
-
 
     //Table Part
     const [searchText, setSearchText] = useState('');
@@ -151,48 +157,73 @@ const OrderManage = () => {
     const columns = [
         {
             title: 'Image',
-            dataIndex: 'image',
-            key: 'image',
+            dataIndex: 'imageProduct',
+            key: 'imageProduct',
+            render: (text) => {
+                return <img style={{width:"100%"}}src={`../${text.substring(1)}`} />
+            },
             width: '10%',
         },
         {
             title: 'Product Name',
-            dataIndex: 'age',
-            key: 'age',
+            dataIndex: 'productName',
+            key: 'productName',
             width: '30%',
-            ...getColumnSearchProps('age'),
+            ...getColumnSearchProps('productName'),
+            render: (text,record) => <Link to={`/productdetail/${record.productId}`}>{text}</Link>
         },
         {
-            title: 'Buyer',
-            dataIndex: 'age',
-            key: 'age',
+            title: type === "user" ? "Seller" : "Buyer",
+            dataIndex: type === "user" ? "sellerAccount" : "buyerAccount",
+            key: type === "user" ? "sellerAccount" : "buyerAccount",
             width: '25%',
-            ...getColumnSearchProps('age'),
+            ...getColumnSearchProps(type === "user" ? "sellerAccount" : "buyerAccount"),
+            render: (text,record) => <Link>{text}</Link>
         },
         {
             title: 'Status',
-            dataIndex: 'address',
-            key: 'address',
-            ...getColumnSearchProps('address'),
+            dataIndex: 'statusOrder',
+            key: 'statusOrder',
+            ...getColumnSearchProps('statusOrder'),
             width: '15%',
+            render: (text,record) => {
+                if(text === 1) return <div><GiBoxUnpacking/>Packing</div>
+                if(text === 2) return <div><CiDeliveryTruck/>Delivering</div>
+                if(text === 3) return <div><AiOutlineDeliveredProcedure/>Delivered</div>
+            }
         },
         {
             title: 'Action',
             dataIndex: 'action',
             key: 'action',
-            render: (_, { tags }) => (
+            render: (_, record) => (
                 <div style={{display: 'flex', justifyContent:'space-between', alignItems:'center'}}>
-                    <a onClick={showDrawer}>Detail</a>
-                    <Button size={32} type="primary" loading={false}>
+                    <a onClick={ async () => {
+                        showDrawer()
+                        await dispatch(getUserOrderInfo(record.orderId))
+                        dispatch(moreOrderInfo(record))
+                    }}>Detail</a>
+                    {record.statusOrder === 3 ? "" :  record.statusOrder === 2 && type==="store" ? "" : record.statusOrder === 1 && type==="user" ? "" : 
+                    <Button size={32} type="primary" loading={false} onClick={async () => {
+                        if(type == "user"){
+                            await dispatch(userChangeOrderStatus(record.orderId))
+                            dispatch(getUserOrder())
+                        }
+                    }}>
                         Process
-                    </Button>
+                    </Button>}
+                   
                 </div>
             ),
         },
     ];
+    useEffect(() => {
+        dispatch(getUserOrder())
+        
+    },[])
     return <div>
-            <DetailDrawer open={open} showDrawer={showDrawer} onClose={onClose}/>
-          <Table columns={columns} dataSource={data} />
+            <DetailDrawer type="user" open={open} showDrawer={showDrawer} onClose={onClose}/>
+          <Table columns={columns} dataSource={userOrders} />
     </div>
   
 
