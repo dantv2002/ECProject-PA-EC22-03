@@ -58,7 +58,7 @@ export const Notification = () => {
       <li key={noti.id}>
         <Row>
           <Col xs={2} sm={2} md={2} lg={2} xl={2} className="item-info">
-            <img src={noti.imageUrl} />
+            <img src={'.' + noti.imageUrl} />
           </Col>
           <Col xs={16} sm={16} md={16} lg={16} xl={16} className="item-info no-center">
             {noti.type === "0" ? 

@@ -47,7 +47,6 @@ const remainTime = auctionTime - passTime
 
 export const Home = () => {
   const { loading, categoryList, auctionList, productList } = useSelector(store => store.home)
-  console.log(sessionStorage.getItem('accessToken'))
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
