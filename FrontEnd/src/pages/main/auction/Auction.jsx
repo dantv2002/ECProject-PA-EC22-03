@@ -1,8 +1,8 @@
 import { Avatar, Button, Col, Form, Input, InputNumber, Row, Statistic } from 'antd'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { UserOutlined, SendOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAuctionDetail } from '../../../redux/auction/AuctionSlice';
+import { changeCommentList, checkIfSell, getAuctionDetail } from '../../../redux/auction/AuctionSlice';
 import { Link, useParams } from 'react-router-dom';
 import { mainDomain } from '../../../util/constants/mainUrl';
 import { registeruser, sendName } from '../../../components/AuctionSocket/AuctionSocket';
@@ -11,52 +11,66 @@ const { Countdown } = Statistic;
 
 export const Auction = () => {
     const dispatch = useDispatch()
+    
     let { id } = useParams();
-    const { auctionDetail, loading, commentList } = useSelector(store => store.auction)
-    console.log(auctionDetail)
-    const onFinish = (values) => {
-        console.log(values)
-        sendName(
-            {
-                "auctionId": auctionDetail.auctionId,
-                "seller": sessionStorage.getItem('accountName'),
-                "price": values.price,
-                "timeAuction": new Date().toISOString(),
-                "comment": values.comment
-            }
-        )
+    const { auctionDetail, loading, commentList,isSell } = useSelector(store => store.auction)
+    const [commentArr, setCommentArr] = useState([])
+    const auctionAction = () => {
+        //dispatch(changeCommentList(commentList))
+        const a = {
+            auctionid: id,
+            accountName: sessionStorage.getItem('accountName') !== null ? sessionStorage.getItem('accountName') : "",
+        }
+        dispatch(getAuctionDetail(a))
+    }
+    const onFinish = async (values) => {
+            const newDate = new Date().toUTCString('en-US', {
+                timeZone: 'Asia/Ho_Chi_Minh',
+                dateStyle: 'full',
+                timeStyle: 'full',
+            })
+
+            sendName(
+                {
+                    "auctionId": auctionDetail.auctionId,
+                    "seller": sessionStorage.getItem('accountName'),
+                    "price": values.price,
+                    "timeAuction": `${new Date(newDate).toISOString().slice(0, 10)} ${new Date(newDate).toTimeString().slice(0, 8)}.00`,
+                    "comment": values.comment
+                }
+            )
+        
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
     const convertRemainTime = (time) => {
         const auctionTime = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 //2 day
         const startTime = new Date(time)
         const passTime = Date.now() - startTime.getTime()
         return auctionTime - passTime
     }
-    console.log(commentList)
+   
     const renderComment = () => {
-        return commentList.map((comment) => {
+        return commentList?.map((comment) => {
             return <div className={`message-container ${comment.accountNamePerson === sessionStorage.getItem('accountName') ? "me" : ""}`}>
-            <div className="avatar">
-                <Avatar size={40} icon={<UserOutlined />} />
+                <div className="avatar">
+                    <Avatar size={40} icon={<UserOutlined />} />
+                </div>
+                <div className="info">
+                    <div className="name-time">
+                        <h5>{comment.accountNamePerson}</h5>
+                        <span>{comment.timeOffer.slice(0, -7)}</span>
+                    </div>
+                    <div className="message">
+                        {comment.comment}
+                    </div>
+                    <div className="price">
+                        Price:
+                        <span> {comment.offeredPrice.toLocaleString()}</span>
+                    </div>
+                </div>
             </div>
-            <div className="info">
-                <div className="name-time">
-                    <h5>{comment.accountNamePerson}</h5>
-                    <span>{comment.timeOffer.slice(0, -7)}</span>
-                </div>
-                <div className="message">
-                    {comment.comment}
-                </div>
-                <div className="price">
-                    Price:
-                    <span> {comment.offeredPrice.toLocaleString()}</span>
-                </div>
-            </div>
-        </div>
         })
     }
 
@@ -66,9 +80,18 @@ export const Auction = () => {
             auctionid: id,
             accountName: sessionStorage.getItem('accountName') !== null ? sessionStorage.getItem('accountName') : "",
         }
-        registeruser()
+        registeruser(auctionAction)
         dispatch(getAuctionDetail(a))
     }, [])
+
+    useEffect(() => {
+        if (auctionDetail.statusOfCurrentUser === 3) {
+            dispatch(checkIfSell({
+                userName: sessionStorage.getItem('accountName'),
+                productId: auctionDetail.productId
+            }))
+        }
+    },[auctionDetail.statusOfCurrentUser])
     return (
         <div className="auction-container">
             <div className="product-info">
@@ -105,7 +128,7 @@ export const Auction = () => {
                             <div className="banner">
                                 Current Price
                             </div>
-                            <div className="number">{auctionDetail?.startPrice?.toLocaleString()} VND</div>
+                            <div className="number">{auctionDetail?.currentPrice?.toLocaleString()} VND</div>
 
                         </div>
                     </Col>
@@ -129,65 +152,71 @@ export const Auction = () => {
                             <div className="box-chat">
                                 {renderComment()}
                             </div>
-                            {auctionDetail.statusOfCurrentUser === 4 ?
-                                <div style={{ textAlign: "center", paddingBlock: "20px" }}>You must <Link to="/login">Login</Link> to join this auction</div>
+                            {auctionDetail.statusOfCurrentUser === 1 ?
+                                <div style={{ textAlign: "center", paddingBlock: "20px" }}>You Are The Owner of this auction</div>
                                 :
-                                <div className="input-form">
+                                auctionDetail.statusOfCurrentUser === 4 ?
+                                    <div style={{ textAlign: "center", paddingBlock: "20px" }}>You must <Link to="/login">Login</Link> to join this auction</div>
+                                    :
+                                    // auctionDetail.statusOfCurrentUser === 3 && isSell === false ?
+                                    // <div style={{ textAlign: "center", paddingBlock: "20px" }}>You are not selling this item !</div>
+                                    // :
+                                    <div className="input-form">
 
-                                    <Form
-                                        name="basic"
-                                        labelCol={{
-                                            span: 8,
-                                        }}
-                                        wrapperCol={{
-                                            span: 24,
-                                        }}
-                                        initialValues={{
-                                            remember: true,
-                                        }}
-                                        onFinish={onFinish}
-                                        onFinishFailed={onFinishFailed}
-                                        autoComplete="off"
-                                    >
-                                        <Form.Item
-
-                                            name="price"
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please input your Price!',
-                                                },
-                                            ]}
-                                        >
-                                            <Input type='number' max={20000000} style={{ width: "100%" }} />
-                                        </Form.Item>
-
-                                        <Form.Item
-
-                                            name="comment"
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please input your Comment!',
-                                                },
-                                            ]}
-                                        >
-                                            <Input.TextArea showCount maxLength={50} />
-                                        </Form.Item>
-
-
-
-                                        <Form.Item
+                                        <Form
+                                            name="basic"
+                                            labelCol={{
+                                                span: 8,
+                                            }}
                                             wrapperCol={{
-
                                                 span: 24,
                                             }}
-                                            style={{ textAlign: "right", marginTop: "20px" }}
+                                            initialValues={{
+                                                remember: true,
+                                            }}
+                                            onFinish={onFinish}
+                                            onFinishFailed={onFinishFailed}
+                                            autoComplete="off"
                                         >
-                                            <button> <SendOutlined /> Send</button>
-                                        </Form.Item>
-                                    </Form>
-                                </div>
+                                            <Form.Item
+
+                                                name="price"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Please input your Price!',
+                                                    },
+                                                ]}
+                                            >
+                                                <Input type='number' max={20000000} style={{ width: "100%" }} />
+                                            </Form.Item>
+
+                                            <Form.Item
+
+                                                name="comment"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Please input your Comment!',
+                                                    },
+                                                ]}
+                                            >
+                                                <Input.TextArea showCount maxLength={50} />
+                                            </Form.Item>
+
+
+
+                                            <Form.Item
+                                                wrapperCol={{
+
+                                                    span: 24,
+                                                }}
+                                                style={{ textAlign: "right", marginTop: "20px" }}
+                                            >
+                                                <button> <SendOutlined /> Send</button>
+                                            </Form.Item>
+                                        </Form>
+                                    </div>
                             }
 
                         </div>

@@ -1,17 +1,20 @@
 import { Col, Row } from 'antd'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetail } from '../../../redux/product/ProductSlice';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { createAuction, resetTempAuctionId } from '../../../redux/auction/AuctionSlice';
+import SuccessfullCreated from '../../../components/createAuctionModalSuccess/SuccessfullCreated';
 
 export const ProductDetail = () => {
     const dispatch = useDispatch()
     let { id } = useParams();
-
-    const { loading, productDetail } = useSelector(store => store.product)
-    console.log(productDetail)
-
+    const navigate = useNavigate()
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { loading, productDetail,tempAuctionId } = useSelector(store => store.product)
+    const { auctionDetail } = useSelector(store => store.auction)
+    console.log(auctionDetail)
     const renderComments = () => {
         if(productDetail.comments){
         return productDetail.comments.map((comment) => (
@@ -32,10 +35,10 @@ export const ProductDetail = () => {
     useEffect(() => {
         dispatch(getProductDetail(id))
     }, [])
- 
-
+   
     return (
         <div className="product-detail_container">
+            <SuccessfullCreated isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
             <div className="product-info">
                 <Row gutter={32}>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
@@ -87,7 +90,14 @@ export const ProductDetail = () => {
                                 So Luong
                             </div>
                             <div className="number">{productDetail.amount} Cai</div>
-                            <button>Aucton Now</button>
+                            <button onClick={async () => {
+                              
+                                await dispatch(createAuction({
+                                    productId: id,
+                                    buyer: sessionStorage.getItem('accountName'),
+                                }))
+                                setIsModalOpen(true)
+                            }}>Aucton Now</button>
                         </div>
                     </Col>
                 </Row>

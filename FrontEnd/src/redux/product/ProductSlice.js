@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import  axios  from 'axios';
-import { productDetailUrl } from '../../util/constants/mainUrl';
+import { createAuctionUrl, productDetailUrl } from '../../util/constants/mainUrl';
 
 const initialState = {
     productDetail: {},
@@ -13,6 +13,8 @@ export const getProductDetail = createAsyncThunk('product/product-detail',
         return res.data.data
     }
 )
+
+
 
 
 export const ProductSlice = createSlice({
@@ -36,6 +38,7 @@ export const ProductSlice = createSlice({
         })
 
         ////////////////////////////////////////////////////////////
+       
     }
 })
 

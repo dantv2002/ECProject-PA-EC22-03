@@ -1,4 +1,5 @@
-export const mainDomain = 'http://localhost:8080'
+export const mainDomain = 'https://34.229.10.169:8090'
+
 
 //////////////////////////////////////////////
 export const categoryUrl = () => {
@@ -160,4 +161,16 @@ export const createOrderUrl = () => {
 
 export const userChangeOrderStatusUrl = (id) => {
     return `${mainDomain}/api/auth/user/users/orders/changestatus?id=${id}`
+}
+
+export const checkIfSellUrl = ({userName,productId}) => {
+    return `${mainDomain}/api/auth/user/users/checkproductofuser?userName=${userName}&productId=${productId}`
+}
+
+export const createAuctionUrl = () => {
+    return `${mainDomain}/api/auth/user/auctions/createauction`
+}
+
+export const addProductUrl = () => {
+    return `${mainDomain}/api/auth/user/userstore`
 }
