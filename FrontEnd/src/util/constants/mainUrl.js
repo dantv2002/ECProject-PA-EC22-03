@@ -1,4 +1,4 @@
-export const mainDomain = 'http://localhost:8080'
+export const mainDomain = 'http://localhost:8090'
 
 //////////////////////////////////////////////
 export const categoryUrl = () => {
@@ -156,4 +156,8 @@ export const changeDolaUrl = (amount) => {
 
 export const createOrderUrl = () => {
     return `${mainDomain}/api/auth/user/payment/orders`
+}
+
+export const userChangeOrderStatusUrl = (id) => {
+    return `${mainDomain}/api/auth/user/users/orders/changestatus?id=${id}`
 }
