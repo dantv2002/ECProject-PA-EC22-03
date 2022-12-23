@@ -4,6 +4,7 @@ import { auctionDetailUrl, productDetailUrl } from '../../util/constants/mainUrl
 
 const initialState = {
     auctionDetail: {},
+    commentList: [],
    loading: false
 };
 
@@ -29,8 +30,9 @@ export const AuctionSlice = createSlice({
         })
 
         builder.addCase(getAuctionDetail.fulfilled, (state,action) => {
-            console.log(action.payload)
+            
             state.auctionDetail = action.payload 
+            state.commentList = action.payload.infoAuction
             state.loading = false
         })
 

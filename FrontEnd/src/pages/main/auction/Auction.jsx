@@ -5,16 +5,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAuctionDetail } from '../../../redux/auction/AuctionSlice';
 import { Link, useParams } from 'react-router-dom';
 import { mainDomain } from '../../../util/constants/mainUrl';
+import { registeruser, sendName } from '../../../components/AuctionSocket/AuctionSocket';
 const { Countdown } = Statistic;
 
 
 export const Auction = () => {
     const dispatch = useDispatch()
     let { id } = useParams();
-    const { auctionDetail, loading } = useSelector(store => store.auction)
-
+    const { auctionDetail, loading, commentList } = useSelector(store => store.auction)
+    console.log(auctionDetail)
     const onFinish = (values) => {
-        console.log('Success:', values);
+        console.log(values)
+        sendName(
+            {
+                "auctionId": auctionDetail.auctionId,
+                "seller": sessionStorage.getItem('accountName'),
+                "price": values.price,
+                "timeAuction": new Date().toISOString(),
+                "comment": values.comment
+            }
+        )
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -25,14 +35,38 @@ export const Auction = () => {
         const startTime = new Date(time)
         const passTime = Date.now() - startTime.getTime()
         return auctionTime - passTime
-      }
+    }
+    console.log(commentList)
+    const renderComment = () => {
+        return commentList.map((comment) => {
+            return <div className={`message-container ${comment.accountNamePerson === sessionStorage.getItem('accountName') ? "me" : ""}`}>
+            <div className="avatar">
+                <Avatar size={40} icon={<UserOutlined />} />
+            </div>
+            <div className="info">
+                <div className="name-time">
+                    <h5>{comment.accountNamePerson}</h5>
+                    <span>{comment.timeOffer.slice(0, -7)}</span>
+                </div>
+                <div className="message">
+                    {comment.comment}
+                </div>
+                <div className="price">
+                    Price:
+                    <span> {comment.offeredPrice.toLocaleString()}</span>
+                </div>
+            </div>
+        </div>
+        })
+    }
 
     useEffect(() => {
-      
+
         const a = {
             auctionid: id,
             accountName: sessionStorage.getItem('accountName') !== null ? sessionStorage.getItem('accountName') : "",
         }
+        registeruser()
         dispatch(getAuctionDetail(a))
     }, [])
     return (
@@ -93,63 +127,10 @@ export const Auction = () => {
                                 </div>
                             </div>
                             <div className="box-chat">
-                                <div className='message-container'>
-                                    <div className="avatar">
-                                        <Avatar size={40} icon={<UserOutlined />} />
-                                    </div>
-                                    <div className="info">
-                                        <div className="name-time">
-                                            <h5>Bao Nguyen</h5>
-                                            <span>10:20</span>
-                                        </div>
-                                        <div className="message">
-                                            Giá như vậy sao mà người ta mua được bro
-                                        </div>
-                                        <div className="price">
-                                            Price:
-                                            <span> 30.000.000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='message-container'>
-                                    <div className="avatar">
-                                        <Avatar size={40} icon={<UserOutlined />} />
-                                    </div>
-                                    <div className="info">
-                                        <div className="name-time">
-                                            <h5>Bao Nguyen</h5>
-                                            <span>10:20</span>
-                                        </div>
-                                        <div className="message">
-                                            Giá như vậy sao mà người ta mua được bro
-                                        </div>
-                                        <div className="price">
-                                            Price:
-                                            <span> 30.000.000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='message-container me'>
-                                    <div className="avatar">
-                                        <Avatar size={40} icon={<UserOutlined />} />
-                                    </div>
-                                    <div className="info">
-                                        <div className="name-time">
-                                            <h5>Thanh Tuan</h5>
-                                            <span>10:20</span>
-                                        </div>
-                                        <div className="message">
-                                            Giá như vậy sao mà người ta mua được bro
-                                        </div>
-                                        <div className="price">
-                                            Price:
-                                            <span> 30.000.000</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                {renderComment()}
                             </div>
                             {auctionDetail.statusOfCurrentUser === 4 ?
-                                <div style={{textAlign: "center", paddingBlock:"20px"}}>You must <Link to="/login">Login</Link> to join this auction</div>
+                                <div style={{ textAlign: "center", paddingBlock: "20px" }}>You must <Link to="/login">Login</Link> to join this auction</div>
                                 :
                                 <div className="input-form">
 
@@ -170,7 +151,7 @@ export const Auction = () => {
                                     >
                                         <Form.Item
 
-                                            name="username"
+                                            name="price"
                                             rules={[
                                                 {
                                                     required: true,
@@ -183,7 +164,7 @@ export const Auction = () => {
 
                                         <Form.Item
 
-                                            name="password"
+                                            name="comment"
                                             rules={[
                                                 {
                                                     required: true,
