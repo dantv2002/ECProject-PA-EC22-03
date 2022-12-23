@@ -1,0 +1,432 @@
+.my-container {
+    width: 100%;
+    background-color: $color-green-200;
+    height: $home-header-height;
+    padding-inline: 100px;
+    align-items: center;
+    margin: 0px !important;
+    justify-content: space-between;
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        span {
+            color: $main-text-color-white;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .middle-line {
+            margin-inline: 10px;
+        }
+
+        .page-name {
+            font-weight: normal;
+        }
+    }
+
+    .search-bar {
+        position: relative;
+
+      
+            
+
+            button {
+                background-color: $color-green-100;
+                border-color: $color-green-100;
+            }
+
+
+        .search-result-box {
+            position: absolute;
+            top: 100%;
+            left: 0%;
+            margin-top: 10px;
+            width: 95%;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.399);
+            z-index: 9999;
+            background-color: white;
+
+
+            &__header {
+                background-color: $color-gray-100;
+                display: flex;
+                justify-content: space-between;
+                font-size: 13px;
+                padding: 10px;
+                margin-bottom: 5px;
+                z-index: 9999;
+
+                .label {
+                    color: $color-gray-200;
+
+                }
+
+                .number-of-result {
+                    color: $color-gray-300;
+                }
+            }
+
+            &__body {
+                background-color: white;
+
+                ul {
+                    list-style: none;
+                    padding-inline: 10px;
+                    background-color: white;
+
+                    li {
+                        margin-bottom: 10px;
+                        border-bottom: 1px solid $color-gray-100;
+                        display: flex;
+                        align-items: center;
+                        background-color: white;
+
+                        .product-img {
+                            margin-right: 20px;
+                        }
+
+                        .product-info {
+                            display: flex;
+                            flex-direction: column;
+                            margin-bottom: 10px;
+
+                            .product-name {
+                                margin-bottom: 6px;
+                            }
+
+                            .product-price {
+                                color: $color-green-100;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .cart-user {
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+        align-items: center;
+
+
+
+        .cart {
+            color: white;
+            display: flex;
+            align-items: center;
+            border: 2px solid $main-text-color-white;
+            height: 80%;
+            padding-inline: 10px;
+            margin-right: 30px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+
+            &.active {
+                background-color: $main-text-color-white;
+                color: $color-green-100;
+            }
+
+            .icon {
+                font-size: 30px;
+                margin-right: 12px;
+            }
+
+
+        }
+
+        .user {
+            color: white;
+            display: flex;
+            align-items: center;
+            border: 2px solid $main-text-color-white;
+            height: 80%;
+            padding-inline: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: 9999;
+
+            .icon {
+                font-size: 30px;
+                margin-right: 10px;
+            }
+
+            &.active {
+                background-color: $main-text-color-white;
+                color: $color-green-100;
+            }
+
+
+            &__option {
+                position: absolute;
+                top: 100%;
+                left: 0%;
+                margin-top: 10px;
+                background-color: $main-text-color-white;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.237);
+
+                span {
+                    color: $color-green-100;
+                    padding: 10px;
+                    text-align: center;
+                    border-bottom: 1px solid $color-gray-100;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        opacity: 0.7;
+                    }
+                }
+
+            }
+        }
+
+        .notification {
+            color: white;
+            display: flex;
+            align-items: center;
+            border: 2px solid $main-text-color-white;
+            height: 80%;
+            padding-inline: 10px;
+            margin-right: 30px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            font-size: 30px;
+            margin-left: 30px;
+            padding-block: 9px;
+            position: relative;
+
+            &.active {
+                background-color: $main-text-color-white;
+                color: $color-green-100;
+                border-color: $main-text-color-white;
+            }
+
+            .all-noti {
+                position: absolute;
+                top: 120%;
+                right: 0;
+                background-color: $main-text-color-white;
+                z-index: 9999;
+                width: 450px;
+                box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+
+                font-size: 15px;
+                color: $color-gray-400;
+                transition: all .2s linear;
+                border-radius: 3px;
+
+                .top-part {
+                    background-color: $color-gray-100;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 10px;
+                    padding-right: 20px;
+                    h3 {
+                        margin: 0;
+                        color: $color-gray-200;
+                    }
+                    span{
+                        font-size: 16px;
+                    }
+                }
+
+                .bottom-part{
+                    text-align: right;
+                    padding-right: 20px;
+                    padding-block: 10px;
+                    background-color:$color-gray-100 ;
+
+                    button{
+                        padding: 7px 20px;
+                        background-color:$color-green-100 ;
+                     
+                        border-color: transparent;
+                        border-width: 1px;
+                        cursor: pointer;
+                        transition: all 0.1s linear;
+                        border-radius: 3px;
+
+                        a{
+                            color:white;
+                        }
+
+                        &:hover{
+                            background-color: $main-text-color-white;
+                           
+                            border-color: $color-green-100 ;
+                            
+                            a{
+                                color: $color-green-100 ;
+                            }
+                        }
+
+                    }
+                }
+
+                ul {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+
+                    li {
+                        padding: 10px;
+                        transition: all .1s linear;
+
+                        .item-info {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            img {
+                                width: 100%;
+                            }
+
+                            &.no-center {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-start;
+                                justify-content: center;
+                                padding-left: 20px;
+
+                                .description {
+                                    color: $color-gray-200;
+                                    font-weight: bold;
+                                }
+
+                                .date {
+                                    font-size: 12px;
+                                }
+                            }
+
+                            &.delete{
+                                color: red;
+                            }
+                        }
+
+                        &:hover{
+                            background-color: $color-gray-100;
+                        }
+                    }
+                }
+            }
+        }
+
+        .cart-detail {
+            position: absolute;
+            width: 360px;
+            top: 100%;
+            left: 0%;
+            margin-top: 10px;
+            background-color: $main-text-color-white;
+            box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
+            z-index: 99999;
+
+            &__header {
+                background-color: $color-gray-100;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+
+                .label {
+                    color: $color-gray-200;
+                }
+
+                .close-button:hover {
+                    opacity: 0.8;
+                    cursor: pointer;
+                }
+            }
+
+            &__body {
+                max-height: 800px;
+                overflow: auto;
+
+                ul {
+                    list-style: none;
+                    padding: 0;
+
+                    li {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 10px;
+                        border-bottom: 1px solid $color-green-100;
+                        align-items: center;
+
+                        .product-info {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+
+                            &__name {
+                                color: $color-gray-200;
+                            }
+
+                            &__price {
+                                font-weight: bold;
+                                color: $color-green-100;
+                            }
+                        }
+
+                        .no-of-product {
+                            width: 30px;
+                            height: 30px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border: 1px solid $color-gray-300;
+                        }
+
+                        .delete-product {
+                            font-size: 20px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            &__footer {
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: $color-gray-100;
+
+                .total-price {
+                    color: $color-gray-200;
+
+                    span {
+                        color: $color-green-100;
+                        font-weight: bold;
+                    }
+                }
+
+                .proceed-button {
+                    border: 1px solid transparent;
+                    padding: 5px 15px;
+                    background-color: $color-green-100;
+                    color: $main-text-color-white;
+                    transition: all 0.2s ease;
+                    cursor: pointer;
+
+                    &:hover {
+                        border-color: $color-green-100;
+                        color: $color-green-100;
+                        background-color: $main-text-color-white;
+                    }
+                }
+            }
+        }
+
+    }
+}

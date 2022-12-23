@@ -1,0 +1,297 @@
+.home-container {
+    width: 85%;
+    margin: auto;
+    margin-top: 30px;
+    position: relative;
+
+    .loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $black-loading-bg;
+        z-index: 999999999999999999999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .category {
+        margin-top: 30px;
+        background-color: $color-gray-100;
+        padding: 10px 20px;
+        position: relative;
+
+
+
+
+        .category__header {
+            color: $color-green-200;
+        }
+
+        .category__body {
+
+            &-item {
+                border: 1px solid #d7ebf4;
+                display: flex;
+                padding-block: 10px;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                .icon {
+                    font-size: 30px;
+                    width: 60px;
+                    height: 60px;
+                    border: 2px solid $color-green-100;
+                    border-radius: 50%;
+                    margin-right: 20px;
+                    color: $color-green-100;
+                    transition: all 0.2s ease;
+
+                    img {
+                        width: 100%;
+                        border-radius: 50%;
+                    }
+                }
+
+                .title {
+                    font-size: 16px;
+                    color: $color-gray-400;
+                    transition: all 0.2s ease;
+                    width: 100px;
+                }
+
+
+                &:hover .title {
+                    color: $color-green-100;
+                }
+            }
+        }
+    }
+
+    .auctioning {
+        margin-top: 30px;
+        background-color: $color-gray-100;
+        padding: 10px 20px;
+
+        &__header {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h1 {
+                color: $color-green-200;
+            }
+
+            a {
+                font-size: 16px;
+            }
+        }
+
+        &__body {
+
+            .slick-slide {
+                padding-inline: 5px;
+
+                &:hover .item {
+                    transform: scale(1.03);
+                }
+
+
+            }
+
+
+            .slick-arrow::before {
+                color: $color-green-100;
+                font-size: 30px;
+            }
+
+            .item {
+                background-color: white;
+                border: 2px solid #d7ebf4;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+
+
+                &__image {
+                    width: 100%;
+                    height: 230px;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                &__info {
+                    padding-inline: 15px;
+                    padding-bottom: 10px;
+
+                    .item-name {
+                        color: $color-gray-400;
+                        margin-bottom: 5px;
+                        font-weight: bold;
+                    }
+
+                    .item-now-price {
+                        font-size: 16px;
+                        color: $color-green-100;
+                        font-weight: bold;
+                    }
+
+                    .bottom-part {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+            
+
+                        .remain-auction-time {
+                            color: red;
+                            font-size: 15px;
+                        }
+
+                        .join-auction {
+                            padding: 5px 8px;
+                            background-color: $color-green-100;
+                            color: $main-text-color-white;
+                            border: none;
+                            cursor: pointer;
+                            border-radius: 3px;
+                            border: 1px solid transparent;
+                            transition: all 0.2s ease;
+
+                            &:hover {
+                                border: 1px solid $color-green-100;
+                                color: $color-green-100;
+                                background-color: $main-text-color-white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .suggestion {
+        margin-top: 30px;
+        background-color: $color-gray-100;
+        padding: 10px 20px;
+
+        &__header {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h1 {
+                color: $color-green-200;
+            }
+
+            a {
+                font-size: 16px;
+            }
+        }
+
+        &__body {
+            text-align: center;
+
+            .products {
+
+                .item {
+                    margin-bottom: 16px;
+
+
+
+
+                    img {
+                        width: 100%;
+                    }
+
+                    .item-cover {
+                        border: 2px solid #d7ebf4;
+                        background-color: $main-text-color-white;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        padding-bottom: 10px;
+
+
+                        .item__image {
+                            width: 100%;
+                            height: 230px;
+                            display: flex;
+                            align-items: center;
+
+                            img {
+                                width: 100%;
+
+                            }
+                        }
+
+                        .item__info {
+                            text-align: center;
+                            margin-bottom: 10px;
+
+
+                            .item-name {
+
+                                margin: 0;
+
+                                a {
+                                    display: block;
+                                    display: -webkit-box;
+                                    color: $color-green-300;
+                                    -webkit-line-clamp: 1;
+                                    /* số dòng hiển thị */
+                                    -webkit-box-orient: block-axis;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    .join-auction {
+                        padding: 5px 8px;
+                        background-color: $color-green-100;
+                        color: $main-text-color-white;
+                        border: none;
+                        cursor: pointer;
+                        border-radius: 3px;
+                        border: 1px solid transparent;
+                        transition: all 0.2s ease;
+
+                        &:hover {
+                            border: 1px solid $color-green-100;
+                            color: $color-green-100;
+                            background-color: $main-text-color-white;
+                        }
+                    }
+
+                }
+            }
+
+            .more-btn{
+                padding: 8px 30px;
+                border: 2px solid $color-green-100;
+                color: $color-green-100;
+                cursor: pointer;
+                transition: all .2s ease;
+
+                &:hover{
+                    border-color: $color-green-300;
+                    color: $color-green-300;
+                }
+            }
+        }
+    }
+}

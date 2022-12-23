@@ -1,0 +1,178 @@
+.seach-container{
+    width: 85%;
+    margin: auto;
+    margin-top: 30px;
+
+    .banner{
+        margin-bottom: 10px;
+    
+
+        img{
+            width: 100%;
+            border-radius: 10px;
+        }
+    }
+
+
+    .auctioning{
+        margin-top: 30px;
+        background-color: $color-gray-100;
+        padding: 10px 20px;
+
+        &__header{
+            color: $color-green-200;
+        }
+
+        &__body{
+            position: relative;
+            .item{
+                background-color: $main-text-color-white;
+                border: 1px solid #d7ebf4;
+
+                .item__image {
+                    width: 100%;
+                    height: 230px;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 100%;
+
+                    }
+                }
+
+                &__info{
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    .item-now-price{
+                        color: $color-green-100;
+                    }
+
+                    .remain-auction-time{
+                        color: red;
+                    }
+
+                    .join-auction{
+                        margin-top: 5px;
+                        background-color: $color-green-100;
+                        color:white;
+                        border: 1px solid $color-green-100;
+                        padding: 3px 5px;
+                        border-radius: 3px;
+                        cursor: pointer;
+                        transition: all .2s ease;
+
+                        &:hover{
+                            background-color: $main-text-color-white;
+                            color: $color-green-100;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__footer{
+            margin-top: 10px;
+            text-align: center;
+          
+
+            button{
+                padding: 5px 10px;
+                cursor: pointer;
+                border: 1px solid $color-gray-400;
+                color: 1px solid $color-gray-400;
+                transition: all .2s ease;
+
+                &:hover{
+                    border-color: red;
+                    color: red;
+                }
+            }
+        }
+    }
+
+    .suggestion{
+        margin-top: 30px;
+        background-color: $color-gray-100;
+        padding: 10px 20px;
+
+        &__header{
+            color: $color-green-200;
+        }
+
+        &__body{
+            position: relative;
+            .item{
+                background-color: $main-text-color-white;
+                border: 1px solid #d7ebf4;
+
+                .item__image {
+                    width: 100%;
+                    height: 230px;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 100%;
+
+                    }
+                }
+
+                &__info{
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: column;
+
+                    justify-content: center;
+
+                    .item-now-price{
+                        color: $color-green-100;
+                    }
+
+                    .remain-auction-time{
+                        color: red;
+                    }
+
+                    .join-auction{
+                        margin-top: 5px;
+                        background-color: $color-green-100;
+                        color:white;
+                        border: 1px solid $color-green-100;
+                        padding: 3px 5px;
+                        border-radius: 3px;
+                        cursor: pointer;
+                        transition: all .2s ease;
+
+                        &:hover{
+                            background-color: $main-text-color-white;
+                            color: $color-green-100;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__footer{
+            margin-top: 10px;
+            text-align: center;
+          
+
+            button{
+                padding: 5px 10px;
+                cursor: pointer;
+                border: 1px solid $color-gray-400;
+                color: 1px solid $color-gray-400;
+                transition: all .2s ease;
+
+                &:hover{
+                    border-color: red;
+                    color: red;
+                }
+            }
+        }
+    }
+}

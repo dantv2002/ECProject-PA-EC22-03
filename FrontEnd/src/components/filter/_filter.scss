@@ -1,0 +1,56 @@
+.filter{
+
+
+    ul{
+        display: flex;
+        list-style: none;
+        margin: 0;
+
+        li{
+            margin-right: 10px;
+            padding: 5px 8px;
+            border: 1px solid $color-gray-300;
+            border-radius: 30px;
+            color: $color-gray-300;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &.active{
+                border-color: $color-green-100;
+                color: $color-green-100;
+                background-color: $color-green-000;
+            }
+        }
+    }
+
+    .search-btn{
+        padding: 8px 20px;
+        margin-top: 20px;
+        background-color: $color-green-100;
+        border: none;
+        border-radius: 5px;
+        transition: all .2s ease;
+        color: white;
+
+        &:hover{
+            background-color: $color-green-300;
+        }
+    }
+    
+}
+
+.choose-price{
+    display: flex;
+    align-items: center;
+    
+    .middle-line{
+        margin-inline: 10px;
+    }
+}
+
+.my-flex{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
