@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Button, Col, Form, Input, Modal, Row, Select, Space } from 'antd';
 import UploadImage from '../uploadImage/UploadImage';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducer } from '../../redux/userStore/UserStoreSlice';
-const AddItemModal = ({ drawerStatus, drawerData, showDrawer, onClose, onFinish }) => {
+import { addProduct, getAllProduct, getProducer } from '../../redux/userStore/UserStoreSlice';
+const AddItemModal = ({ drawerStatus, drawerData, showDrawer, onClose, onFinish ,modalType}) => {
     const dispatch = useDispatch()
+    const [form] = Form.useForm()
     const { categoryLists, anotherProducerList } = useSelector(store => store.userStore)
     const [imageUrl, setImageUrl] = useState("")
-    const [imageList,setImageList] = useState([
+    const [imageList, setImageList] = useState([
         {
             uid: "-1",
             name: "image.png",
@@ -16,12 +17,26 @@ const AddItemModal = ({ drawerStatus, drawerData, showDrawer, onClose, onFinish 
         }
     ])
     const [category, setCategory] = useState(null)
+    const [producer, setProducer] = useState(null)
 
     const showModal = () => {
 
     };
-    const handleOk = (values) => {
-        console.log(values)
+    const handleOk = async (values) => {
+        const mydata = {
+            name: values.name,
+            description: values.description,
+            manufacturer: producer.label,
+            amount: 1,
+            categoryId: category.value,
+            accountName: sessionStorage.getItem('accountName'),
+            imageProduct: imageUrl,
+            status: true
+        }
+        await dispatch(addProduct(mydata))
+        dispatch(getAllProduct())
+        form.resetFields()
+        onClose()
     };
     const handleCancel = () => {
         onClose()
@@ -38,10 +53,13 @@ const AddItemModal = ({ drawerStatus, drawerData, showDrawer, onClose, onFinish 
         setCategory(a)
         dispatch(getProducer(a.label))
     }
+    const onProducerChange = (e,a) => {
+        setProducer(a)
+    }
     return (
         <>
             <Modal title="Add Product" open={drawerStatus} onOk={handleOk} onCancel={handleCancel} footer={false}>
-                <Form layout="vertical" onFinish={handleOk}>
+                <Form layout="vertical" onFinish={handleOk} form={form}>
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
@@ -70,7 +88,7 @@ const AddItemModal = ({ drawerStatus, drawerData, showDrawer, onClose, onFinish 
                                 label="Producer"
 
                             >
-                                <Select placeholder="Please choose the type" disabled={category !== null ? false : true} options={anotherProducerList}>
+                                <Select placeholder="Please choose the type" disabled={category !== null ? false : true} options={anotherProducerList} onChange={onProducerChange}>
                                 </Select>
                             </Form.Item>
                         </Col>

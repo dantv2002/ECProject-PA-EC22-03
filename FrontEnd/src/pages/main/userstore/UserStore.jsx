@@ -22,7 +22,7 @@ export const UserStore = () => {
             </div>
             <div className="info">
               <span>Account of</span>
-              <h3>Huỳnh Thanh Tuấn</h3>
+              <h3>{sessionStorage.getItem('accountName')}</h3>
             </div>
           </div>
           <div className="user-navigation">

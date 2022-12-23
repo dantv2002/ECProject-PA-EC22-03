@@ -31,6 +31,7 @@ import { AdminLogin } from './pages/admin/login/AdminLogin';
 import { Test } from './pages/test/Test';
 
 function App() {
+  console.log(sessionStorage.getItem('accessToken'))
   return (
     <>
     <PayPalScriptProvider options={{"client-id": "AQegottHMk21GDmNFtu6Vaf5ItV4yx8_QbQ1ie-eYBO67ba7Ws7MAFPqg3RdzRuhRpPRhMRAAcPtszIm"}}>

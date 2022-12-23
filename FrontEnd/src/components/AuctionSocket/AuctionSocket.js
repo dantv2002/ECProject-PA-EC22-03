@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import SockJS from 'sockjs-client'
 import {over} from 'stompjs'
+import { mainDomain } from '../../util/constants/mainUrl'
 var stompClient=null
 
    
-    export const registeruser = () => {
-        let sock = new SockJS('http://localhost:8080/ws')
+    export const registeruser = (action) => {
+        let sock = new SockJS(`${mainDomain}/ws`)
         stompClient = over(sock)
         stompClient.connect({},() => {
             
             stompClient.subscribe('/topic/greetings',function (greeting) {
-                console.log(JSON.parse(greeting.body).content)
+                const a = greeting.body
+                action()
             })
         })
        

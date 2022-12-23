@@ -10,7 +10,8 @@ export const Test = () => {
         stompClient.connect({},() => {
             
             stompClient.subscribe('/topic/greetings',function (greeting) {
-                console.log(JSON.parse(greeting.body).content)
+                const a = greeting.body
+               
             })
         })
        
@@ -26,8 +27,8 @@ export const Test = () => {
         stompClient.send("/app/hello", {}, JSON.stringify({
             "auctionId": 5,
             "seller": "vanhoa",
-            "price": 10000000,
-            "timeAuction": "2022-12-12 09:30:00.000",
+            "price": 8000000,
+            "timeAuction": "2022-12-23 14:13:59.00",
             "comment": "Tới luôn"
         }));
     }

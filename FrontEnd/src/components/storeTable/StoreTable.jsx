@@ -188,8 +188,7 @@ const StoreTable = ({showDrawer,setDrawerData}) => {
           return (
             <div>
               <Button onClick={() => {
-                showDrawer()
-                setDrawerData(record)
+             
               }} type='primary'>Update</Button>
             </div>
           )

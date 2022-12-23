@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
+  addProductUrl,
   categoryUrl,
   getAllAuctionUrl,
   getAllProductByCategoryUrl,
@@ -15,6 +16,7 @@ const initialState = {
   categoryLists: [],
   producerLists: [],
   auctionLists: [],
+  anotherProducerList:[],
   loading: false,
 };
 
@@ -70,6 +72,17 @@ export const getAllProductByCategory = createAsyncThunk(
   }
 );
 
+export const addProduct = createAsyncThunk(
+  "userStore/addProduct",
+  async (obj) => {
+    const res = await axios.post(addProductUrl(),obj, {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+      },
+    });
+    return res.data.data;
+  }
+);
 
 
 export const UserStoreSlice = createSlice({
@@ -117,12 +130,12 @@ export const UserStoreSlice = createSlice({
 
     builder.addCase(getProducer.fulfilled, (state, action) => {
       console.log(action.payload);
-      // state.categoryLists = action.payload.map((category) => {
-      //     return {
-      //         label: category.name,
-      //         value: category.id
-      //     }
-      // })
+      state.anotherProducerList = action.payload.map((producer,index) => {
+          return {
+              label: producer,
+              value: index
+          }
+      })
       state.loading = false;
     });
 
@@ -170,6 +183,22 @@ export const UserStoreSlice = createSlice({
       state.allproduct = [];
       state.loading = false;
     });
+
+        ////////////////////////////////////////////////////////////
+        builder.addCase(addProduct.pending, (state, action) => {
+          state.loading = true;
+        });
+    
+        builder.addCase(addProduct.fulfilled, (state, action) => {
+          console.log(action.payload)
+      
+          state.loading = false;
+        });
+    
+        builder.addCase(addProduct.rejected, (state) => {
+          state.allproduct = [];
+          state.loading = false;
+        });
   },
 });
 
