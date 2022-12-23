@@ -26,11 +26,25 @@ services:
     container_name: Backend-API
     build: 
       dockerfile: Dockerfile
-      context: ./API-Back-end-Final-Project-EC/
+      context: ./BackEnd/API-Back-end-Final-Project-EC/
     ports:
       -  "8090:8090"
     volumes:
       - ./API-Back-end-Final-Project-EC:/app
+    networks:
+      - springboot-app-network
+
+  #Frontend
+  reactjs:
+    container_name: Winner
+    build:
+      dockerfile: Dockerfile
+      context: ./FrontEnd
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./FrontEnd:/app
+      - /app/node_modules
     networks:
       - springboot-app-network
 
