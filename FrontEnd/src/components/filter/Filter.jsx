@@ -104,7 +104,7 @@ export const Filter = () => {
     return (
         <div className="filter">
             <div className="filter__product">
-                <h2>Product</h2>
+                <h2>Category</h2>
                 <ul>
                     {renderProduceType()}
                 </ul>

@@ -29,7 +29,7 @@ const DetailDrawer = ({open,showDrawer,onClose, type}) => {
 
                                 <Col span={4}>
                                     <span className="image">
-                                        <img style={{ width: '70px', height: '70px' }} src={`./${userOrderInfo?.imageProduct?.substring(1)}`} />
+                                        <img style={{ width: '70px', height: '70px' }} src={`../${userOrderInfo?.imageProduct?.substring(1)}`} />
                                     </span>
                                 </Col>
                                 <Col span={20}>
